@@ -10,15 +10,15 @@ export const HooksPlugin: Plugin = async ({ client }) => {
           import.meta.dir,
           "..",
           "skill",
-          "using-superpowers",
+          "using-expert-mode",
           "SKILL.md"
         );
         const skillContent = await fs.readFile(skillPath, "utf-8");
 
         const context = `<EXTREMELY_IMPORTANT>
-You have superpowers.
+You are in Expert Mode.
 
-**IMPORTANT: The using-superpowers skill content is included below. It is ALREADY LOADED - you are currently following it. Do NOT use the use_skill tool to load "using-superpowers" - that would be redundant. Use use_skill only for OTHER skills.**
+**IMPORTANT: The using-expert-mode skill content is included below. It is ALREADY LOADED - you are currently following it. Do NOT use the use_skill tool to load "using-expert-mode" - that would be redundant. Use use_skill only for OTHER skills.**
 
 ${skillContent}
 </EXTREMELY_IMPORTANT>`;
