@@ -21,7 +21,7 @@ mv ~/.config/opencode ~/.config/opencode.bak
 Clone this repository directly into the `~/.config/opencode` directory.
 
 ```bash
-git clone https://github.com/your-username/opencode-expert-mode.git ~/.config/opencode
+git clone git@github.com:apenlor/opencode-expert-mode.git ~/.config/opencode
 ```
 
 ### 3. Set Up Your Local Configuration
