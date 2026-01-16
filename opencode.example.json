@@ -9,7 +9,7 @@
 
   // Default models
   "model": "google/gemini-2.5-pro",
-  "small_model": "google/gemini-2.5-flash",
+  "small_model": "google/gemini-3-flash-preview",
 
   "provider": {
     "google": {
@@ -55,10 +55,10 @@
 
     // Built-in Subagents
     "general": {
-      "model": "google/gemini-2.5-flash"
+      "model": "google/gemini-3-flash-preview"
     },
     "explore": {
-      "model": "google/gemini-2.5-flash"
+      "model": "google/gemini-3-flash-preview"
     }
   },
 
