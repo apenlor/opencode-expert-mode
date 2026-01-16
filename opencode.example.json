@@ -30,7 +30,8 @@
       "tools": {
         "write": false,
         "edit": false,
-        "bash": false
+        "bash": false,
+        "execute-plan": false
       }
     },
     "build": {
