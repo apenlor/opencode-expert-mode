@@ -1,6 +1,11 @@
 ---
 name: requesting-code-review
 description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements
+license: MIT
+compatibility: opencode
+metadata:
+  workflow: code-review
+  phase: request
 ---
 
 # Requesting Code Review
@@ -31,7 +36,25 @@ HEAD_SHA=$(git rev-parse HEAD)
 
 **2. Dispatch code-reviewer subagent:**
 
-Use Task tool with code-reviewer type, fill template at `code-reviewer.md`
+To dispatch the subagent, follow this sequence:
+
+**Step A: Read the Template**
+Use the `read` tool to get the content of the template file.
+- **File Path:** `skills/requesting-code-review/code-reviewer.md`
+
+**Step B: Construct the Prompt**
+Take the content from the template and replace all placeholders (e.g., `{BASE_SHA}`, `{DESCRIPTION}`) with the actual values you have gathered.
+
+**Step C: Trigger the Subagent**
+
+Use the `@` syntax to directly invoke the `code-reviewer` agent. The message should start with `@code-reviewer`, followed by the fully constructed prompt from Step B.
+
+**Invocation Example:**
+```
+@code-reviewer
+
+<The fully constructed prompt from Step B goes here>
+```
 
 **Placeholders:**
 - `{WHAT_WAS_IMPLEMENTED}` - What you just built

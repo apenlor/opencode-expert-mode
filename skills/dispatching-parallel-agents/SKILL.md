@@ -14,7 +14,7 @@ metadata:
 
 When you have multiple unrelated failures (different test files, different subsystems, different bugs), investigating them sequentially wastes time. Each investigation is independent and can happen in parallel.
 
-**Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently using the `Task` tool.
+**Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently by stating your intent to work on them in parallel.
 
 ## When to Use
 
@@ -68,21 +68,21 @@ Each agent gets:
 
 ### 3. Dispatch in Parallel
 
-Use the `Task` tool with a structured input object.
+State your intent to work on the tasks in parallel, presenting each task's prompt clearly.
 
-```typescript
-// In OpenCode
-Task({
-  description: "Fix abort.test.ts failures",
-  subagent_type: "general",
-  prompt: "Fix the 3 failing tests in src/agents/agent-tool-abort.test.ts..." // Full prompt content here
-})
-Task({
-  description: "Fix batch-completion.test.ts failures",
-  subagent_type: "general",
-  prompt: "Fix the 2 failing tests in batch-completion-behavior.test.ts..." // Full prompt content here
-})
-// All tasks run concurrently
+**Example Natural Language Trigger:**
+```
+I will now work on the following tasks in parallel.
+
+**Task 1: Fix abort.test.ts failures**
+```
+Fix the 3 failing tests in src/agents/agent-tool-abort.test.ts...
+```
+
+**Task 2: Fix batch-completion.test.ts failures**
+```
+Fix the 2 failing tests in batch-completion-behavior.test.ts...
+```
 ```
 
 ### 4. Review and Integrate
@@ -156,10 +156,21 @@ Return: Summary of what you found and what you fixed.
 **Decision:** Independent domains - abort logic separate from batch completion separate from race conditions
 
 **Dispatch:**
-```typescript
-Task({ description: "Fix agent-tool-abort.test.ts", subagent_type: "general", prompt: "..." })
-Task({ description: "Fix batch-completion-behavior.test.ts", subagent_type: "general", prompt: "..." })
-Task({ description: "Fix tool-approval-race-conditions.test.ts", subagent_type: "general", prompt: "..." })
+I will now work on the following tasks in parallel.
+
+**Task 1: Fix agent-tool-abort.test.ts**
+```
+...
+```
+
+**Task 2: Fix batch-completion-behavior.test.ts**
+```
+...
+```
+
+**Task 3: Fix tool-approval-race-conditions.test.ts**
+```
+...
 ```
 
 **Results:**
