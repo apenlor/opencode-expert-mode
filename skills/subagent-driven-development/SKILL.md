@@ -1,6 +1,11 @@
 ---
 name: subagent-driven-development
 description: Use when executing implementation plans with independent tasks in the current session
+license: MIT
+compatibility: opencode
+metadata:
+  workflow: sdd
+  phase: execution
 ---
 
 # Subagent-Driven Development
@@ -43,14 +48,14 @@ digraph process {
 
     subgraph cluster_per_task {
         label="Per Task";
-        "Use task tool to dispatch implementer subagent" [shape=box];
+        "Invoke @implementer agent" [shape=box];
         "Implementer subagent asks questions?" [shape=diamond];
         "Answer questions, provide context" [shape=box];
         "Implementer subagent implements, tests, commits, self-reviews" [shape=box];
-        "Use task tool to dispatch spec reviewer subagent" [shape=box];
+        "Invoke @spec-reviewer agent" [shape=box];
         "Spec reviewer subagent confirms code matches spec?" [shape=diamond];
         "Implementer subagent fixes spec gaps" [shape=box];
-        "Use task tool to dispatch code quality reviewer subagent" [shape=box];
+        "Invoke @code-quality-reviewer agent" [shape=box];
         "Code quality reviewer subagent approves?" [shape=diamond];
         "Implementer subagent fixes quality issues" [shape=box];
         "Mark task complete in todowrite" [shape=box];
@@ -58,35 +63,42 @@ digraph process {
 
     "Read plan, extract all tasks with full text, note context, create todowrite" [shape=box];
     "More tasks remain?" [shape=diamond];
-    "Use task tool to dispatch final code reviewer subagent" [shape=box];
+    "Invoke final @code_reviewer agent" [shape=box];
     "Use finishing-a-development-branch" [shape=box style=filled fillcolor=lightgreen];
 
-    "Read plan, extract all tasks with full text, note context, create todowrite" -> "Use task tool to dispatch implementer subagent";
-    "Use task tool to dispatch implementer subagent" -> "Implementer subagent asks questions?";
+    "Read plan, extract all tasks with full text, note context, create todowrite" -> "Invoke @implementer agent";
+    "Invoke @implementer agent" -> "Implementer subagent asks questions?";
     "Implementer subagent asks questions?" -> "Answer questions, provide context" [label="yes"];
-    "Answer questions, provide context" -> "Use task tool to dispatch implementer subagent";
+    "Answer questions, provide context" -> "Invoke @implementer agent";
     "Implementer subagent asks questions?" -> "Implementer subagent implements, tests, commits, self-reviews" [label="no"];
-    "Implementer subagent implements, tests, commits, self-reviews" -> "Use task tool to dispatch spec reviewer subagent";
-    "Use task tool to dispatch spec reviewer subagent" -> "Spec reviewer subagent confirms code matches spec?";
+    "Implementer subagent implements, tests, commits, self-reviews" -> "Invoke @spec-reviewer agent";
+    "Invoke @spec-reviewer agent" -> "Spec reviewer subagent confirms code matches spec?";
     "Spec reviewer subagent confirms code matches spec?" -> "Implementer subagent fixes spec gaps" [label="no"];
-    "Implementer subagent fixes spec gaps" -> "Use task tool to dispatch spec reviewer subagent" [label="re-review"];
-    "Spec reviewer subagent confirms code matches spec?" -> "Use task tool to dispatch code quality reviewer subagent" [label="yes"];
-    "Use task tool to dispatch code quality reviewer subagent" -> "Code quality reviewer subagent approves?";
+    "Implementer subagent fixes spec gaps" -> "Invoke @spec-reviewer agent" [label="re-review"];
+    "Spec reviewer subagent confirms code matches spec?" -> "Invoke @code-quality-reviewer agent" [label="yes"];
+    "Invoke @code-quality-reviewer agent" -> "Code quality reviewer subagent approves?";
     "Code quality reviewer subagent approves?" -> "Implementer subagent fixes quality issues" [label="no"];
-    "Implementer subagent fixes quality issues" -> "Use task tool to dispatch code quality reviewer subagent" [label="re-review"];
+    "Implementer subagent fixes quality issues" -> "Invoke @code-quality-reviewer agent" [label="re-review"];
     "Code quality reviewer subagent approves?" -> "Mark task complete in todowrite" [label="yes"];
     "Mark task complete in todowrite" -> "More tasks remain?";
-    "More tasks remain?" -> "Use task tool to dispatch implementer subagent" [label="yes"];
-    "More tasks remain?" -> "Use task tool to dispatch final code reviewer subagent" [label="no"];
-    "Use task tool to dispatch final code reviewer subagent" -> "Use finishing-a-development-branch";
+    "More tasks remain?" -> "Invoke @implementer agent" [label="yes"];
+    "More tasks remain?" -> "Invoke final @code_reviewer agent" [label="no"];
+    "Invoke final @code_reviewer agent" -> "Use finishing-a-development-branch";
 }
 ```
 
+## How to Invoke Subagents
+
+To dispatch a subagent, you will use the `@<agent-name>` syntax. The general workflow for each dispatch is:
+1.  **Read the appropriate prompt template** from the list below using the `read` tool.
+2.  **Construct the full prompt** by replacing the placeholders in the template with the required information (task description, context, SHAs, etc.).
+3.  **Invoke the agent** by creating a message that starts with the agent's name (e.g., `@implementer`) followed by the fully constructed prompt.
+
 ## Prompt Templates
 
-- `./implementer-prompt.md` - Dispatch implementer subagent
-- `./spec-reviewer-prompt.md` - Dispatch spec compliance reviewer subagent
-- `./code-quality-reviewer-prompt.md` - Dispatch code quality reviewer subagent
+-   `./implementer-prompt.md` - The prompt for the `@implementer` agent.
+-   `./spec-reviewer-prompt.md` - The prompt for the `@spec-reviewer` agent.
+-   `./code-quality-reviewer-prompt.md` - Instructions for invoking the `@code_reviewer` agent.
 
 ## Example Workflow
 
@@ -97,71 +109,65 @@ You: I'm using Subagent-Driven Development to execute this plan.
 [Extract all 5 tasks with full text and context]
 [Create todowrite with all tasks]
 
-Task 1: Hook installation script
+---
+**Task 1: Hook installation script**
+---
 
-[Get Task 1 text and context (already extracted)]
-[Use task tool to dispatch implementation subagent with full task text + context]
+You:
+@implementer
 
+You are implementing Task 1: Hook installation script
+
+## Task Description
+[Full text of Task 1 from the plan...]
+
+## Context
+[Scene-setting context for Task 1...]
+
+---
 Implementer: "Before I begin - should the hook be installed at user or system level?"
 
 You: "User level (~/.config/expert-mode/hooks/)"
 
 Implementer: "Got it. Implementing now..."
-[Later] Implementer:
+[Later]
+Implementer:
   - Implemented install-hook command
   - Added tests, 5/5 passing
   - Self-review: Found I missed --force flag, added it
   - Committed
 
-[Use task tool to dispatch spec compliance reviewer]
+---
+You:
+@spec-reviewer
+
+You are reviewing whether an implementation matches its specification.
+
+## What Was Requested
+[Full text of Task 1 requirements...]
+
+## What Implementer Claims They Built
+[Implementer's report from above...]
+
+---
 Spec reviewer: ✅ Spec compliant - all requirements met, nothing extra
 
-[Get git SHAs, use task tool to dispatch code quality reviewer]
+---
+You:
+@code-quality-reviewer
+
+[Constructs the prompt for the code quality reviewer by reading and filling out the templates as described in './code-quality-reviewer-prompt.md']
+
+---
 Code reviewer: Strengths: Good test coverage, clean. Issues: None. Approved.
 
 [Mark Task 1 complete]
 
-Task 2: Recovery modes
+---
+**Task 2: Recovery modes**
+---
 
-[Get Task 2 text and context (already extracted)]
-[Use task tool to dispatch implementation subagent with full task text + context]
-
-Implementer: [No questions, proceeds]
-Implementer:
-  - Added verify/repair modes
-  - 8/8 tests passing
-  - Self-review: All good
-  - Committed
-
-[Use task tool to dispatch spec compliance reviewer]
-Spec reviewer: ❌ Issues:
-  - Missing: Progress reporting (spec says "report every 100 items")
-  - Extra: Added --json flag (not requested)
-
-[Implementer fixes issues]
-Implementer: Removed --json flag, added progress reporting
-
-[Spec reviewer reviews again]
-Spec reviewer: ✅ Spec compliant now
-
-[Use task tool to dispatch code quality reviewer]
-Code reviewer: Strengths: Solid. Issues (Important): Magic number (100)
-
-[Implementer fixes]
-Implementer: Extracted PROGRESS_INTERVAL constant
-
-[Code reviewer reviews again]
-Code reviewer: ✅ Approved
-
-[Mark Task 2 complete]
-
-...
-
-[After all tasks]
-[Use task tool to dispatch final code-reviewer]
-Final reviewer: All requirements met, ready to merge
-
-Done!
+[...The process repeats for Task 2...]
 ```
 
 ## Advantages

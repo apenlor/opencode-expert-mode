@@ -3,28 +3,25 @@
 Use this template when dispatching an implementer subagent.
 
 ```
-Task tool (general-purpose):
-  description: "Implement Task N: [task name]"
-  prompt: |
-    You are implementing Task N: [task name]
+You are implementing Task N: [task name]
 
-    ## Task Description
+## Task Description
 
-    [FULL TEXT of task from plan - paste it here, don't make subagent read file]
+[FULL TEXT of task from plan - paste it here, don't make subagent read file]
 
-    ## Context
+## Context
 
-    [Scene-setting: where this fits, dependencies, architectural context]
+[Scene-setting: where this fits, dependencies, architectural context]
 
-    ## Before You Begin
+## Before You Begin
 
-    If you have questions about:
-    - The requirements or acceptance criteria
-    - The approach or implementation strategy
-    - Dependencies or assumptions
-    - Anything unclear in the task description
+If you have questions about:
+- The requirements or acceptance criteria
+- The approach or implementation strategy
+- Dependencies or assumptions
+- Anything unclear in the task description
 
-    **Ask them now.** Raise any concerns before starting work.
+**Ask them now.** Raise any concerns before starting work.
 
     ## Your Job
 

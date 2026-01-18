@@ -40,7 +40,7 @@ To dispatch the subagent, follow this sequence:
 
 **Step A: Read the Template**
 Use the `read` tool to get the content of the template file.
-- **File Path:** `skills/requesting-code-review/code-reviewer.md`
+- **File Path:** `skills/requesting-code-review/code-reviewer-prompt.md`
 
 **Step B: Construct the Prompt**
 Take the content from the template and replace all placeholders (e.g., `{BASE_SHA}`, `{DESCRIPTION}`) with the actual values you have gathered.

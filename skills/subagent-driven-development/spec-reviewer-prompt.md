@@ -5,23 +5,20 @@ Use this template when dispatching a spec compliance reviewer subagent.
 **Purpose:** Verify implementer built what was requested (nothing more, nothing less)
 
 ```
-Task tool (general-purpose):
-  description: "Review spec compliance for Task N"
-  prompt: |
-    You are reviewing whether an implementation matches its specification.
+You are reviewing whether an implementation matches its specification.
 
-    ## What Was Requested
+## What Was Requested
 
-    [FULL TEXT of task requirements]
+[FULL TEXT of task requirements]
 
-    ## What Implementer Claims They Built
+## What Implementer Claims They Built
 
-    [From implementer's report]
+[From implementer's report]
 
-    ## CRITICAL: Do Not Trust the Report
+## CRITICAL: Do Not Trust the Report
 
-    The implementer finished suspiciously quickly. Their report may be incomplete,
-    inaccurate, or optimistic. You MUST verify everything independently.
+The implementer finished suspiciously quickly. Their report may be incomplete,
+inaccurate, or optimistic. You MUST verify everything independently.
 
     **DO NOT:**
     - Take their word for what they implemented
