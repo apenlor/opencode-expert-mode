@@ -1,6 +1,11 @@
 ---
 name: dispatching-parallel-agents
 description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
+license: MIT
+compatibility: opencode
+metadata:
+  category: "workflow-and-execution"
+  audience: "agent-facing"
 ---
 
 # Dispatching Parallel Agents
@@ -9,7 +14,7 @@ description: Use when facing 2+ independent tasks that can be worked on without 
 
 When you have multiple unrelated failures (different test files, different subsystems, different bugs), investigating them sequentially wastes time. Each investigation is independent and can happen in parallel.
 
-**Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently.
+**Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently using the `Task` tool.
 
 ## When to Use
 
@@ -63,12 +68,21 @@ Each agent gets:
 
 ### 3. Dispatch in Parallel
 
+Use the `Task` tool with a structured input object.
+
 ```typescript
 // In OpenCode
-Task("Fix agent-tool-abort.test.ts failures")
-Task("Fix batch-completion-behavior.test.ts failures")
-Task("Fix tool-approval-race-conditions.test.ts failures")
-// All three run concurrently
+Task({
+  description: "Fix abort.test.ts failures",
+  subagent_type: "general",
+  prompt: "Fix the 3 failing tests in src/agents/agent-tool-abort.test.ts..." // Full prompt content here
+})
+Task({
+  description: "Fix batch-completion.test.ts failures",
+  subagent_type: "general",
+  prompt: "Fix the 2 failing tests in batch-completion-behavior.test.ts..." // Full prompt content here
+})
+// All tasks run concurrently
 ```
 
 ### 4. Review and Integrate
@@ -85,6 +99,8 @@ Good agent prompts are:
 1. **Focused** - One clear problem domain
 2. **Self-contained** - All context needed to understand the problem
 3. **Specific about output** - What should the agent return?
+
+The content below should be used in the `prompt` field of your `Task` tool call.
 
 ```markdown
 Fix the 3 failing tests in src/agents/agent-tool-abort.test.ts:
@@ -140,10 +156,10 @@ Return: Summary of what you found and what you fixed.
 **Decision:** Independent domains - abort logic separate from batch completion separate from race conditions
 
 **Dispatch:**
-```
-Agent 1 → Fix agent-tool-abort.test.ts
-Agent 2 → Fix batch-completion-behavior.test.ts
-Agent 3 → Fix tool-approval-race-conditions.test.ts
+```typescript
+Task({ description: "Fix agent-tool-abort.test.ts", subagent_type: "general", prompt: "..." })
+Task({ description: "Fix batch-completion-behavior.test.ts", subagent_type: "general", prompt: "..." })
+Task({ description: "Fix tool-approval-race-conditions.test.ts", subagent_type: "general", prompt: "..." })
 ```
 
 **Results:**
