@@ -16,7 +16,7 @@ export const HooksPlugin: Plugin = async ({ client }) => {
   // This is the full prompt injected when a session is first created.
   const getFullBootstrapPrompt = async (): Promise<string | null> => {
     try {
-      const skillPath = path.join(import.meta.dir, "..", "skill", BOOTSTRAP_SKILL_NAME, "SKILL.md");
+      const skillPath = path.join(import.meta.dir, "..", "skills", BOOTSTRAP_SKILL_NAME, "SKILL.md");
       const skillContent = await fs.readFile(skillPath, "utf-8");
       return `
 <EXTREMELY_IMPORTANT>

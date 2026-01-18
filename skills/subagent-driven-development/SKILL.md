@@ -96,9 +96,9 @@ To dispatch a subagent, you will use the `@<agent-name>` syntax. The general wor
 
 ## Prompt Templates
 
--   `./implementer-prompt.md` - The prompt for the `@implementer` agent.
--   `./spec-reviewer-prompt.md` - The prompt for the `@spec-reviewer` agent.
--   `./code-quality-reviewer-prompt.md` - Instructions for invoking the `@code_reviewer` agent.
+-   `skills/subagent-driven-development/implementer-prompt.md` - The prompt for the `@implementer` agent.
+-   `skills/subagent-driven-development/spec-reviewer-prompt.md` - The prompt for the `@spec-reviewer` agent.
+-   `skills/subagent-driven-development/code-quality-reviewer-prompt.md` - Instructions for invoking the `@code_reviewer` agent.
 
 ## Example Workflow
 
@@ -156,7 +156,7 @@ Spec reviewer: ✅ Spec compliant - all requirements met, nothing extra
 You:
 @code-quality-reviewer
 
-[Constructs the prompt for the code quality reviewer by reading and filling out the templates as described in './code-quality-reviewer-prompt.md']
+[Constructs the prompt for the code quality reviewer by reading and filling out the templates as described in 'skills/subagent-driven-development/code-quality-reviewer-prompt.md']
 
 ---
 Code reviewer: Strengths: Good test coverage, clean. Issues: None. Approved.
