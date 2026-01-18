@@ -1,6 +1,11 @@
 ---
 name: test-driven-development
 description: Use when implementing any feature or bugfix, before writing implementation code
+license: MIT
+compatibility: opencode
+metadata:
+  category: "development-process"
+  workflow: tdd
 ---
 
 # Test-Driven Development (TDD)
@@ -114,8 +119,9 @@ Vague name, tests mock not code
 
 **MANDATORY. Never skip.**
 
+(Use the project's specific test command you have identified)
 ```bash
-npm test path/to/test.test.ts
+<test command> path/to/test.test.ts
 ```
 
 Confirm:
@@ -169,8 +175,9 @@ Don't add features, refactor other code, or "improve" beyond the test.
 
 **MANDATORY.**
 
+(Use the project's specific test command you have identified)
 ```bash
-npm test path/to/test.test.ts
+<test command> path/to/test.test.ts
 ```
 
 Confirm:
@@ -356,7 +363,7 @@ Never fix bugs without a test.
 
 ## Testing Anti-Patterns
 
-When adding mocks or test utilities, read @testing-anti-patterns.md to avoid common pitfalls:
+When adding mocks or test utilities, read the reference at `./testing-anti-patterns.md` to avoid common pitfalls:
 - Testing mock behavior instead of real behavior
 - Adding test-only methods to production classes
 - Mocking without understanding dependencies
