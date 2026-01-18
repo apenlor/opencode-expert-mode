@@ -1,78 +1,96 @@
-# OpenCode Expert Mode Configuration
+# OpenCode Expert Mode
 
-This repository is a native OpenCode adaptation of the renowned [Superpowers for Claude](https://github.com/obra/superpowers) by @obra. It has been migrated to the OpenCode specification and tailored for a streamlined, expert-level development workflow based on my personal preferences.
+This repository provides an advanced agent configuration for OpenCode, designed to create a powerful and reliable software engineering assistant. It is a native OpenCode adaptation of the original [Superpowers for Claude](https://github.com/obra/superpowers) project by @obra.
 
-The primary purpose of this configuration is to leverage the full potential of OpenCode by providing structured, repeatable, and expert-driven processes for common software engineering tasks such as brainstorming, planning, implementation, and debugging.
+## Table of Contents
+- [Global Installation](#global-installation)
+- [Verify Installation](#verify-installation)
+- [Basic Workflow](#basic-workflow)
+- [Core Philosophy](#core-philosophy)
+- [Components](#components)
+- [Directory Structure](#directory-structure)
+- [How It Works: The Bootstrap Process](#how-it-works-the-bootstrap-process)
 
 ## Global Installation
 
 This configuration is intended to be installed globally by cloning it directly into your OpenCode configuration directory. This makes the tools and skills available across all your projects.
 
 ### 1. Back Up Your Existing Configuration
-
 **IMPORTANT**: This will prevent you from overwriting any custom setups you may have.
-
 ```bash
 mv ~/.config/opencode ~/.config/opencode.bak
 ```
 
 ### 2. Clone the Repository
-
 Clone this repository directly into the `~/.config/opencode` directory.
-
 ```bash
 git clone git@github.com:apenlor/opencode-expert-mode.git ~/.config/opencode
 ```
 
 ### 3. Set Up Your Local Configuration
-
 This repository provides example configuration files. Copy them to create your own local, untracked configuration.
-
 ```bash
 cd ~/.config/opencode
 cp opencode.example.json opencode.json
 cp AGENTS.example.md AGENTS.md
 ```
-
-You can now safely customize `opencode.json` and `AGENTS.md` without creating conflicts with future updates from this repository (which you can get by running `git pull`).
+You can now safely customize `opencode.json` and `AGENTS.md` without creating conflicts with future updates from this repository.
 
 ## Verify Installation
 
 To ensure the configuration is correctly loaded:
 
-1.  **Start a Session:** Open a new terminal and run `opencode`.
-2.  **Check Context:** You may see a system message: _"You are in Expert Mode."_
-3.  **Test a Tool:** Ask the agent to brainstorm about your project. It should respond by loading the `brainstorming` skill.
+1.  **Start a new OpenCode session:**
+    ```bash
+    opencode
+    ```
+2.  **Check for the Bootstrap Message:** At the start of the session, the agent receives a hidden system prompt from the plugin, putting it into "Expert Mode."
+3.  **Test a Command:** Ask the agent to plan a simple task using a command.
+    ```
+    /write-plan "create a hello world script in python"
+    ```
+4.  **Confirm Behavior:** The agent should respond by confirming it is using the `writing-plans` skill to create the plan. This verifies that the commands, skills, and plugin are all working together correctly.
 
 ## Basic Workflow
 
-This configuration enables a structured development lifecycle:
+This configuration enables a structured, expert-guided development lifecycle using the provided commands.
 
-1.  **Design:** Ask the agent to brainstorm to explore ideas and solidify requirements.
-2.  **Plan:** Ask the agent to write a plan to generate a detailed, step-by-step implementation plan.
-3.  **Build:** Ask the agent to execute the plan to have the agent implement the plan in batches.
-4.  **Review:** Ask `@code-reviewer` to critique the code before merging.
+1.  **Design (`/brainstorm`):** Start by exploring an idea to solidify requirements.
+    ```
+    /brainstorm "a web server that returns the current time"
+    ```
+2.  **Plan (`/write-plan`):** Generate a detailed, step-by-step implementation plan.
+    ```
+    /write-plan "a simple python flask server with one endpoint /time"
+    ```
+3.  **Execute (`/execute-plan`):** Instruct the agent to begin implementing the generated plan.
+    ```
+    /execute-plan
+    ```
+4.  **Review (`@code-reviewer`):** After work is complete, call the specialized code reviewer for feedback.
+    ```
+    @code-reviewer Please review the flask server implementation.
+    ```
 
-**Note:** You can still use the built-in `plan` and `build` agents directly. The tools in this configuration act as expert guides; the agents will automatically use them (like `brainstorm` for a new feature) when they determine the workflow is appropriate for the task at hand.
+**Note:** While these commands provide convenient shortcuts, the skills themselves enhance *all* agents. You can still use the built-in `plan` and `build` agents for any task, and they will automatically leverage these expert skills when appropriate.
+
+## Core Philosophy
+
+The central idea of Expert Mode is a **"Skill-as-Core"** architecture.
+
+-   **Skills (`skill/`)**: The heart of the project. They contain expert workflows that enhance any agent's ability to perform complex tasks.
+-   **Commands (`commands/`)**: A user-facing "control panel" that provides convenient shortcuts to directly invoke specific skills.
+-   **The Agent**: The agent is empowered by this ecosystem. Whether responding to a general prompt or a specific command, it can use its `skill` tool to access these expert workflows at any time.
 
 ## Components
 
-This configuration is composed of several key components that work together to provide an enhanced development experience.
+This configuration is composed of several key components that work together.
 
 ### Agents
-
-- **`code-reviewer`**: A subagent designed to perform detailed code reviews. It checks for alignment with project plans, code quality, architectural principles, and documentation standards.
-  - **Usage:** Invoke with `@code-reviewer` in your prompt.
-  - **Guiding Principles**:
-    - **Plan Alignment**: Verifies that the implementation adheres to the original plan and requirements.
-    - **Code Quality**: Assesses code for best practices, error handling, and maintainability.
-    - **Architectural Integrity**: Ensures the code follows established design patterns and SOLID principles.
-    - **Constructive Feedback**: Provides clear, actionable recommendations categorized by severity.
+- **`code-reviewer`**: A subagent designed for detailed code reviews. Invoke with `@code-reviewer`.
 
 ### Skills
-
-A collection of expert workflows for various development tasks, located in the `skill` directory. These skills guide the AI through complex processes, ensuring consistency and high-quality output.
-
+A collection of expert workflows in the `skill/` directory. Key skills include:
 - **`brainstorming`**: A structured process for exploring ideas and refining them into concrete designs.
 - **`dispatching-parallel-agents`**: For tackling multiple independent tasks at once.
 - **`executing-plans`**: A systematic way to execute implementation plans with review checkpoints.
@@ -88,20 +106,32 @@ A collection of expert workflows for various development tasks, located in the `
 - **`writing-plans`**: A TDD-centric approach to creating detailed, bite-sized implementation plans.
 - **`writing-skills`**: For creating, editing, and verifying new skills.
 
-### Tools
+### Commands
+User-facing shortcuts in the `commands/` directory that invoke skills.
+- **`/brainstorm`**: Kicks off the `brainstorming` skill.
+- **`/write-plan`**: Starts the `writing-plans` skill.
+- **`/execute-plan`**: Begins the `executing-plans` skill.
 
-Custom tools are defined in the `tool` directory to integrate seamlessly with the skills. These tools act as entry points to the expert workflows defined in the skills.
+### Plugins (Hooks)
+A plugin in `plugin/hooks.ts` that automatically bootstraps every session into Expert Mode.
+- **`session.created`**: Injects the `using-expert-mode` skill at the start.
+- **`session.compacted`**: Injects a short reminder after context is summarized to ensure the agent's identity persists.
 
-- **`brainstorm`**: Kicks off the brainstorming process by invoking the `brainstorming` skill.
-- **`write-plan`**: Starts the planning process by invoking the `writing-plans` skill.
-- **`execute-plan`**: Begins the implementation process by invoking the `executing-plans` skill.
+## Directory Structure
 
-### Hooks (Plugins)
+This repository's root is designed to be your OpenCode configuration directory.
+```
+.
+├── AGENTS.example.md   # A template for your local agent rules.
+├── agent/              # Definitions for specialized subagents (e.g., code-reviewer).
+├── commands/           # User-facing slash commands that invoke skills.
+├── opencode.example.json # An example configuration for user-specific settings (e.g., models).
+├── plugin/             # OpenCode plugins that extend core behavior (e.g., session hooks).
+└── skill/              # The core skills that define expert workflows.
+```
 
-A session-start hook is implemented as a plugin in `plugin/hooks.ts`.
+## How It Works: The Bootstrap Process
 
-- **`session.created`**: This hook fires when a new session is created. It injects the `using-expert-mode` skill into the initial context, providing the AI with the necessary instructions on how to use all the available skills.
-
-### Rules
-
-- **`AGENTS.md`**: A global rules file. You can add your own personal, global rules here.
+A plugin (`plugin/hooks.ts`) automatically bootstraps every new session into Expert Mode.
+1.  **On `session.created`**: The plugin injects the `using-expert-mode` skill into the agent's context.
+2.  **On `session.compacted`**: If a conversation gets too long, the plugin injects a short reminder prompt.
