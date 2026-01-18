@@ -13,22 +13,12 @@ export const HooksPlugin: Plugin = async ({ client }) => {
 
   log("info", "Expert Mode Hooks Plugin initialized.");
 
-  return {
-    // This hook runs automatically every time a new session is created.
-    "session.created": async (session) => {
-      try {
-        const skillPath = path.join(
-          import.meta.dir,
-          "..",
-          "skill",
-          BOOTSTRAP_SKILL_NAME,
-          "SKILL.md"
-        );
-
-        const skillContent = await fs.readFile(skillPath, "utf-8");
-
-        // This system prompt is silently injected into the agent's context at the start of the session.
-        const systemPrompt = `
+  // This is the full prompt injected when a session is first created.
+  const getFullBootstrapPrompt = async (): Promise<string | null> => {
+    try {
+      const skillPath = path.join(import.meta.dir, "..", "skill", BOOTSTRAP_SKILL_NAME, "SKILL.md");
+      const skillContent = await fs.readFile(skillPath, "utf-8");
+      return `
 <EXTREMELY_IMPORTANT>
 You are in Expert Mode.
 
@@ -37,24 +27,55 @@ You are in Expert Mode.
 ${skillContent}
 </EXTREMELY_IMPORTANT>
 `.trim();
+    } catch (error) {
+      log("error", "Failed to read bootstrap skill file.", { error: error instanceof Error ? error.message : String(error) });
+      return null;
+    }
+  };
 
-        await client.session.prompt({
-          path: { id: session.id },
-          body: {
-            // noReply ensures this prompt is injected silently without requiring a response from the agent.
-            noReply: true,
-            parts: [{ type: "text", text: systemPrompt }],
-          },
-        });
+  // This is a lightweight reminder prompt injected after a session is compacted.
+  const getCompactionReminderPrompt = (): string => {
+    return `
+<COMPACTION_REMINDER>
+You are in Expert Mode. Your core instructions from the '${BOOTSTRAP_SKILL_NAME}' skill may have been summarized due to context length, but they are still in full effect. Continue to follow all expert-mode protocols.
+</COMPACTION_REMINDER>
+`.trim();
+  };
 
-        log("info", `Injected ${BOOTSTRAP_SKILL_NAME} skill for session ${session.id}.`);
+  // Helper to silently inject a prompt into a session.
+  const injectPrompt = async (sessionID: string, prompt: string) => {
+    await client.session.prompt({
+      path: { id: sessionID },
+      body: {
+        // noReply ensures this prompt is injected silently.
+        noReply: true,
+        parts: [{ type: "text", text: prompt }],
+      },
+    });
+  };
 
+  return {
+    // Hook for when a new session is created.
+    "session.created": async (session) => {
+      const prompt = await getFullBootstrapPrompt();
+      if (prompt) {
+        try {
+          await injectPrompt(session.id, prompt);
+          log("info", `Injected full bootstrap prompt for session ${session.id}.`);
+        } catch (error) {
+          log("error", "Failed to inject full bootstrap prompt.", { error: error instanceof Error ? error.message : String(error), sessionId: session.id });
+        }
+      }
+    },
+
+    // Hook for when a session's context is compacted.
+    "session.compacted": async (session) => {
+      const prompt = getCompactionReminderPrompt();
+      try {
+        await injectPrompt(session.id, prompt);
+        log("info", `Injected compaction reminder for session ${session.id}.`);
       } catch (error) {
-        // Logs any errors that occur during the skill injection process.
-        log("error", "Failed to inject bootstrap skill.", {
-          error: error instanceof Error ? error.message : String(error),
-          sessionId: session.id,
-        });
+        log("error", "Failed to inject compaction reminder.", { error: error instanceof Error ? error.message : String(error), sessionId: session.id });
       }
     },
   };
