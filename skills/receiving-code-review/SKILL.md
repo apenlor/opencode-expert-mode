@@ -1,6 +1,11 @@
 ---
 name: receiving-code-review
 description: Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
+license: MIT
+compatibility: opencode
+metadata:
+  workflow: code-review
+  phase: feedback
 ---
 
 # Code Review Reception
@@ -89,7 +94,7 @@ IF conflicts with your human partner's prior decisions:
 
 ```
 IF reviewer suggests "implementing properly":
-  grep codebase for actual usage
+  Use the grep tool to search the codebase for actual usage
 
   IF unused: "This endpoint isn't called. Remove it (YAGNI)?"
   IF used: Then implement properly
