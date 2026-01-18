@@ -21,7 +21,7 @@ Random fixes waste time and create new bugs. Quick patches mask underlying issue
 NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
 ```
 
-If you haven't completed Phase 1, you cannot propose fixes.
+If you haven'tcompleted Phase 1, you cannot propose fixes.
 
 ## When to Use
 
@@ -113,7 +113,7 @@ You MUST complete each phase before proceeding to the next.
 
    **WHEN error is deep in call stack:**
 
-   See `root-cause-tracing-prompt.md` in this directory for the complete backward tracing technique.
+   See `skills/systematic-debugging/root-cause-tracing-prompt.md` for the complete backward tracing technique.
 
    **Quick version:**
    - Where does bad value originate?
