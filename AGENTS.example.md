@@ -20,8 +20,6 @@ This file defines the baseline behavior for all OpenCode sessions.
 
 ## 3. Core Engineering Principles
 
-# Feel free to add, remove, or modify these principles to suit your philosophy.
-
 Apply these principles unless the project context dictates otherwise:
 
 - **KISS (Keep It Simple, Stupid):** Prefer the simplest solution that solves the problem.
