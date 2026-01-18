@@ -1,6 +1,8 @@
 ---
 name: systematic-debugging
 description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
+compatibility: opencode
+license: MIT
 ---
 
 # Systematic Debugging
@@ -111,7 +113,7 @@ You MUST complete each phase before proceeding to the next.
 
    **WHEN error is deep in call stack:**
 
-   See `root-cause-tracing.md` in this directory for the complete backward tracing technique.
+   See `root-cause-tracing-prompt.md` in this directory for the complete backward tracing technique.
 
    **Quick version:**
    - Where does bad value originate?
@@ -277,11 +279,14 @@ If systematic investigation reveals issue is truly environmental, timing-depende
 
 ## Supporting Techniques
 
-These techniques are part of systematic debugging and available in this directory:
+These techniques are part of systematic debugging. Read the corresponding prompt file to use them:
 
-- **`root-cause-tracing.md`** - Trace bugs backward through call stack to find original trigger
-- **`defense-in-depth.md`** - Add validation at multiple layers after finding root cause
-- **`condition-based-waiting.md`** - Replace arbitrary timeouts with condition polling
+- **Root Cause Tracing:** Read `skills/systematic-debugging/root-cause-tracing-prompt.md`
+  - Trace bugs backward through call stack to find original trigger
+- **Defense in Depth:** Read `skills/systematic-debugging/defense-in-depth-prompt.md`
+  - Add validation at multiple layers after finding root cause
+- **Condition-Based Waiting:** Read `skills/systematic-debugging/condition-based-waiting-prompt.md`
+  - Replace arbitrary timeouts with condition polling
 
 **Related skills:**
 - **test-driven-development** - For creating failing test case (Phase 4, Step 1)
