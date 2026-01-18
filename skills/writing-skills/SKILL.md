@@ -1,6 +1,8 @@
 ---
 name: writing-skills
 description: Use when creating new skills, editing existing skills, or verifying skills work before deployment
+compatibility: opencode
+license: MIT
 ---
 
 # Writing Skills
@@ -9,15 +11,15 @@ description: Use when creating new skills, editing existing skills, or verifying
 
 **Writing skills IS Test-Driven Development applied to process documentation.**
 
-**Personal skills live in `~/.config/opencode/skill`** 
+**Personal skills live in `~/.config/opencode/skills`** 
 
 You write test cases (pressure scenarios with subagents), watch them fail (baseline behavior), write the skill (documentation), watch tests pass (agents comply), and refactor (close loopholes).
 
 **Core principle:** If you didn't watch an agent fail without the skill, you don't know if the skill teaches the right thing.
 
-**REQUIRED BACKGROUND:** You MUST understand test-driven-development before using this skill. That skill defines the fundamental RED-GREEN-REFACTOR cycle. This skill adapts TDD to documentation.
+**REQUIRED BACKGROUND:** You MUST understand `test-driven-development` before using this skill. That skill defines the fundamental RED-GREEN-REFACTOR cycle. This skill adapts TDD to documentation.
 
-**Official guidance:** For comprehensive skill authoring best practices, see skill-authoring-best-practices.md. This document provides additional patterns and guidelines that complement the TDD-focused approach in this skill.
+**Official guidance:** For comprehensive skill authoring best practices, read `skills/writing-skills/skill-authoring-best-practices-prompt.md`. This document provides additional patterns and guidelines that complement the TDD-focused approach in this skill.
 
 ## What is a Skill?
 
@@ -99,7 +101,7 @@ skills/
 - `description`: Third-person, describes ONLY when to use (NOT what it does)
   - Start with "Use when..." to focus on triggering conditions
   - Include specific symptoms, situations, and contexts
-  - **NEVER summarize the skill's process or workflow** (see CSO section for why)
+  - **NEVER summarize the skill's process or workflow** (see ASO section for why)
   - Keep under 500 characters if possible
 
 ```markdown
@@ -313,9 +315,9 @@ digraph when_flowchart {
 - Linear instructions → Numbered lists
 - Labels without semantic meaning (step1, helper2)
 
-See @graphviz-conventions.dot for graphviz style rules.
+See `skills/writing-skills/graphviz-conventions.dot` for graphviz style rules.
 
-**Visualizing for your human partner:** Use `render-graphs.js` in this directory to render a skill's flowcharts to SVG:
+**Visualizing for your human partner:** Use `skills/writing-skills/render-graphs.js` in this directory to render a skill's flowcharts to SVG:
 ```bash
 ./render-graphs.js ../some-skill           # Each diagram separately
 ./render-graphs.js ../some-skill --combine # All diagrams in one SVG
@@ -390,7 +392,7 @@ Edit skill without testing? Same violation.
 - Don't "adapt" while running tests
 - Delete means delete
 
-**REQUIRED BACKGROUND:** The test-driven-development skill explains why this matters. Same principles apply to documentation.
+**REQUIRED BACKGROUND:** The `test-driven-development` skill explains why this matters. Same principles apply to documentation.
 
 ## Testing All Skill Types
 
@@ -460,7 +462,7 @@ Different skill types need different test approaches:
 
 Skills that enforce discipline (like TDD) need to resist rationalization. Agents are smart and will find loopholes when under pressure.
 
-**Psychology note:** Understanding WHY persuasion techniques work helps you apply them systematically. See persuasion-principles.md for research foundation (Cialdini, 2021; Meincke et al., 2025) on authority, commitment, scarcity, social proof, and unity principles.
+**Psychology note:** Understanding WHY persuasion techniques work helps you apply them systematically. Read `skills/writing-skills/persuasion-principles-prompt.md` for research foundation (Cialdini, 2021; Meincke et al., 2025) on authority, commitment, scarcity, social proof, and unity principles.
 
 ### Close Every Loophole Explicitly
 
@@ -522,7 +524,7 @@ Make it easy for agents to self-check when rationalizing:
 **All of these mean: Delete code. Start over with TDD.**
 ```
 
-### Update CSO for Violation Symptoms
+### Update ASO for Violation Symptoms
 
 Add to description: symptoms of when you're ABOUT to violate the rule:
 
@@ -553,7 +555,7 @@ Run same scenarios WITH skill. Agent should now comply.
 
 Agent found new rationalization? Add explicit counter. Re-test until bulletproof.
 
-**Testing methodology:** See @testing-skills-with-subagents.md for the complete testing methodology:
+**Testing methodology:** Read `skills/writing-skills/testing-skills-with-subagents-prompt.md` for the complete testing methodology:
 - How to write pressure scenarios
 - Pressure types (time, sunk cost, authority, exhaustion)
 - Plugging holes systematically
@@ -595,7 +597,7 @@ Deploying untested skills = deploying untested code. It's a violation of quality
 
 ## Skill Creation Checklist (TDD Adapted)
 
-**IMPORTANT: Use todowrite to create todos for EACH checklist item below.**
+**IMPORTANT: Use `todowrite` to create todos for EACH checklist item below.**
 
 **RED Phase - Write Failing Test:**
 - [ ] Create pressure scenarios (3+ combined pressures for discipline skills)
