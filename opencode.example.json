@@ -43,15 +43,7 @@
 
     // Custom Subagent (defined in agent/code-reviewer.md)
     "code-reviewer": {
-      "mode": "subagent",
-      "description": "Code quality and correctness reviewer",
       "model": "google/gemini-3-pro-preview",
-      "temperature": 0.0,
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": true
-      }
     },
 
     // Built-in Subagents
