@@ -88,6 +88,9 @@ This configuration is composed of several key components that work together.
 
 ### Agents
 - **`code-reviewer`**: A subagent designed for detailed code reviews. Invoke with `@code-reviewer`.
+- **`spec-reviewer`**: Reviews an implementation against a specification.
+- **`code-quality-reviewer`**: Prepares and dispatches requests to the main `@code_reviewer`.
+- **`implementer`**: Implements a single, well-defined task from a plan.
 
 ### Skills
 A collection of expert workflows in the `skills/` directory. Key skills include:
@@ -123,7 +126,7 @@ This repository's root is designed to be your OpenCode configuration directory.
 ```
 .
 ├── AGENTS.example.md   # A template for your local agent rules.
-├── agent/              # Definitions for specialized subagents (e.g., code-reviewer).
+├── agents/             # Definitions for specialized subagents (e.g., code-reviewer).
 ├── commands/           # User-facing slash commands that invoke skills.
 ├── opencode.example.json # An example configuration for user-specific settings (e.g., models).
 ├── plugins/             # OpenCode plugins that extend core behavior (e.g., session hooks).
