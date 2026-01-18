@@ -1,6 +1,11 @@
 ---
 name: finishing-a-development-branch
 description: Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup
+license: MIT
+compatibility: opencode
+metadata:
+  workflow: git
+  phase: completion
 ---
 
 # Finishing a Development Branch
@@ -48,22 +53,35 @@ Or ask: "This branch split from main - is that correct?"
 
 ### Step 3: Present Options
 
-Present exactly these 4 options:
+Use the `question` tool to present the user with exactly these 4 options.
 
+**Tool Call Example:**
+```typescript
+question({
+  "header": "Branch Complete",
+  "question": "Implementation complete. What would you like to do?",
+  "options": [
+    { "label": "Merge to <base-branch>", "description": "Merge this branch locally into <base-branch> and delete it." },
+    { "label": "Create Pull Request", "description": "Push the branch and open a new pull request." },
+    { "label": "Keep As-Is", "description": "Do nothing and leave the branch as is." },
+    { "label": "Discard Work", "description": "Delete the branch and all its changes permanently." }
+  ]
+})
 ```
-Implementation complete. What would you like to do?
 
-1. Merge back to <base-branch> locally
-2. Push and create a Pull Request
-3. Keep the branch as-is (I'll handle it later)
-4. Discard this work
-
-Which option?
-```
-
-**Don't add explanation** - keep options concise.
+**Note:** Before showing the options, determine the `<base-branch>` as described in Step 2 and substitute it in the option label.
 
 ### Step 4: Execute Choice
+
+Before executing the user's choice, you must resolve these placeholders:
+
+-   **`<feature-branch>`**: Get this from the current branch name (`git branch --show-current`).
+-   **`<base-branch>`**: Use the branch name you determined in Step 2.
+-   **`<test command>`**: Use the project's primary test command that you verified in Step 1.
+-   **`<title>`**: For a PR, create a concise, one-line title summarizing the work.
+-   **`<worktree-path>`**: If using git worktrees, get the path from the `git worktree list` command.
+
+---
 
 #### Option 1: Merge Locally
 
@@ -86,6 +104,8 @@ git branch -d <feature-branch>
 
 Then: Cleanup worktree (Step 5)
 
+---
+
 #### Option 2: Push and Create PR
 
 ```bash
@@ -105,29 +125,41 @@ EOF
 
 Then: Cleanup worktree (Step 5)
 
+---
+
 #### Option 3: Keep As-Is
 
-Report: "Keeping branch <name>. Worktree preserved at <path>."
+Report: "Keeping branch `<feature-branch>`. Worktree preserved at `<worktree-path>`."
 
 **Don't cleanup worktree.**
 
+---
+
 #### Option 4: Discard
 
-**Confirm first:**
+**Confirm first** using the `question` tool. Present the consequences clearly.
+
+**Tool Call Example:**
+```typescript
+question({
+  "header": "Confirm Discard",
+  "question": "This will permanently delete the branch and all of its commits. This action cannot be undone. Are you sure?",
+  "options": [
+    { "label": "Yes, Discard Branch", "description": "Permanently delete the <feature-branch> branch." },
+    { "label": "No, Cancel", "description": "Do not delete the branch." }
+  ]
+})
 ```
-This will permanently delete:
-- Branch <name>
-- All commits: <commit-list>
-- Worktree at <path>
 
-Type 'discard' to confirm.
-```
-
-Wait for exact confirmation.
-
-If confirmed:
+If the user confirms, proceed with deletion:
 ```bash
-git checkout <base-branch>
+# Determine base branch to switch to
+BASE_BRANCH=$(git merge-base HEAD main 2>/dev/null || git merge-base HEAD master)
+
+# Checkout base branch
+git checkout $BASE_BRANCH
+
+# Delete feature branch
 git branch -D <feature-branch>
 ```
 
