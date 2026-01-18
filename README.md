@@ -113,7 +113,7 @@ User-facing shortcuts in the `commands/` directory that invoke skills.
 - **`/execute-plan`**: Begins the `executing-plans` skill.
 
 ### Plugins (Hooks)
-A plugin in `plugin/hooks.ts` that automatically bootstraps every session into Expert Mode.
+A plugin in `plugins/hooks.ts` that automatically bootstraps every session into Expert Mode.
 - **`session.created`**: Injects the `using-expert-mode` skill at the start.
 - **`session.compacted`**: Injects a short reminder after context is summarized to ensure the agent's identity persists.
 
@@ -126,12 +126,12 @@ This repository's root is designed to be your OpenCode configuration directory.
 ├── agent/              # Definitions for specialized subagents (e.g., code-reviewer).
 ├── commands/           # User-facing slash commands that invoke skills.
 ├── opencode.example.json # An example configuration for user-specific settings (e.g., models).
-├── plugin/             # OpenCode plugins that extend core behavior (e.g., session hooks).
+├── plugins/             # OpenCode plugins that extend core behavior (e.g., session hooks).
 └── skill/              # The core skills that define expert workflows.
 ```
 
 ## How It Works: The Bootstrap Process
 
-A plugin (`plugin/hooks.ts`) automatically bootstraps every new session into Expert Mode.
+A plugin (`plugins/hooks.ts`) automatically bootstraps every new session into Expert Mode.
 1.  **On `session.created`**: The plugin injects the `using-expert-mode` skill into the agent's context.
 2.  **On `session.compacted`**: If a conversation gets too long, the plugin injects a short reminder prompt.
