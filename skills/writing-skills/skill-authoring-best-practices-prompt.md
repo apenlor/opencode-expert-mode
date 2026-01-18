@@ -1092,11 +1092,11 @@ reader = PdfReader("file.pdf")
 
 ### YAML frontmatter requirements
 
-The SKILL.md frontmatter includes only `name` (64 characters max) and `description` (1024 characters max) fields. See the [Skills overview](/en/docs/agents-and-tools/agent-skills/overview#skill-structure) for complete structure details.
+The SKILL.md frontmatter includes only `name` (64 characters max) and `description` (1024 characters max) fields.
 
 ### Token budgets
 
-Keep SKILL.md body under 500 lines for optimal performance. If your content exceeds this, split it into separate files using the progressive disclosure patterns described earlier. For architectural details, see the [Skills overview](/en/docs/agents-and-tools/agent-skills/overview#how-skills-work).
+Keep SKILL.md body under 500 lines for optimal performance. If your content exceeds this, split it into separate files using the progressive disclosure patterns described earlier.
 
 ## Checklist for effective Skills
 
