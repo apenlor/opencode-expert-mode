@@ -1,54 +1,53 @@
 ---
 name: brainstorming
 description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+license: MIT
+compatibility: opencode
+metadata:
+  category: "design-and-planning"
+  audience: "user-facing"
 ---
 
 # Brainstorming Ideas Into Designs
 
-## Overview
+## What I do
+I help turn your ideas into fully formed designs and specifications through a natural, collaborative dialogue. I start by understanding the project context, ask clarifying questions, explore different approaches, and then present a detailed design for your validation.
 
-Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
-
-Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
+## When to use me
+You MUST use this skill before starting any creative or significant work, such as creating new features, building components, adding functionality, or modifying existing behavior. It is essential for exploring user intent, defining requirements, and creating a solid design before implementation begins.
 
 ## The Process
 
-**Understanding the idea:**
-- Check out the current project state first (files, docs, recent commits)
-- Ask questions one at a time to refine the idea
-- Prefer multiple choice questions when possible, but open-ended is fine too
-- Only one question per message - if a topic needs more exploration, break it into multiple questions
-- Focus on understanding: purpose, constraints, success criteria
+**1. Understanding the idea:**
+- I'll start by checking the current project state (files, docs, recent commits).
+- I will ask questions one at a time to refine the idea, preferring multiple-choice where possible.
+- My focus is on understanding the purpose, constraints, and success criteria of your idea.
 
-**Exploring approaches:**
-- Propose 2-3 different approaches with trade-offs
-- Present options conversationally with your recommendation and reasoning
-- Lead with your recommended option and explain why
+**2. Exploring approaches:**
+- I will propose 2-3 different approaches with their trade-offs.
+- I'll present these options conversationally, leading with my recommendation and explaining my reasoning.
 
-**Presenting the design:**
-- Once you believe you understand what you're building, present the design
-- Break it into sections of 200-300 words
-- Ask after each section whether it looks right so far
-- Cover: architecture, components, data flow, error handling, testing
-- Be ready to go back and clarify if something doesn't make sense
+**3. Presenting the design:**
+- Once I understand what we're building, I'll present the design in small, digestible sections (200-300 words).
+- After each section, I will ask for your feedback to ensure we are on the right track.
+- The design will cover architecture, components, data flow, error handling, and testing strategy.
 
 ## After the Design
 
 **Documentation:**
-- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- Use elements-of-style:writing-clearly-and-concisely skill if available
-- Commit the design document to git
+- First, I will confirm the project's preferred location for design documents. If one is found, I will use it. Otherwise, I will write the validated design to a new file at `docs/plans/YYYY-MM-DD-<topic>-design.md`.
+- The document should be written clearly and concisely, so other developers can easily understand the plan.
+- Finally, I will commit the design document to git.
 
 **Implementation (if continuing):**
-- Ask: "Ready to set up for implementation?"
-- Use using-git-worktrees to create isolated workspace
-- Use writing-plans to create detailed implementation plan
+- I will ask: "Ready to set up for implementation?"
+- If you agree, I will use the `using-git-worktrees` skill to create an isolated workspace.
+- Then, I will use the `writing-plans` skill to create a detailed implementation plan.
 
 ## Key Principles
-
-- **One question at a time** - Don't overwhelm with multiple questions
-- **Multiple choice preferred** - Easier to answer than open-ended when possible
-- **YAGNI ruthlessly** - Remove unnecessary features from all designs
-- **Explore alternatives** - Always propose 2-3 approaches before settling
-- **Incremental validation** - Present design in sections, validate each
-- **Be flexible** - Go back and clarify when something doesn't make sense
+- **One question at a time**: To avoid overwhelming you.
+- **Multiple choice preferred**: To make answering easier.
+- **YAGNI ruthlessly**: I will challenge any feature that doesn't seem necessary.
+- **Explore alternatives**: I will always propose and evaluate several approaches.
+- **Incremental validation**: We'll confirm each part of the design together.
+- **Be flexible**: I am ready to go back and clarify anything that isn't right.
