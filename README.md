@@ -78,7 +78,7 @@ This configuration enables a structured, expert-guided development lifecycle usi
 
 The central idea of Expert Mode is a **"Skill-as-Core"** architecture.
 
--   **Skills (`skill/`)**: The heart of the project. They contain expert workflows that enhance any agent's ability to perform complex tasks.
+-   **Skills (`skills/`)**: The heart of the project. They contain expert workflows that enhance any agent's ability to perform complex tasks.
 -   **Commands (`commands/`)**: A user-facing "control panel" that provides convenient shortcuts to directly invoke specific skills.
 -   **The Agent**: The agent is empowered by this ecosystem. Whether responding to a general prompt or a specific command, it can use its `skill` tool to access these expert workflows at any time.
 
@@ -90,7 +90,7 @@ This configuration is composed of several key components that work together.
 - **`code-reviewer`**: A subagent designed for detailed code reviews. Invoke with `@code-reviewer`.
 
 ### Skills
-A collection of expert workflows in the `skill/` directory. Key skills include:
+A collection of expert workflows in the `skills/` directory. Key skills include:
 - **`brainstorming`**: A structured process for exploring ideas and refining them into concrete designs.
 - **`dispatching-parallel-agents`**: For tackling multiple independent tasks at once.
 - **`executing-plans`**: A systematic way to execute implementation plans with review checkpoints.
@@ -127,7 +127,7 @@ This repository's root is designed to be your OpenCode configuration directory.
 ├── commands/           # User-facing slash commands that invoke skills.
 ├── opencode.example.json # An example configuration for user-specific settings (e.g., models).
 ├── plugins/             # OpenCode plugins that extend core behavior (e.g., session hooks).
-└── skill/              # The core skills that define expert workflows.
+└── skills/              # The core skills that define expert workflows.
 ```
 
 ## How It Works: The Bootstrap Process

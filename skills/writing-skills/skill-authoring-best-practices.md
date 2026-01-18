@@ -299,7 +299,7 @@ The agent loads FORMS.md, REFERENCE.md, or EXAMPLES.md only when needed.
 For Skills with multiple domains, organize content by domain to avoid loading irrelevant context. When a user asks about sales metrics, the agent only needs to read sales-related schemas, not finance or marketing data. This keeps token usage low and context focused.
 
 ```
-bigquery-skill/
+skills/bigquery-skill/
 ├── SKILL.md (overview and navigation)
 └── reference/
     ├── finance.md (revenue, billing metrics)
@@ -1038,7 +1038,7 @@ Skills run in a code execution environment with filesystem access, bash commands
 **Example:**
 
 ```
-bigquery-skill/
+skills/bigquery-skill/
 ├── SKILL.md (overview, points to reference files)
 └── reference/
     ├── finance.md (revenue metrics)
