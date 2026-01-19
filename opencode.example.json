@@ -41,9 +41,18 @@
       "temperature": 0.3
     },
 
-    // Custom Subagent (defined in agent/code-reviewer.md)
+    // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3-pro-preview",
+      "model": "google/gemini-3-pro-preview"
+    },
+    "code-quality-reviewer": {
+      "model": "google/gemini-2.5-pro"
+    },
+    "implementer": {
+      "model": "google/gemini-2.5-pro"
+    },
+    "spec-reviewer": {
+      "model": "google/gemini-2.5-pro"
     },
 
     // Built-in Subagents
