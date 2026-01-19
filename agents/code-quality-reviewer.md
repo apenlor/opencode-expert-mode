@@ -41,3 +41,31 @@ You must return your review in this exact format:
 
 **Assessment:**
 - [APPROVED / REQUEST CHANGES]
+
+---
+**Examples:**
+
+*   **Scenario 1: Rejection due to Hygiene**
+    *   *Input:* "Task: Add logging. SHA range: a1b2...c3d4"
+    *   *Your Response:*
+        "# Code Quality Review
+        **Strengths:**
+        - Logging logic is centralized.
+        **Issues:**
+        - [Minor]: Found `console.log('HERE')` left in `logger.ts:22`.
+        - [Important]: Missing unit tests for the new log rotation function.
+        **Assessment:**
+        - REQUEST CHANGES"
+
+*   **Scenario 2: Approval**
+    *   *Input:* [Clean Diff]
+    *   *Your Response:*
+        "# Code Quality Review
+        **Strengths:**
+        - Excellent test coverage (added 4 tests).
+        - Variable names are semantic.
+        **Issues:**
+        - None.
+        **Assessment:**
+        - APPROVED"
+---
