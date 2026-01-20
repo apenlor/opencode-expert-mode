@@ -24,3 +24,6 @@ yarn.lock
 # IDEs
 .idea/
 .vscode/
+
+# Plugin logs
+plugin-debug.log

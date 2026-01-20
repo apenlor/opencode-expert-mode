@@ -5,6 +5,7 @@ This repository provides an advanced agent configuration for OpenCode, designed 
 ## Table of Contents
 - [Global Installation](#global-installation)
 - [Verify Installation](#verify-installation)
+- [Development](#development)
 - [Basic Workflow](#basic-workflow)
 - [Core Philosophy](#core-philosophy)
 - [Components](#components)
@@ -44,12 +45,30 @@ To ensure the configuration is correctly loaded:
     ```bash
     opencode
     ```
-2.  **Check for the Bootstrap Message:** At the start of the session, the agent receives a hidden system prompt from the plugin, putting it into "Expert Mode."
+2.  **Ask the agent about its mode:**
+    > What mode are you in?
+    
+    It should confirm that it is in "Expert Mode." This verifies the plugin is loading the core skill.
+
 3.  **Test a Command:** Ask the agent to plan a simple task using a command.
     ```
     /write-plan "create a hello world script in python"
     ```
-4.  **Confirm Behavior:** The agent should respond by confirming it is using the `writing-plans` skill to create the plan. This verifies that the commands, skills, and plugin are all working together correctly.
+4.  **Confirm Behavior:** The agent should respond by confirming it is using the `writing-plans` skill to create the plan. This verifies that the commands and skills are working together correctly.
+
+## Development
+
+### Debugging the Plugin
+The core plugin (`plugins/expert-mode-plugin.ts`) includes a detailed logging mechanism for development. By default, these logs are sent to the main OpenCode log files.
+
+To get a dedicated, clean log file in the project root, you can enable a special debug mode by setting an environment variable before launching OpenCode:
+
+```bash
+export EXPERT_MODE_DEBUG=1
+opencode
+```
+
+When enabled, a `plugin-debug.log` file will be created in your configuration root (`~/.config/opencode/`). This file contains detailed logs from the Expert Mode plugin only, making it much easier to trace its behavior during development.
 
 ## Basic Workflow
 
@@ -116,7 +135,7 @@ User-facing shortcuts in the `commands/` directory that invoke skills.
 - **`/execute-plan`**: Begins the `executing-plans` skill.
 
 ### Plugins (Hooks)
-A plugin in `plugins/hooks.ts` that automatically bootstraps every session into Expert Mode.
+A plugin in `plugins/expert-mode-plugin.ts` that automatically bootstraps every session into Expert Mode.
 - **`session.created`**: Injects the `using-expert-mode` skill at the start.
 - **`session.compacted`**: Injects a short reminder after context is summarized to ensure the agent's identity persists.
 
@@ -135,6 +154,6 @@ This repository's root is designed to be your OpenCode configuration directory.
 
 ## How It Works: The Bootstrap Process
 
-A plugin (`plugins/hooks.ts`) automatically bootstraps every new session into Expert Mode.
+A plugin (`plugins/expert-mode-plugin.ts`) automatically bootstraps every new session into Expert Mode.
 1.  **On `session.created`**: The plugin injects the `using-expert-mode` skill into the agent's context.
 2.  **On `session.compacted`**: If a conversation gets too long, the plugin injects a short reminder prompt.
