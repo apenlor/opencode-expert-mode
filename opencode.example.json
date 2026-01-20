@@ -1,21 +1,81 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Optimized for Google Gemini Suite
+  // Optimized for Google Antigravity Suite
   "autoupdate": true,
 
-  "plugin": ["opencode-gemini-auth@latest"],
-  "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
+  "plugin": ["opencode-antigravity-auth@latest"],
 
   // Default models
   "model": "google/gemini-2.5-pro",
-  "small_model": "google/gemini-3-flash-preview",
+  "small_model": "google/antigravity-gemini-3-flash",
 
   "provider": {
     "google": {
-      "options": {
-        // Replace with your Google Cloud Project ID
-        "projectId": "your-google-cloud-project-id"
+      "models": {
+        "antigravity-gemini-3-pro": {
+          "name": "Gemini 3 Pro (Antigravity)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "low": { "thinkingLevel": "low" },
+            "high": { "thinkingLevel": "high" }
+          }
+        },
+        "antigravity-gemini-3-flash": {
+          "name": "Gemini 3 Flash (Antigravity)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "minimal": { "thinkingLevel": "minimal" },
+            "low": { "thinkingLevel": "low" },
+            "medium": { "thinkingLevel": "medium" },
+            "high": { "thinkingLevel": "high" }
+          }
+        },
+        "antigravity-claude-sonnet-4-5": {
+          "name": "Claude Sonnet 4.5 (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "antigravity-claude-sonnet-4-5-thinking": {
+          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
+            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
+          }
+        },
+        "antigravity-claude-opus-4-5-thinking": {
+          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
+            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
+          }
+        },
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-2.5-pro": {
+          "name": "Gemini 2.5 Pro (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-3-flash-preview": {
+          "name": "Gemini 3 Flash Preview (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-3-pro-preview": {
+          "name": "Gemini 3 Pro Preview (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        }
       }
     }
   },
@@ -25,7 +85,7 @@
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "google/gemini-3-pro-preview",
+      "model": "google/antigravity-claude-opus-4-5-thinking",
       "temperature": 0.1,
       "tools": {
         "write": false,
@@ -37,30 +97,30 @@
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "google/gemini-2.5-pro",
+      "model": "google/antigravity-claude-sonnet-4-5-thinking",
       "temperature": 0.3
     },
 
     // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3-pro-preview"
+      "model": "google/antigravity-gemini-3-pro"
     },
     "code-quality-reviewer": {
-      "model": "google/gemini-2.5-pro"
+      "model": "google/antigravity-gemini-3-pro"
     },
     "implementer": {
-      "model": "google/gemini-2.5-pro"
+      "model": "google/antigravity-gemini-3-pro"
     },
     "spec-reviewer": {
-      "model": "google/gemini-2.5-pro"
+      "model": "google/antigravity-gemini-3-pro"
     },
 
     // Built-in Subagents
     "general": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/antigravity-claude-sonnet-4-5-thinking"
     },
     "explore": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/antigravity-gemini-3-pro"
     }
   },
 
