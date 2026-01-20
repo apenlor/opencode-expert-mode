@@ -91,7 +91,7 @@ This configuration enables a structured, expert-guided development lifecycle usi
     @code-reviewer Please review the flask server implementation.
     ```
 
-**Note:** While these commands provide convenient shortcuts, the skills themselves enhance *all* agents. You can still use the built-in `plan` and `build` agents for any task, and they will automatically leverage these expert skills when appropriate.
+**Note:** While these commands are convenient shortcuts, the skills are the true core of this configuration. They are designed to be used by *any* agent, enhancing its ability to reason and execute tasks effectively, regardless of how it's invoked.
 
 ## Core Philosophy
 
@@ -134,10 +134,11 @@ User-facing shortcuts in the `commands/` directory that invoke skills.
 - **`/write-plan`**: Starts the `writing-plans` skill.
 - **`/execute-plan`**: Begins the `executing-plans` skill.
 
-### Plugins (Hooks)
-A plugin in `plugins/expert-mode-plugin.ts` that automatically bootstraps every session into Expert Mode.
-- **`session.created`**: Injects the `using-expert-mode` skill at the start.
-- **`session.compacted`**: Injects a short reminder after context is summarized to ensure the agent's identity persists.
+### Plugins
+The plugin in `plugins/expert-mode-plugin.ts` is the entry point that bootstraps the agent into Expert Mode. It uses modern OpenCode hooks to ensure the agent's core identity is always present.
+
+- **`experimental.chat.system.transform`**: On every chat turn, this hook injects the `using-expert-mode` skill directly into the system prompt. This makes the agent's expert identity impossible to forget.
+- **`experimental.session.compacting`**: When a long conversation is summarized, this hook adds a flag to the summary, ensuring the "Expert Mode" state persists across context compactions.
 
 ## Directory Structure
 
@@ -151,9 +152,3 @@ This repository's root is designed to be your OpenCode configuration directory.
 ├── plugins/             # OpenCode plugins that extend core behavior (e.g., session hooks).
 └── skills/              # The core skills that define expert workflows.
 ```
-
-## How It Works: The Bootstrap Process
-
-A plugin (`plugins/expert-mode-plugin.ts`) automatically bootstraps every new session into Expert Mode.
-1.  **On `session.created`**: The plugin injects the `using-expert-mode` skill into the agent's context.
-2.  **On `session.compacted`**: If a conversation gets too long, the plugin injects a short reminder prompt.
