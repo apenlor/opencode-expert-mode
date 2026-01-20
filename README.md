@@ -9,8 +9,11 @@ This repository provides an advanced agent configuration for OpenCode, designed 
 - [Basic Workflow](#basic-workflow)
 - [Core Philosophy](#core-philosophy)
 - [Components](#components)
+  - [Agents](#agents)
+  - [Skills](#skills)
+  - [Commands](#commands)
+  - [Plugins](#plugins)
 - [Directory Structure](#directory-structure)
-- [How It Works: The Bootstrap Process](#how-it-works-the-bootstrap-process)
 
 ## Global Installation
 
