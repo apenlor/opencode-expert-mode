@@ -1,3 +1,7 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/228a9a530e5f4f7fafd9cad5e66d2413)](https://app.codacy.com/gh/apenlor/opencode-expert-mode/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Latest Tag](https://img.shields.io/github/v/tag/apenlor/opencode-expert-mode)](https://github.com/apenlor/opencode-expert-mode/releases/latest)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 # OpenCode Expert Mode
 
 This repository provides an advanced agent configuration for OpenCode, designed to create a powerful and reliable software engineering assistant. It is a native OpenCode adaptation of the original [Superpowers for Claude](https://github.com/obra/superpowers) project by @obra.
