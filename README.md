@@ -47,7 +47,7 @@ To ensure the configuration is correctly loaded:
     ```
 2.  **Ask the agent about its mode:**
     > What mode are you in?
-    
+
     It should confirm that it is in "Expert Mode." This verifies the plugin is loading the core skill.
 
 3.  **Test a Command:** Ask the agent to plan a simple task using a command.
@@ -68,7 +68,7 @@ export EXPERT_MODE_DEBUG=1
 opencode
 ```
 
-When enabled, a `plugin-debug.log` file will be created in your configuration root (`~/.config/opencode/`). This file contains detailed logs from the Expert Mode plugin only, making it much easier to trace its behavior during development.
+When enabled, a `plugin-debug.log` file will be created in the root folder where you're executing opencode. This file contains detailed logs from the Expert Mode plugin only, making it much easier to trace its behavior during development.
 
 ## Basic Workflow
 
