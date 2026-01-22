@@ -36,10 +36,10 @@ git clone git@github.com:apenlor/opencode-expert-mode.git ~/.config/opencode
 ```
 
 ### 3. Set Up Your Local Configuration
-This repository provides example configuration files. Copy them to create your own local, untracked configuration.
+This repository provides different example configuration files. Copy one of them to create your own local, untracked configuration.
 ```bash
 cd ~/.config/opencode
-cp opencode.example.json opencode.json
+cp opencode.geminicli.example.json opencode.json
 cp AGENTS.example.md AGENTS.md
 ```
 You can now safely customize `opencode.json` and `AGENTS.md` without creating conflicts with future updates from this repository.
