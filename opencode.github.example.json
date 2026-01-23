@@ -1,0 +1,62 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Optimized for GitHub Copilot Subscription
+  "autoupdate": true,
+
+  "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
+
+  // Default models (GitHub Copilot Provider)
+  "model": "github-copilot/claude-sonnet-4.5",
+  "small_model": "github-copilot/claude-haiku-4.5",
+
+  "agent": {
+    // Built-in Primary Agents
+    "plan": {
+      "mode": "primary",
+      "description": "System architect and planner",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "temperature": 0.1,
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "execute-plan": false
+      }
+    },
+    "build": {
+      "mode": "primary",
+      "description": "Senior engineer implementing the plan",
+      "model": "github-copilot/claude-haiku-4.5",
+      "temperature": 0.3
+    },
+
+    // Custom Subagents
+    "code-reviewer": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "code-quality-reviewer": {
+      "model": "github-copilot/claude-haiku-4.5"
+    },
+    "implementer": {
+      "model": "github-copilot/claude-haiku-4.5"
+    },
+    "spec-reviewer": {
+      "model": "github-copilot/claude-haiku-4.5"
+    },
+
+    // Built-in Subagents
+    "general": {
+      "model": "github-copilot/claude-haiku-4.5"
+    },
+    "explore": {
+      "model": "github-copilot/claude-haiku-4.5"
+    }
+  },
+
+  "tui": {
+    "scroll_acceleration": {
+      "enabled": true
+    }
+  }
+}
