@@ -85,11 +85,11 @@ This configuration enables a structured, expert-guided development lifecycle usi
     ```
     /brainstorm "a web server that returns the current time"
     ```
-2.  **Plan (`/write-plan`):** Generate a detailed, step-by-step implementation plan.
+2.  **Plan (`/write-plan`):** Generate a detailed, step-by-step implementation plan in the chat.
     ```
     /write-plan "a simple python flask server with one endpoint /time"
     ```
-3.  **Execute (`/execute-plan`):** Instruct the agent to begin implementing the generated plan.
+3.  **Execute (`/execute-plan`):** Instruct the agent to begin implementing the plan from the chat context.
     ```
     /execute-plan
     ```
@@ -120,7 +120,7 @@ This configuration is composed of several key components that work together.
 
 ### Skills
 A collection of expert workflows in the `skills/` directory. Key skills include:
-- **`brainstorming`**: A structured process for exploring ideas and refining them into concrete designs.
+- **`brainstorming`**: A structured process for exploring ideas and refining them into concrete designs (presented in-chat).
 - **`dispatching-parallel-agents`**: For tackling multiple independent tasks at once.
 - **`executing-plans`**: A systematic way to execute implementation plans with review checkpoints.
 - **`finishing-a-development-branch`**: For guiding the completion and integration of development work.
@@ -132,7 +132,7 @@ A collection of expert workflows in the `skills/` directory. Key skills include:
 - **`using-git-worktrees`**: For creating isolated git worktrees for feature work.
 - **`using-expert-mode`**: Establishes how to find and use skills (this is the core skill loaded on session start).
 - **`verification-before-completion`**: For running verification checks before claiming work is complete.
-- **`writing-plans`**: A TDD-centric approach to creating detailed, bite-sized implementation plans.
+- **`writing-plans`**: A TDD-centric approach to creating detailed, bite-sized implementation plans (presented in-chat).
 - **`writing-skills`**: For creating, editing, and verifying new skills.
 
 ### Commands
