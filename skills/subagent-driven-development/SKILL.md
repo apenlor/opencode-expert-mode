@@ -31,7 +31,7 @@ If you prefer a parallel session, use the `executing-plans` skill instead.
 
 ## The Process
 
-1.  **Setup**: Read the plan, extract all tasks, and create a `todowrite` list.
+1.  **Setup**: Read the plan from chat context, extract all tasks, and create a `todowrite` list.
 2.  **Per Task Loop**:
     a. **Implement**: Invoke `@implementer` with the task description and context. Answer any questions it has. The implementer will write code, test, commit, and self-review.
     b. **Spec Review**: Invoke `@spec-reviewer` to ensure the implementation matches the spec. If not, the implementer fixes the gaps and you re-run this review.
@@ -58,7 +58,7 @@ To dispatch a subagent, you will use the `@<agent-name>` syntax. The general wor
 ```
 You: I'm using Subagent-Driven Development to execute this plan.
 
-[Read plan file once, extract tasks, create todowrite]
+[Read plan from chat context, extract tasks, create todowrite]
 
 ---
 **Task 1: Hook installation script**
@@ -103,7 +103,7 @@ Code reviewer: ✅ Approved.
 - Skip spec or quality reviews.
 - Proceed with unfixed issues.
 - Dispatch multiple implementation subagents in parallel.
-- Make a subagent read the plan file (provide full text instead).
+- Make a subagent read the plan from context (provide full text instead).
 - Start code quality review before spec compliance is ✅.
 
 **If a reviewer finds issues:** The implementer fixes them, and you **must** re-run the review until it passes.

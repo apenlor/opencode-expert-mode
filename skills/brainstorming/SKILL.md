@@ -35,9 +35,7 @@ You MUST use this skill before starting any creative or significant work, such a
 ## After the Design
 
 **Documentation:**
-- First, I will confirm the project's preferred location for design documents. If one is found, I will use it. Otherwise, I will write the validated design to a new file at `docs/plans/YYYY-MM-DD-<topic>-design.md`.
-- The document should be written clearly and concisely, so other developers can easily understand the plan.
-- Finally, I will commit the design document to git.
+- Present the final validated design in the chat.
 
 **Implementation (if continuing):**
 - I will ask: "Ready to set up for implementation?"
