@@ -36,7 +36,7 @@
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "google/gemini-3-pro-preview",
+      "model": "google/gemini-3-flash-preview",
       "temperature": 0.3
     },
 
@@ -45,13 +45,13 @@
       "model": "google/gemini-3-pro-preview"
     },
     "code-quality-reviewer": {
-      "model": "google/gemini-3-pro-preview"
+      "model": "google/gemini-3-flash-preview"
     },
     "implementer": {
-      "model": "google/gemini-3-pro-preview"
+      "model": "google/gemini-3-flash-preview"
     },
     "spec-reviewer": {
-      "model": "google/gemini-3-pro-preview"
+      "model": "google/gemini-3-flash-preview"
     },
 
     // Built-in Subagents
