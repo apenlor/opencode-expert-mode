@@ -33,7 +33,7 @@ If you prefer a parallel session, use the `executing-plans` skill instead.
 
 1.  **Setup**: Read the plan from chat context, extract all tasks, and create a `todowrite` list.
 2.  **Per Task Loop**:
-    a. **Implement**: Invoke `@implementer` with the task description and context. Answer any questions it has. The implementer will write code, test, commit, and self-review.
+    a. **Implement**: Invoke `@implementer` with the task description and context. Answer any questions it has. The implementer will write code, test, suggest a commit, and self-review.
     b. **Spec Review**: Invoke `@spec-reviewer` to ensure the implementation matches the spec. If not, the implementer fixes the gaps and you re-run this review.
     c. **Quality Review**: Once spec-compliant, invoke `@code-quality-reviewer`. If issues are found, the implementer fixes them and you re-run this review.
     d. **Complete**: Once both reviews pass, mark the task complete.
@@ -69,7 +69,7 @@ You:
 [Construct and provide the full prompt for the implementer]
 
 ---
-Implementer: [Asks clarifying questions, then implements, tests, and commits]
+Implementer: [Asks clarifying questions, then implements, tests, and suggests a commit]
 ---
 
 You:
