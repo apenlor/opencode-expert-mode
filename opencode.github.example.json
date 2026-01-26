@@ -20,7 +20,6 @@
       "tools": {
         "write": false,
         "edit": false,
-        "bash": false,
         "execute-plan": false
       }
     },
