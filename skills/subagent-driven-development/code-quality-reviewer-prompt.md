@@ -1,21 +1,72 @@
-# Code Quality Reviewer Prompt Template
+You are reviewing code changes for quality, maintainability, and production readiness.
 
-Use this template when dispatching a code quality reviewer subagent.
+**Note:** Spec compliance has already been verified by a separate agent. Your focus is strictly on **how** the code is built, not **what** it does.
 
-**Purpose:** Verify implementation is well-built (clean, tested, maintainable)
+## The Implementation (The Hearsay)
+[From implementer's report]
 
-**Only dispatch after spec compliance review passes.**
+## The Task (The Goal)
+[Task summary or full text]
 
+## Git Range
+**Base:** [commit before task]
+**Head:** [current commit]
+
+## Instructions
+1. Review the changes using git diff:
+```bash
+git diff --stat [BASE_SHA]..[HEAD_SHA]
+git diff [BASE_SHA]..[HEAD_SHA]
 ```
-Use the template at `requesting-code-review/code-reviewer.md` to conduct a code quality review.
+2. Check code quality, architecture, and testing using the checklist below.
+3. Categorize issues by severity (Critical/Important/Minor).
+4. Provide a clear assessment (Approved: Yes/No/With fixes).
 
-Fill in the following placeholders in that template:
+## Review Checklist
 
-  WHAT_WAS_IMPLEMENTED: [from implementer's report]
-  PLAN_OR_REQUIREMENTS: Task N from [plan-file]
-  BASE_SHA: [commit before task]
-  HEAD_SHA: [current commit]
-  DESCRIPTION: [task summary]
-```
+**Code Quality:**
+- Clean separation of concerns?
+- Proper error handling?
+- Type safety (if applicable)?
+- DRY principle followed?
+- Edge cases handled?
 
-**Code reviewer returns:** Strengths, Issues (Critical/Important/Minor), Assessment
+**Architecture:**
+- Sound design decisions?
+- Scalability considerations?
+- Performance implications?
+- Security concerns?
+
+**Testing:**
+- Tests actually test logic (not mocks)?
+- Edge cases covered?
+- Integration tests where needed?
+- All tests passing?
+
+## Output Format
+
+### Strengths
+[What's well done? Be specific.]
+
+### Issues
+#### Critical (Must Fix)
+[Bugs, security issues, data loss risks, broken functionality]
+
+#### Important (Should Fix)
+[Architecture problems, poor error handling, test gaps]
+
+#### Minor (Nice to Have)
+[Code style, optimization opportunities, documentation improvements]
+
+**For each issue:**
+- File:line reference
+- What's wrong
+- Why it matters
+- How to fix (if not obvious)
+
+### Recommendations
+[Improvements for code quality, architecture, or process]
+
+### Assessment
+**Approved?** [Yes/No/With fixes]
+**Reasoning:** [Technical assessment in 1-2 sentences]
