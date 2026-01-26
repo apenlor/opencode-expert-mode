@@ -8,9 +8,8 @@
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
   // Default models
-  "model": "google/gemini-2.5-pro",
-  // "small_model": "google/gemini-3-flash-preview",
-  "small_model": "google/gemini-2.5-flash",
+  "model": "google/gemini-3-pro-preview",
+  "small_model": "google/gemini-3-flash-preview",
 
   "provider": {
     "google": {
@@ -26,8 +25,7 @@
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      // "model": "google/gemini-3-pro-preview",
-      "model": "google/gemini-2.5-pro",
+      "model": "google/gemini-3-pro-preview",
       "temperature": 0.1,
       "tools": {
         "write": false,
@@ -38,34 +36,30 @@
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      // "model": "google/gemini-3-flash-preview"
-      "model": "google/gemini-2.5-pro",
+      "model": "google/gemini-3-pro-preview",
       "temperature": 0.3
     },
 
     // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      // "model": "google/gemini-3-pro-preview"
-      "model": "google/gemini-2.5-pro"
+      "model": "google/gemini-3-pro-preview"
     },
     "code-quality-reviewer": {
-      "model": "google/gemini-2.5-pro"
+      "model": "google/gemini-3-pro-preview"
     },
     "implementer": {
-      "model": "google/gemini-2.5-pro"
+      "model": "google/gemini-3-pro-preview"
     },
     "spec-reviewer": {
-      "model": "google/gemini-2.5-pro"
+      "model": "google/gemini-3-pro-preview"
     },
 
     // Built-in Subagents
     "general": {
-      // "model": "google/gemini-3-flash-preview"
-      "model": "google/gemini-2.5-flash"
+      "model": "google/gemini-3-flash-preview"
     },
     "explore": {
-      // "model": "google/gemini-3-flash-preview"
-      "model": "google/gemini-2.5-flash"
+      "model": "google/gemini-3-flash-preview"
     }
   },
 
