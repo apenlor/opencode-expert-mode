@@ -363,10 +363,7 @@ Never fix bugs without a test.
 
 ## Testing Anti-Patterns
 
-When adding mocks or test utilities, read the reference at `skills/test-driven-development/testing-anti-patterns-prompt.md` to avoid common pitfalls:
-- Testing mock behavior instead of real behavior
-- Adding test-only methods to production classes
-- Mocking without understanding dependencies
+When adding mocks or test utilities, read the reference at `skills/test-driven-development/testing-anti-patterns-prompt.md` to avoid common pitfalls. **Reference ONLY if stuck or unsure. Do not read by default.**
 
 ## Final Rule
 

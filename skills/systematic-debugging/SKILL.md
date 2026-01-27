@@ -279,14 +279,215 @@ If systematic investigation reveals issue is truly environmental, timing-depende
 
 ## Supporting Techniques
 
-These techniques are part of systematic debugging. Read the corresponding prompt file to use them:
+These techniques are part of systematic debugging. Use the embedded prompt templates below to apply them:
 
-- **Root Cause Tracing:** Read `skills/systematic-debugging/root-cause-tracing-prompt.md`
-  - Trace bugs backward through call stack to find original trigger
-- **Defense in Depth:** Read `skills/systematic-debugging/defense-in-depth-prompt.md`
-  - Add validation at multiple layers after finding root cause
-- **Condition-Based Waiting:** Read `skills/systematic-debugging/condition-based-waiting-prompt.md`
-  - Replace arbitrary timeouts with condition polling
+### Root Cause Tracing
+**Core principle:** Trace backward through the call chain until you find the original trigger, then fix at the source.
+
+```markdown
+# Root Cause Tracing
+
+## Overview
+
+Bugs often manifest deep in the call stack (git init in wrong directory, file created in wrong location, database opened with wrong path). Your instinct is to fix where the error appears, but that's treating a symptom.
+
+## The Tracing Process
+
+### 1. Observe the Symptom
+```
+Error: git init failed in /Users/jesse/project/packages/core
+```
+
+### 2. Find Immediate Cause
+**What code directly causes this?**
+```typescript
+await execFileAsync('git', ['init'], { cwd: projectDir });
+```
+
+### 3. Ask: What Called This?
+```typescript
+WorktreeManager.createSessionWorktree(projectDir, sessionId)
+  → called by Session.initializeWorkspace()
+  → called by Session.initialize()
+  → called by test at Project.create()
+```
+
+### 4. Keep Tracing Up
+**What value was passed?**
+- `projectDir = ''` (empty string!)
+- Empty string as `cwd` resolves to `process.cwd()`
+- That's the source code directory!
+
+### 5. Find Original Trigger
+**Where did empty string come from?**
+```typescript
+const context = setupCoreTest(); // Returns { tempDir: '' }
+Project.create('name', context.tempDir); // Accessed before beforeEach!
+```
+
+## Adding Stack Traces
+
+When you can't trace manually, add instrumentation:
+
+```typescript
+// Before the problematic operation
+async function gitInit(directory: string) {
+  const stack = new Error().stack;
+  console.error('DEBUG git init:', {
+    directory,
+    cwd: process.cwd(),
+    nodeEnv: process.env.NODE_ENV,
+    stack,
+  });
+
+  await execFileAsync('git', ['init'], { cwd: directory });
+}
+```
+
+**Critical:** Use `console.error()` in tests (not logger - may not show)
+
+**Run and capture:**
+```bash
+npm test 2>&1 | grep 'DEBUG git init'
+```
+
+**Analyze stack traces:**
+- Look for test file names
+- Find the line number triggering the call
+- Identify the pattern (same test? same parameter?)
+
+**Finding Which Test Causes Pollution:**
+If something appears during tests but you don't know which test is responsible, use the bisection script: `skills/systematic-debugging/find-polluter.sh`. It runs tests one-by-one until it finds the first one that creates the unwanted file or state.
+```
+
+### Defense in Depth
+**Core principle:** Validate at EVERY layer data passes through. Make the bug structurally impossible.
+
+```markdown
+# Defense-in-Depth Validation
+
+## The Four Layers
+
+### Layer 1: Entry Point Validation
+**Purpose:** Reject obviously invalid input at API boundary
+
+```typescript
+function createProject(name: string, workingDirectory: string) {
+  if (!workingDirectory || workingDirectory.trim() === '') {
+    throw new Error('workingDirectory cannot be empty');
+  }
+  if (!existsSync(workingDirectory)) {
+    throw new Error(`workingDirectory does not exist: ${workingDirectory}`);
+  }
+  // ... proceed
+}
+```
+
+### Layer 2: Business Logic Validation
+**Purpose:** Ensure data makes sense for this operation
+
+```typescript
+function initializeWorkspace(projectDir: string, sessionId: string) {
+  if (!projectDir) {
+    throw new Error('projectDir required for workspace initialization');
+  }
+  // ... proceed
+}
+```
+
+### Layer 3: Environment Guards
+**Purpose:** Prevent dangerous operations in specific contexts
+
+```typescript
+async function gitInit(directory: string) {
+  // In tests, refuse git init outside temp directories
+  if (process.env.NODE_ENV === 'test') {
+    const normalized = normalize(resolve(directory));
+    const tmpDir = normalize(resolve(tmpdir()));
+
+    if (!normalized.startsWith(tmpDir)) {
+      throw new Error(
+        `Refusing git init outside temp dir during tests: ${directory}`
+      );
+    }
+  }
+  // ... proceed
+}
+```
+
+### Layer 4: Debug Instrumentation
+**Purpose:** Capture context for forensics
+
+```typescript
+async function gitInit(directory: string) {
+  const stack = new Error().stack;
+  logger.debug('About to git init', {
+    directory,
+    cwd: process.cwd(),
+    stack,
+  });
+  // ... proceed
+}
+```
+```
+
+### Condition-Based Waiting
+**Core principle:** Wait for the actual condition you care about, not a guess about how long it takes.
+
+```markdown
+# Condition-Based Waiting
+
+## Core Pattern
+
+```typescript
+// ❌ BEFORE: Guessing at timing
+await new Promise(r => setTimeout(r, 50));
+const result = getResult();
+expect(result).toBeDefined();
+
+// ✅ AFTER: Waiting for condition
+await waitFor(() => getResult() !== undefined);
+const result = getResult();
+expect(result).toBeDefined();
+```
+
+## Quick Patterns
+
+| Scenario | Pattern |
+|----------|---------|
+| Wait for event | `waitFor(() => events.find(e => e.type === 'DONE'))` |
+| Wait for state | `waitFor(() => machine.state === 'ready')` |
+| Wait for count | `waitFor(() => items.length >= 5)` |
+| Wait for file | `waitFor(() => fs.existsSync(path))` |
+| Complex condition | `waitFor(() => obj.ready && obj.value > 10)` |
+
+## Implementation
+
+Generic polling function:
+```typescript
+async function waitFor<T>(
+  condition: () => T | undefined | null | false,
+  description: string,
+  timeoutMs = 5000
+): Promise<T> {
+  const startTime = Date.now();
+
+  while (true) {
+    const result = condition();
+    if (result) return result;
+
+    if (Date.now() - startTime > timeoutMs) {
+      throw new Error(`Timeout waiting for ${description} after ${timeoutMs}ms`);
+    }
+
+    await new Promise(r => setTimeout(r, 10)); // Poll every 10ms
+  }
+}
+
+**Complete Implementation:**
+For a production-ready implementation of `waitForEvent`, `waitForEventCount`, and `waitForEventMatch` (useful for complex async systems), see: `skills/systematic-debugging/condition-based-waiting-example.ts`.
+```
+```
 
 **Related skills:**
 - **test-driven-development** - For creating failing test case (Phase 4, Step 1)

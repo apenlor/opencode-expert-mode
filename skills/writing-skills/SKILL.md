@@ -315,7 +315,7 @@ digraph when_flowchart {
 - Linear instructions → Numbered lists
 - Labels without semantic meaning (step1, helper2)
 
-See `skills/writing-skills/graphviz-conventions.dot` for graphviz style rules.
+See `skills/writing-skills/graphviz-conventions.dot` for graphviz style rules. **Reference ONLY if actively generating a diagram.**
 
 **Visualizing for your human partner:** Use `skills/writing-skills/render-graphs.js` in this directory to render a skill's flowcharts to SVG:
 ```bash
