@@ -10,10 +10,10 @@ metadata:
 
 # Brainstorming Ideas Into Designs
 
-## What I do
+## Overview
 I help turn your ideas into fully formed designs and specifications through a natural, collaborative dialogue. I start by understanding the project context, ask clarifying questions, explore different approaches, and then present a detailed design for your validation.
 
-## When to use me
+## When to Use
 You MUST use this skill before starting any creative or significant work, such as creating new features, building components, adding functionality, or modifying existing behavior. It is essential for exploring user intent, defining requirements, and creating a solid design before implementation begins.
 
 ## The Process

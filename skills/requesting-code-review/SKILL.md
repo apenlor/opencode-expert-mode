@@ -10,7 +10,8 @@ metadata:
 
 # Requesting Code Review
 
-Dispatch code-reviewer subagent to catch issues before they cascade.
+## Overview
+Dispatch code-reviewer subagent to catch issues before they cascade. This skill ensures that all changes are verified for production readiness and architectural soundess.
 
 **Core principle:** Review early, review often.
 

@@ -10,7 +10,8 @@ metadata:
 
 # Subagent-Driven Development
 
-Execute plan by dispatching fresh subagent per task, with two-stage review after each: spec compliance review first, then code quality review.
+## Overview
+Execute plan by dispatching fresh subagent per task, with two-stage review after each: spec compliance review first, then code quality review. This ensures high quality and fast iteration by isolating tasks and enforcing rigorous standards.
 
 **Core principle:** Fresh subagent per task + two-stage review (spec then quality) = high quality, fast iteration
 

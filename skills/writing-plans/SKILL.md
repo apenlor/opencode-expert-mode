@@ -8,8 +8,10 @@ license: MIT
 # Writing Plans
 
 ## Overview
-
 Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Suggest frequent commits.
+
+## When to Use
+Use this skill when you have a specification or requirements for a multi-step task, before you start writing any implementation code. It is essential for ensuring a structured and verifiable development process.
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
 

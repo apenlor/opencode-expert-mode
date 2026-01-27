@@ -5,6 +5,14 @@ compatibility: opencode
 license: MIT
 ---
 
+# Using Expert Mode
+
+## Overview
+This skill establishes the core protocol for finding and using expert workflows. It ensures that the agent always operates with the highest level of discipline and consistency.
+
+## When to Use
+**Invoke this skill at the start of every session.** It is mandatory and non-negotiable.
+
 <EXTREMELY-IMPORTANT>
 If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
 
