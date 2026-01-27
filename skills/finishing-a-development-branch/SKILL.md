@@ -11,12 +11,14 @@ metadata:
 # Finishing a Development Branch
 
 ## Overview
-
-Guide completion of development work by presenting clear options and handling chosen workflow.
+Guide completion of development work by presenting clear options and handling chosen workflow. This ensures that work is properly verified and integrated or cleaned up.
 
 **Core principle:** Verify tests → Present options → Present commands → Clean up.
 
 **Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
+
+## When to Use
+Use this skill when you have completed the implementation of a feature or bugfix and are ready to merge, create a pull request, or discard the work.
 
 ## The Process
 

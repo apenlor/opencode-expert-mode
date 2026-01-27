@@ -11,10 +11,14 @@ metadata:
 # Code Review Reception
 
 ## Overview
-
-Code review requires technical evaluation, not emotional performance.
+Code review requires technical evaluation, not emotional performance. This skill ensures that feedback is processed with technical rigor and that changes are verified before implementation.
 
 **Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
+
+**Announce at start:** "I'm using the receiving-code-review skill to process this feedback."
+
+## When to Use
+Use this skill when you receive feedback from a code review (either from your human partner or an external reviewer). It is essential for maintaining high standards and avoiding "blind" implementation of suggestions.
 
 ## The Response Pattern
 

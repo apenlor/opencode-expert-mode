@@ -8,12 +8,14 @@ license: MIT
 # Using Git Worktrees
 
 ## Overview
-
-Git worktrees create isolated workspaces sharing the same repository, allowing work on multiple branches simultaneously without switching.
+Git worktrees create isolated workspaces sharing the same repository, allowing work on multiple branches simultaneously without switching. This prevents context switching overhead and dependency rebuilds.
 
 **Core principle:** Systematic directory selection + safety verification = reliable isolation.
 
 **Announce at start:** "I'm using the using-git-worktrees skill to set up an isolated workspace."
+
+## When to Use
+Use this skill when starting new feature work that needs isolation from your current workspace, or before executing an implementation plan that requires a clean baseline.
 
 ## Directory Selection Process
 

@@ -64,4 +64,6 @@ This applies to NEW skills and EDITS. If you skip RED, delete and start over.
 ## Supporting Tools
 - **Visualizing**: Use `skills/writing-skills/graphviz-conventions.dot` for style rules.
 - **Rendering**: Use `skills/writing-skills/render-graphs.js` to render flowcharts to SVG.
+- **Testing**: See `skills/writing-skills/testing-skills-with-subagents-prompt.md` for detailed pressure scenario methodology.
+- **Persuasion**: See `skills/writing-skills/persuasion-principles-prompt.md` for the psychology of compliance.
 - **Best Practices**: See `skills/writing-skills/skill-authoring-best-practices-prompt.md` for deep-dive patterns.
