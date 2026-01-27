@@ -235,6 +235,5 @@ You: [Fix progress indicators]
 **If reviewer wrong:**
 - Push back with technical reasoning
 - Show code/tests that prove it works
-- Request clarification
+    - Request clarification
 
-See template at: requesting-code-review/code-reviewer.md

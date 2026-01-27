@@ -145,6 +145,7 @@ Return: Summary of what you found and what you fixed.
 **Shared state:** Agents would interfere (editing same files, using same resources)
 
 ## Real Example from Session
+*(Note: The file paths and scenarios below are illustrative examples from an external project and do not exist in this repository)*
 
 **Scenario:** 6 test failures across 3 files after major refactoring
 
