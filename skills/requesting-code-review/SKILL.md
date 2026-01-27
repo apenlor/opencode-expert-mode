@@ -17,7 +17,7 @@ Dispatch code-reviewer subagent to catch issues before they cascade.
 ## When to Request Review
 
 **Mandatory:**
-- After each task in subagent-driven development
+- After each task in subagent-driven development (Exception: Trivial changes like typos, documentation, or simple config updates)
 - After completing major feature
 - Before merge to main
 

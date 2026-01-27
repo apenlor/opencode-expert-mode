@@ -97,11 +97,13 @@ Suggest: `git add tests/path/test.py src/path/file.py && git commit -m "feat: ad
 
 After presenting the plan, offer execution choice:
 
-**"Plan complete. Two execution options:**
+**"Plan complete. Three execution options:**
 
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
+**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration. (Recommended for complex, multi-step plans)
 
 **2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints (you will need to provide the plan to the new session)
+
+**3. Direct Execution (this session)** - I implement the plan directly in this session. (Recommended for simple, linear, or low-risk plans)
 
 **Which approach?"**
 
@@ -113,3 +115,8 @@ After presenting the plan, offer execution choice:
 **If Parallel Session chosen:**
 - Guide them to open new session in worktree
 - The new session should use the `executing-plans` skill.
+
+**If Direct Execution chosen:**
+- Implement the tasks directly.
+- Use `todowrite` to track progress.
+- Request review only if needed or at the end.

@@ -20,6 +20,7 @@ Use this skill if you answer "yes" to all of the following:
 - Do you have a written implementation plan?
 - Are the tasks in the plan mostly independent?
 - Do you want to execute the plan in the current session?
+- **Is the complexity high enough to warrant isolation?** (For simple/linear tasks, execute directly instead).
 
 If you prefer a parallel session, use the `executing-plans` skill instead.
 
@@ -38,7 +39,7 @@ If you prefer a parallel session, use the `executing-plans` skill instead.
     c. **Quality Review**: Once spec-compliant, invoke `@code-quality-reviewer`. If issues are found, the implementer fixes them and you re-run this review.
     d. **Complete**: Once both reviews pass, mark the task complete.
 3.  **Loop**: Repeat step 2 until all tasks are done.
-4.  **Finalize**: Invoke a final `@code_reviewer` for a holistic review, then use `finishing-a-development-branch` to complete the work.
+4.  **Finalize**: Invoke a final `@code_reviewer` for a holistic review (optional for simple/low-risk changes), then use `finishing-a-development-branch` to complete the work.
 
 ## How to Invoke Subagents
 
