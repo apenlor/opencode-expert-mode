@@ -32,9 +32,6 @@
 
     // Custom Subagents
     "code-reviewer": {
-      "model": "github-copilot/claude-sonnet-4.5"
-    },
-    "code-quality-reviewer": {
       "model": "github-copilot/claude-haiku-4.5"
     },
     "implementer": {

@@ -36,10 +36,10 @@ If you prefer a parallel session, use the `executing-plans` skill instead.
 2.  **Per Task Loop**:
     a. **Implement**: Invoke `@implementer` with the task description and context. Answer any questions it has. The implementer will write code, test, suggest a commit, and self-review.
     b. **Spec Review**: Invoke `@spec-reviewer` to ensure the implementation matches the spec. If not, the implementer fixes the gaps and you re-run this review.
-    c. **Quality Review**: Once spec-compliant, invoke `@code-quality-reviewer`. If issues are found, the implementer fixes them and you re-run this review.
+    c. **Quality Review**: Once spec-compliant, invoke `@code-reviewer` with the quality review prompt. If issues are found, the implementer fixes them and you re-run this review.
     d. **Complete**: Once both reviews pass, mark the task complete.
 3.  **Loop**: Repeat step 2 until all tasks are done.
-4.  **Finalize**: Invoke a final `@code_reviewer` for a holistic review (optional for simple/low-risk changes), then use `finishing-a-development-branch` to complete the work.
+4.  **Finalize**: Invoke a final `@code-reviewer` for a holistic review (optional for simple/low-risk changes), then use `finishing-a-development-branch` to complete the work.
 
 ## How to Invoke Subagents
 
@@ -79,7 +79,7 @@ You are reviewing whether an implementation matches its specification.
 Verify the claims against the code. Apply your **Distrust Protocol** immediately.
 ```
 
-### Code Quality Reviewer Prompt (`@code-quality-reviewer`)
+### Code Quality Reviewer Prompt (`@code-reviewer`)
 ```markdown
 You are reviewing code changes for quality, maintainability, and production readiness.
 
@@ -183,7 +183,7 @@ Spec reviewer: ✅ Spec compliant.
 ---
 
 You:
-@code-quality-reviewer
+@code-reviewer
 [Construct and provide the full prompt for the code quality reviewer]
 
 ---

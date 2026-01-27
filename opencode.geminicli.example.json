@@ -42,9 +42,6 @@
 
     // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3-pro-preview"
-    },
-    "code-quality-reviewer": {
       "model": "google/gemini-3-flash-preview"
     },
     "implementer": {

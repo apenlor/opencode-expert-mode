@@ -115,7 +115,6 @@ This configuration is composed of several key components that work together.
 ### Agents
 - **`code-reviewer`**: A subagent designed for in-deep code reviews. Invoke with `@code-reviewer`.
 - **`spec-reviewer`**: Reviews an implementation against a specification.
-- **`code-quality-reviewer`**: A lighter `code-reviewer` version, with focus on quality & maintainability. Used by the subagent driven development.
 - **`implementer`**: Implements a single, well-defined task from a plan.
 
 ### Skills

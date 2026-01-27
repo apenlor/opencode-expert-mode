@@ -131,9 +131,6 @@
     "code-reviewer": {
       "model": "google/antigravity-gemini-3-pro"
     },
-    "code-quality-reviewer": {
-      "model": "google/antigravity-gemini-3-pro"
-    },
     "implementer": {
       "model": "google/antigravity-gemini-3-pro"
     },
