@@ -60,6 +60,14 @@
       "model": "github-copilot/gpt-5-mini"
     }
   },
+  // Requires godoc-mcp to be installed and available on PATH
+  "mcp": {
+    "godoc": {
+      "type": "local",
+      "command": ["godoc-mcp"],
+      "enabled": true
+    }
+  },
 
   "tui": {
     "scroll_acceleration": {

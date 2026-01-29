@@ -70,6 +70,14 @@
       "model": "google/gemini-2.5-flash"
     }
   },
+  // Requires godoc-mcp to be installed and available on PATH
+  "mcp": {
+    "godoc": {
+      "type": "local",
+      "command": ["godoc-mcp"],
+      "enabled": true
+    }
+  },
 
   "tui": {
     "scroll_acceleration": {
