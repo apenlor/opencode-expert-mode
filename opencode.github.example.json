@@ -32,13 +32,15 @@
 
     // Custom Subagents
     "code-reviewer": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/claude-haiku-4.5",
+      "temperature": 0.0
     },
     "implementer": {
       "model": "github-copilot/claude-haiku-4.5"
     },
     "spec-reviewer": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/claude-haiku-4.5",
+      "temperature": 0.0
     },
 
     // Built-in Subagents
@@ -47,6 +49,15 @@
     },
     "explore": {
       "model": "github-copilot/claude-haiku-4.5"
+    },
+    "title": {
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "summary": {
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "compaction": {
+      "model": "github-copilot/gpt-5-mini"
     }
   },
 

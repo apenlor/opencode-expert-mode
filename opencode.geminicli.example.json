@@ -42,13 +42,15 @@
 
     // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "temperature": 0.0
     },
     "implementer": {
       "model": "google/gemini-3-flash-preview"
     },
     "spec-reviewer": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "temperature": 0.0
     },
 
     // Built-in Subagents
@@ -57,6 +59,15 @@
     },
     "explore": {
       "model": "google/gemini-3-flash-preview"
+    },
+    "title": {
+      "model": "google/gemini-2.5-flash"
+    },
+    "summary": {
+      "model": "google/gemini-2.5-flash"
+    },
+    "compaction": {
+      "model": "google/gemini-2.5-flash"
     }
   },
 

@@ -59,6 +59,15 @@
     },
     "explore": {
       "model": "google/gemini-3-flash-preview"
+    },
+    "title": {
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "summary": {
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "compaction": {
+      "model": "github-copilot/gpt-5-mini"
     }
   },
 

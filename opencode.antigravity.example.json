@@ -132,7 +132,7 @@
       "model": "google/antigravity-gemini-3-pro"
     },
     "implementer": {
-      "model": "google/antigravity-gemini-3-pro"
+      "model": "google/antigravity-gemini-3-flash"
     },
     "spec-reviewer": {
       "model": "google/antigravity-gemini-3-pro"
@@ -144,6 +144,15 @@
     },
     "explore": {
       "model": "google/antigravity-gemini-3-pro"
+    },
+    "title": {
+      "model": "google/antigravity-gemini-3-flash"
+    },
+    "summary": {
+      "model": "google/antigravity-gemini-3-flash"
+    },
+    "compaction": {
+      "model": "google/antigravity-gemini-3-flash"
     }
   },
 
