@@ -1,0 +1,70 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Optimized for Google Gemini Suite
+  "autoupdate": true,
+
+  "plugin": ["opencode-gemini-auth@latest"],
+  "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
+
+  // Default models
+  "model": "github-copilot/claude-sonnet-4.5",
+  "small_model": "google/gemini-3-flash-preview",
+
+  "provider": {
+    "google": {
+      "options": {
+        // Replace with your Google Cloud Project ID
+        "projectId": "your-google-cloud-project-id"
+      }
+    }
+  },
+
+  "agent": {
+    // Built-in Primary Agents
+    "plan": {
+      "mode": "primary",
+      "description": "System architect and planner",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "temperature": 0.1,
+      "tools": {
+        "write": false,
+        "edit": false,
+        "execute-plan": false
+      }
+    },
+    "build": {
+      "mode": "primary",
+      "description": "Senior engineer implementing the plan",
+      "model": "google/gemini-3-flash-preview",
+      "temperature": 0.25
+    },
+
+    // Custom Subagents (defined in agent/*.md)
+    "code-reviewer": {
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.0
+    },
+    "implementer": {
+      "model": "google/gemini-3-flash-preview"
+    },
+    "spec-reviewer": {
+      "model": "google/gemini-3-pro-preview",
+      "temperature": 0.0
+    },
+
+    // Built-in Subagents
+    "general": {
+      "model": "google/gemini-3-flash-preview"
+    },
+    "explore": {
+      "model": "google/gemini-3-flash-preview"
+    }
+  },
+
+  "tui": {
+    "scroll_acceleration": {
+      "enabled": true
+    }
+  }
+}
