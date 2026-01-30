@@ -1,6 +1,8 @@
 # OpenCode user configuration files
 opencode.json
 AGENTS.md
+bun.lock
+package.json
 
 # macOS
 .DS_Store

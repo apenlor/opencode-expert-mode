@@ -5,6 +5,14 @@ compatibility: opencode
 license: MIT
 ---
 
+# Using Expert Mode
+
+## Overview
+This skill establishes the core protocol for finding and using expert workflows. It ensures that the agent always operates with the highest level of discipline and consistency.
+
+## When to Use
+**Invoke this skill at the start of every session.** It is mandatory and non-negotiable.
+
 <EXTREMELY-IMPORTANT>
 If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
 
@@ -21,66 +29,19 @@ This is not negotiable. This is not optional. You cannot rationalize your way ou
 
 ## The Rule
 
-**Invoke relevant or requested skills BEFORE any response or action.** Even a 1% chance a skill might apply means that you should invoke the skill to check. If an invoked skill turns out to be wrong for the situation, you don't need to use it.
-
-```dot
-digraph skill_flow {
-    "User message received" [shape=doublecircle];
-    "Might any skill apply?" [shape=diamond];
-    "Invoke Skill tool" [shape=box];
-    "Announce: 'Using [skill] to [purpose]'" [shape=box];
-    "Has checklist?" [shape=diamond];
-    "Create todowrite todo per item" [shape=box];
-    "Follow skill exactly" [shape=box];
-    "Respond (including clarifications)" [shape=doublecircle];
-
-    "User message received" -> "Might any skill apply?";
-    "Might any skill apply?" -> "Invoke Skill tool" [label="yes, even 1%"];
-    "Might any skill apply?" -> "Respond (including clarifications)" [label="definitely not"];
-    "Invoke Skill tool" -> "Announce: 'Using [skill] to [purpose]'";
-    "Announce: 'Using [skill] to [purpose]'" -> "Has checklist?";
-    "Has checklist?" -> "Create todowrite todo per item" [label="yes"];
-    "Has checklist?" -> "Follow skill exactly" [label="no"];
-    "Create todowrite todo per item" -> "Follow skill exactly";
-}
-```
+**Invoke relevant skills BEFORE any response or action.** The flow is simple: **Check for skills -> Invoke Skill -> Follow Skill**.
 
 ## Red Flags
 
-These thoughts mean STOP—you're rationalizing:
-
-| Thought | Reality |
-|---------|---------|
-| "This is just a simple question" | Questions are tasks. Check for skills. |
-| "I need more context first" | Skill check comes BEFORE clarifying questions. |
-| "Let me explore the codebase first" | Skills tell you HOW to explore. Check first. |
-| "I can check git/files quickly" | Files lack conversation context. Check for skills. |
-| "Let me gather information first" | Skills tell you HOW to gather information. |
-| "This doesn't need a formal skill" | If a skill exists, use it. |
-| "I remember this skill" | Skills evolve. Read current version. |
-| "This doesn't count as a task" | Action = task. Check for skills. |
-| "The skill is overkill" | Simple things become complex. Use it. |
-| "I'll just do this one thing first" | Check BEFORE doing anything. |
-| "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
-| "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
+These thoughts mean STOP—you're rationalizing: "This is just a simple question", "I need more context first", "Let me explore the codebase first", "I can check git/files quickly", "Let me gather information first", "This doesn't need a formal skill", "I remember this skill", "This doesn't count as a task", "The skill is overkill", "I'll just do this one thing first", "This feels productive", "I know what that means".
 
 ## Skill Priority
 
-When multiple skills could apply, use this order:
-
-1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task
-2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution
-
-"Let's build X" → brainstorming first, then implementation skills.
-"Fix this bug" → debugging first, then domain-specific skills.
+Process skills first (brainstorming, debugging), then implementation skills.
 
 ## Skill Types
 
-**Rigid** (TDD, debugging): Follow exactly. Don't adapt away discipline.
-
-**Flexible** (patterns): Adapt principles to context.
-
-The skill itself tells you which.
+**Rigid** (TDD, debugging): Follow exactly. **Flexible** (patterns): Adapt to context.
 
 ## User Instructions
 

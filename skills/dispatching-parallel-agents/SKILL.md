@@ -11,12 +11,12 @@ metadata:
 # Dispatching Parallel Agents
 
 ## Overview
-
 When you have multiple unrelated failures (different test files, different subsystems, different bugs), investigating them sequentially wastes time. Each investigation is independent and can happen in parallel.
 
 **Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently by stating your intent to work on them in parallel.
 
 ## When to Use
+Use this skill when facing 2 or more independent tasks that can be worked on without shared state or sequential dependencies.
 
 ```dot
 digraph when_to_use {
@@ -145,6 +145,7 @@ Return: Summary of what you found and what you fixed.
 **Shared state:** Agents would interfere (editing same files, using same resources)
 
 ## Real Example from Session
+*(Note: The file paths and scenarios below are illustrative examples from an external project and do not exist in this repository)*
 
 **Scenario:** 6 test failures across 3 files after major refactoring
 

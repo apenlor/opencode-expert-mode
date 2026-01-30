@@ -23,6 +23,9 @@ This repository provides an advanced agent configuration for OpenCode, designed 
 
 This configuration is intended to be installed globally by cloning it directly into your OpenCode configuration directory. This makes the tools and skills available across all your projects.
 
+### Prerequisites
+- [OpenCode CLI](https://opencode.ai) installed and available in your PATH.
+
 ### 1. Back Up Your Existing Configuration
 **IMPORTANT**: This will prevent you from overwriting any custom setups you may have.
 ```bash
@@ -36,10 +39,17 @@ git clone git@github.com:apenlor/opencode-expert-mode.git ~/.config/opencode
 ```
 
 ### 3. Set Up Your Local Configuration
-This repository provides different example configuration files. Copy one of them to create your own local, untracked configuration.
+This repository provides different example configuration files for various providers and setups. Choose the one that best fits your needs and copy it to `opencode.json`.
+
 ```bash
 cd ~/.config/opencode
-cp opencode.geminicli.example.json opencode.json
+# Choose one of the following:
+cp opencode.geminicli.example.json opencode.json   # For Google Gemini (Recommended)
+# cp opencode.github.example.json opencode.json    # For GitHub Models
+# cp opencode.antigravity.example.json opencode.json # For Antigravity
+# cp opencode.custom.example.json opencode.json    # For custom provider setups
+
+# Also copy the agents configuration template
 cp AGENTS.example.md AGENTS.md
 ```
 You can now safely customize `opencode.json` and `AGENTS.md` without creating conflicts with future updates from this repository.
@@ -85,11 +95,11 @@ This configuration enables a structured, expert-guided development lifecycle usi
     ```
     /brainstorm "a web server that returns the current time"
     ```
-2.  **Plan (`/write-plan`):** Generate a detailed, step-by-step implementation plan.
+2.  **Plan (`/write-plan`):** Generate a detailed, step-by-step implementation plan in the chat.
     ```
     /write-plan "a simple python flask server with one endpoint /time"
     ```
-3.  **Execute (`/execute-plan`):** Instruct the agent to begin implementing the generated plan.
+3.  **Execute (`/execute-plan`):** Instruct the agent to begin implementing the plan from the chat context.
     ```
     /execute-plan
     ```
@@ -113,14 +123,13 @@ The central idea of Expert Mode is a **"Skill-as-Core"** architecture.
 This configuration is composed of several key components that work together.
 
 ### Agents
-- **`code-reviewer`**: A subagent designed for in-deep code reviews. Invoke with `@code-reviewer`.
+- **`code-reviewer`**: A subagent designed for in-depth code reviews. Invoke with `@code-reviewer`.
 - **`spec-reviewer`**: Reviews an implementation against a specification.
-- **`code-quality-reviewer`**: A lighter `code-reviewer` version, with focus on quality & maintainability. Used by the subagent driven development.
 - **`implementer`**: Implements a single, well-defined task from a plan.
 
 ### Skills
 A collection of expert workflows in the `skills/` directory. Key skills include:
-- **`brainstorming`**: A structured process for exploring ideas and refining them into concrete designs.
+- **`brainstorming`**: A structured process for exploring ideas and refining them into concrete designs (presented in-chat).
 - **`dispatching-parallel-agents`**: For tackling multiple independent tasks at once.
 - **`executing-plans`**: A systematic way to execute implementation plans with review checkpoints.
 - **`finishing-a-development-branch`**: For guiding the completion and integration of development work.
@@ -132,7 +141,7 @@ A collection of expert workflows in the `skills/` directory. Key skills include:
 - **`using-git-worktrees`**: For creating isolated git worktrees for feature work.
 - **`using-expert-mode`**: Establishes how to find and use skills (this is the core skill loaded on session start).
 - **`verification-before-completion`**: For running verification checks before claiming work is complete.
-- **`writing-plans`**: A TDD-centric approach to creating detailed, bite-sized implementation plans.
+- **`writing-plans`**: A TDD-centric approach to creating detailed, bite-sized implementation plans (presented in-chat).
 - **`writing-skills`**: For creating, editing, and verifying new skills.
 
 ### Commands

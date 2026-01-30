@@ -8,9 +8,8 @@
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
   // Default models
-  "model": "google/gemini-2.5-pro",
-  // "small_model": "google/gemini-3-flash-preview",
-  "small_model": "google/gemini-2.5-flash",
+  "model": "google/gemini-3-pro-preview",
+  "small_model": "google/gemini-3-flash-preview",
 
   "provider": {
     "google": {
@@ -26,47 +25,57 @@
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      // "model": "google/gemini-3-pro-preview",
-      "model": "google/gemini-2.5-pro",
+      "model": "google/gemini-3-pro-preview",
       "temperature": 0.1,
       "tools": {
         "write": false,
         "edit": false,
-        "bash": false,
         "execute-plan": false
       }
     },
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      // "model": "google/gemini-3-flash-preview"
-      "model": "google/gemini-2.5-pro",
+      "model": "google/gemini-3-flash-preview",
       "temperature": 0.3
     },
 
     // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      // "model": "google/gemini-3-pro-preview"
-      "model": "google/gemini-2.5-pro"
-    },
-    "code-quality-reviewer": {
-      "model": "google/gemini-2.5-pro"
+      "model": "google/gemini-3-flash-preview",
+      "temperature": 0.0
     },
     "implementer": {
-      "model": "google/gemini-2.5-pro"
+      "model": "google/gemini-3-flash-preview"
     },
     "spec-reviewer": {
-      "model": "google/gemini-2.5-pro"
+      "model": "google/gemini-3-flash-preview",
+      "temperature": 0.0
     },
 
     // Built-in Subagents
     "general": {
-      // "model": "google/gemini-3-flash-preview"
-      "model": "google/gemini-2.5-flash"
+      "model": "google/gemini-3-flash-preview"
     },
     "explore": {
-      // "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview"
+    },
+    "title": {
       "model": "google/gemini-2.5-flash"
+    },
+    "summary": {
+      "model": "google/gemini-2.5-flash"
+    },
+    "compaction": {
+      "model": "google/gemini-2.5-flash"
+    }
+  },
+  // Requires godoc-mcp to be installed and available on PATH
+  "mcp": {
+    "godoc": {
+      "type": "local",
+      "command": ["godoc-mcp"],
+      "enabled": true
     }
   },
 

@@ -11,12 +11,14 @@ metadata:
 # Finishing a Development Branch
 
 ## Overview
+Guide completion of development work by presenting clear options and handling chosen workflow. This ensures that work is properly verified and integrated or cleaned up.
 
-Guide completion of development work by presenting clear options and handling chosen workflow.
-
-**Core principle:** Verify tests → Present options → Execute choice → Clean up.
+**Core principle:** Verify tests → Present options → Present commands → Clean up.
 
 **Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
+
+## When to Use
+Use this skill when you have completed the implementation of a feature or bugfix and are ready to merge, create a pull request, or discard the work.
 
 ## The Process
 
@@ -71,9 +73,9 @@ question({
 
 **Note:** Before showing the options, determine the `<base-branch>` as described in Step 2 and substitute it in the option label.
 
-### Step 4: Execute Choice
+### Step 4: Present Commands
 
-Before executing the user's choice, you must resolve these placeholders:
+Before presenting the commands for the user's choice, you must resolve these placeholders:
 
 -   **`<feature-branch>`**: Get this from the current branch name (`git branch --show-current`).
 -   **`<base-branch>`**: Use the branch name you determined in Step 2.
@@ -84,6 +86,8 @@ Before executing the user's choice, you must resolve these placeholders:
 ---
 
 #### Option 1: Merge Locally
+
+Present the following commands to the user:
 
 ```bash
 # Switch to base branch
@@ -107,6 +111,8 @@ Then: Cleanup worktree (Step 5)
 ---
 
 #### Option 2: Push and Create PR
+
+Present the following commands to the user:
 
 ```bash
 # Push branch
@@ -151,7 +157,7 @@ question({
 })
 ```
 
-If the user confirms, proceed with deletion:
+If the user confirms, present the following commands:
 ```bash
 # Determine base branch to switch to
 BASE_BRANCH=$(git merge-base HEAD main 2>/dev/null || git merge-base HEAD master)
@@ -211,6 +217,7 @@ git worktree remove <worktree-path>
 ## Red Flags
 
 **Never:**
+- Never execute git commands automatically
 - Proceed with failing tests
 - Merge without verifying tests on result
 - Delete work without confirmation

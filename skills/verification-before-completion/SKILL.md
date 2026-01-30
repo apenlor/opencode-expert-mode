@@ -8,12 +8,12 @@ license: MIT
 # Verification Before Completion
 
 ## Overview
-
-Claiming work is complete without verification is dishonesty, not efficiency.
+Claiming work is complete without verification is dishonesty, not efficiency. This skill enforces a "Gate Function" that requires fresh evidence before any success claim.
 
 **Core principle:** Evidence before claims, always.
 
-**Violating the letter of this rule is violating the spirit of this rule.**
+## When to Use
+**Use this skill before making ANY claim of success or completion.** This includes committing code, creating pull requests, or moving to the next task in a plan.
 
 ## The Iron Law
 

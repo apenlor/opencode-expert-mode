@@ -10,10 +10,10 @@ metadata:
 
 # Brainstorming Ideas Into Designs
 
-## What I do
+## Overview
 I help turn your ideas into fully formed designs and specifications through a natural, collaborative dialogue. I start by understanding the project context, ask clarifying questions, explore different approaches, and then present a detailed design for your validation.
 
-## When to use me
+## When to Use
 You MUST use this skill before starting any creative or significant work, such as creating new features, building components, adding functionality, or modifying existing behavior. It is essential for exploring user intent, defining requirements, and creating a solid design before implementation begins.
 
 ## The Process
@@ -35,9 +35,7 @@ You MUST use this skill before starting any creative or significant work, such a
 ## After the Design
 
 **Documentation:**
-- First, I will confirm the project's preferred location for design documents. If one is found, I will use it. Otherwise, I will write the validated design to a new file at `docs/plans/YYYY-MM-DD-<topic>-design.md`.
-- The document should be written clearly and concisely, so other developers can easily understand the plan.
-- Finally, I will commit the design document to git.
+- Present the final validated design in the chat.
 
 **Implementation (if continuing):**
 - I will ask: "Ready to set up for implementation?"

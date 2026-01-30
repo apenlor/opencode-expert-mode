@@ -8,8 +8,10 @@ license: MIT
 # Writing Plans
 
 ## Overview
+Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Suggest frequent commits.
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
+## When to Use
+Use this skill when you have a specification or requirements for a multi-step task, before you start writing any implementation code. It is essential for ensuring a structured and verifiable development process.
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
 
@@ -17,7 +19,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** This should be run in a dedicated worktree (created by brainstorming skill).
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+**Output:** Present the full plan in the chat using a Markdown code block.
 
 ## Bite-Sized Task Granularity
 
@@ -26,7 +28,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 - "Run it to make sure it fails" - step
 - "Implement the minimal code to make the test pass" - step
 - "Run the tests and make sure they pass" - step
-- "Commit" - step
+- "Suggest Commit" - step
 
 ## Plan Document Header
 
@@ -81,12 +83,9 @@ def function(input):
 Run: `pytest tests/path/test.py::test_name -v`
 Expected: PASS
 
-**Step 5: Commit**
+**Step 5: Suggest Commit**
 
-```bash
-git add tests/path/test.py src/path/file.py
-git commit -m "feat: add specific feature"
-```
+Suggest: `git add tests/path/test.py src/path/file.py && git commit -m "feat: add specific feature"`
 ```
 
 ## Remember
@@ -94,17 +93,19 @@ git commit -m "feat: add specific feature"
 - Complete code in plan (not "add validation")
 - Exact commands with expected output
 - Reference relevant skills with @ syntax
-- DRY, YAGNI, TDD, frequent commits
+- DRY, YAGNI, TDD, suggest frequent commits
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After presenting the plan, offer execution choice:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+**"Plan complete. Three execution options:**
 
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
+**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration. (Recommended for complex, multi-step plans)
 
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
+**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints (you will need to provide the plan to the new session)
+
+**3. Direct Execution (this session)** - I implement the plan directly in this session. (Recommended for simple, linear, or low-risk plans)
 
 **Which approach?"**
 
@@ -116,3 +117,8 @@ After saving the plan, offer execution choice:
 **If Parallel Session chosen:**
 - Guide them to open new session in worktree
 - The new session should use the `executing-plans` skill.
+
+**If Direct Execution chosen:**
+- Implement the tasks directly.
+- Use `todowrite` to track progress.
+- Request review only if needed or at the end.

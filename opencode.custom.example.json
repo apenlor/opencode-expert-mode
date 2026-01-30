@@ -1,14 +1,24 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Optimized for GitHub Copilot Subscription
+  // Optimized for Google Gemini Suite
   "autoupdate": true,
 
+  "plugin": ["opencode-gemini-auth@latest"],
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
-  // Default models (GitHub Copilot Provider)
+  // Default models
   "model": "github-copilot/claude-sonnet-4.5",
-  "small_model": "github-copilot/claude-haiku-4.5",
+  "small_model": "google/gemini-3-flash-preview",
+
+  "provider": {
+    "google": {
+      "options": {
+        // Replace with your Google Cloud Project ID
+        "projectId": "your-google-cloud-project-id"
+      }
+    }
+  },
 
   "agent": {
     // Built-in Primary Agents
@@ -26,29 +36,29 @@
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "github-copilot/claude-haiku-4.5",
-      "temperature": 0.3
+      "model": "google/gemini-3-flash-preview",
+      "temperature": 0.25
     },
 
-    // Custom Subagents
+    // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      "model": "github-copilot/claude-haiku-4.5",
+      "model": "google/gemini-3-pro-preview",
       "temperature": 0.0
     },
     "implementer": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "google/gemini-3-flash-preview"
     },
     "spec-reviewer": {
-      "model": "github-copilot/claude-haiku-4.5",
+      "model": "google/gemini-3-pro-preview",
       "temperature": 0.0
     },
 
     // Built-in Subagents
     "general": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "google/gemini-3-flash-preview"
     },
     "explore": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "google/gemini-3-flash-preview"
     },
     "title": {
       "model": "github-copilot/gpt-5-mini"

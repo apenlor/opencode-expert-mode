@@ -10,17 +10,19 @@ metadata:
 # Executing Plans
 
 ## Overview
-
-Load plan, review critically, execute tasks in batches, report for review between batches.
+Load plan, review critically, execute tasks in batches, report for review between batches. This ensures that complex plans are implemented systematically with regular checkpoints.
 
 **Core principle:** Batch execution with checkpoints for architect review.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
+## When to Use
+Use this skill when you have a written implementation plan and want to execute it in a separate session or with human-in-the-loop checkpoints between batches.
+
 ## The Process
 
 ### Step 1: Load and Review Plan
-1. Read plan file
+1. Read plan from chat context (or ask user to provide it)
 2. Review critically - identify any questions or concerns about the plan
 3. If concerns: Raise them with your human partner before starting
 4. If no concerns: Create a todo list with the todowrite tool and proceed

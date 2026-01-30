@@ -51,27 +51,12 @@ Implement fresh from tests. Period.
 
 ## Red-Green-Refactor
 
-```dot
-digraph tdd_cycle {
-    rankdir=LR;
-    red [label="RED\nWrite failing test", shape=box, style=filled, fillcolor="#ffcccc"];
-    verify_red [label="Verify fails\ncorrectly", shape=diamond];
-    green [label="GREEN\nMinimal code", shape=box, style=filled, fillcolor="#ccffcc"];
-    verify_green [label="Verify passes\nAll green", shape=diamond];
-    refactor [label="REFACTOR\nClean up", shape=box, style=filled, fillcolor="#ccccff"];
-    next [label="Next", shape=ellipse];
-
-    red -> verify_red;
-    verify_red -> green [label="yes"];
-    verify_red -> red [label="wrong\nfailure"];
-    green -> verify_green;
-    verify_green -> refactor [label="yes"];
-    verify_green -> green [label="no"];
-    refactor -> verify_green [label="stay\ngreen"];
-    verify_green -> next;
-    next -> red;
-}
-```
+1. **RED**: Write a minimal failing test.
+2. **Verify RED**: Run the test and watch it fail for the expected reason.
+3. **GREEN**: Write the minimal implementation to make the test pass.
+4. **Verify GREEN**: Run the test and watch it pass.
+5. **REFACTOR**: Clean up the code while keeping the tests green.
+6. **Repeat**: Move to the next failing test.
 
 ### RED - Write Failing Test
 
@@ -363,10 +348,7 @@ Never fix bugs without a test.
 
 ## Testing Anti-Patterns
 
-When adding mocks or test utilities, read the reference at `skills/test-driven-development/testing-anti-patterns-prompt.md` to avoid common pitfalls:
-- Testing mock behavior instead of real behavior
-- Adding test-only methods to production classes
-- Mocking without understanding dependencies
+When adding mocks or test utilities, read the reference at `skills/test-driven-development/testing-anti-patterns-prompt.md` to avoid common pitfalls. **Reference ONLY if stuck or unsure. Do not read by default.**
 
 ## Final Rule
 
