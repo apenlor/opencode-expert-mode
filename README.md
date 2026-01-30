@@ -23,6 +23,9 @@ This repository provides an advanced agent configuration for OpenCode, designed 
 
 This configuration is intended to be installed globally by cloning it directly into your OpenCode configuration directory. This makes the tools and skills available across all your projects.
 
+### Prerequisites
+- [OpenCode CLI](https://opencode.ai) installed and available in your PATH.
+
 ### 1. Back Up Your Existing Configuration
 **IMPORTANT**: This will prevent you from overwriting any custom setups you may have.
 ```bash
@@ -36,10 +39,17 @@ git clone git@github.com:apenlor/opencode-expert-mode.git ~/.config/opencode
 ```
 
 ### 3. Set Up Your Local Configuration
-This repository provides different example configuration files. Copy one of them to create your own local, untracked configuration.
+This repository provides different example configuration files for various providers and setups. Choose the one that best fits your needs and copy it to `opencode.json`.
+
 ```bash
 cd ~/.config/opencode
-cp opencode.geminicli.example.json opencode.json
+# Choose one of the following:
+cp opencode.geminicli.example.json opencode.json   # For Google Gemini (Recommended)
+# cp opencode.github.example.json opencode.json    # For GitHub Models
+# cp opencode.antigravity.example.json opencode.json # For Antigravity
+# cp opencode.custom.example.json opencode.json    # For custom provider setups
+
+# Also copy the agents configuration template
 cp AGENTS.example.md AGENTS.md
 ```
 You can now safely customize `opencode.json` and `AGENTS.md` without creating conflicts with future updates from this repository.
@@ -113,7 +123,7 @@ The central idea of Expert Mode is a **"Skill-as-Core"** architecture.
 This configuration is composed of several key components that work together.
 
 ### Agents
-- **`code-reviewer`**: A subagent designed for in-deep code reviews. Invoke with `@code-reviewer`.
+- **`code-reviewer`**: A subagent designed for in-depth code reviews. Invoke with `@code-reviewer`.
 - **`spec-reviewer`**: Reviews an implementation against a specification.
 - **`implementer`**: Implements a single, well-defined task from a plan.
 
