@@ -4,7 +4,10 @@
   // Optimized for Google Gemini Suite
   "autoupdate": true,
 
-  "plugin": ["opencode-gemini-auth@latest"],
+  "plugin": [
+    "opencode-gemini-auth@latest",
+    "@mohak34/opencode-notifier@latest"
+  ],
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
   // Default models
@@ -26,7 +29,7 @@
       "mode": "primary",
       "description": "System architect and planner",
       "model": "github-copilot/claude-sonnet-4.5",
-      "temperature": 0.1,
+      "temperature": 0.25,
       "tools": {
         "write": false,
         "edit": false,
@@ -36,21 +39,21 @@
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "google/gemini-3-flash-preview",
-      "temperature": 0.25
+      "model": "google/gemini-3-flash-preview"
+      // "temperature": 0.25
     },
 
     // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3-pro-preview",
-      "temperature": 0.0
+      "model": "google/gemini-3.1-pro-preview"
+      // "temperature": 0.0
     },
     "implementer": {
       "model": "google/gemini-3-flash-preview"
     },
     "spec-reviewer": {
-      "model": "google/gemini-3-pro-preview",
-      "temperature": 0.0
+      "model": "google/gemini-3.1-pro-preview"
+      // "temperature": 0.0
     },
 
     // Built-in Subagents
@@ -67,7 +70,7 @@
       "model": "github-copilot/gpt-5-mini"
     },
     "compaction": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "google/gemini-2.5-flash"
     }
   },
   // Requires godoc-mcp to be installed and available on PATH
@@ -75,12 +78,6 @@
     "godoc": {
       "type": "local",
       "command": ["godoc-mcp"],
-      "enabled": true
-    }
-  },
-
-  "tui": {
-    "scroll_acceleration": {
       "enabled": true
     }
   }

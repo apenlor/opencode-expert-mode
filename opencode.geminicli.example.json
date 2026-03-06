@@ -4,11 +4,14 @@
   // Optimized for Google Gemini Suite
   "autoupdate": true,
 
-  "plugin": ["opencode-gemini-auth@latest"],
+  "plugin": [
+    "opencode-gemini-auth@latest",
+    "@mohak34/opencode-notifier@latest"
+  ],
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
   // Default models
-  "model": "google/gemini-3-pro-preview",
+  "model": "google/gemini-3.1-pro-preview",
   "small_model": "google/gemini-3-flash-preview",
 
   "provider": {
@@ -25,7 +28,7 @@
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "google/gemini-3-pro-preview",
+      "model": "google/gemini-3.1-pro-preview",
       "temperature": 0.1,
       "tools": {
         "write": false,
@@ -42,7 +45,7 @@
 
     // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3-flash-preview",
+      "model": "google/gemini-3.1-pro-preview",
       "temperature": 0.0
     },
     "implementer": {
@@ -75,12 +78,6 @@
     "godoc": {
       "type": "local",
       "command": ["godoc-mcp"],
-      "enabled": true
-    }
-  },
-
-  "tui": {
-    "scroll_acceleration": {
       "enabled": true
     }
   }
