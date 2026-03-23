@@ -3,11 +3,14 @@
 
   // Optimized for GitHub Copilot Subscription
   "autoupdate": true,
+  "snapshot": false,
+
+  "instructions": ["~/.config/opencode/rules/*.md"],
 
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
   // Default models (GitHub Copilot Provider)
-  "model": "github-copilot/claude-sonnet-4.5",
+  "model": "github-copilot/claude-sonnet-4.6",
   "small_model": "github-copilot/claude-haiku-4.5",
 
   "agent": {
@@ -15,7 +18,7 @@
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "github-copilot/claude-sonnet-4.5",
+      "model": "github-copilot/claude-sonnet-4.6",
       "temperature": 0.1,
       "tools": {
         "write": false,
@@ -66,12 +69,15 @@
       "type": "local",
       "command": ["godoc-mcp"],
       "enabled": true
-    }
-  },
-
-  "tui": {
-    "scroll_acceleration": {
-      "enabled": true
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true,
+      "headers": {
+        // run for set up --> npx ctx7 setup --opencode
+        "CONTEXT7_API_KEY": "your-context7-api-key"
+      }
     }
   }
 }

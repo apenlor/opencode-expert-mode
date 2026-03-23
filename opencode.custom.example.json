@@ -1,17 +1,19 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Optimized for Google Gemini Suite
   "autoupdate": true,
+  "snapshot": false,
+
+  "instructions": ["~/.config/opencode/rules/*.md"],
 
   "plugin": [
     "opencode-gemini-auth@latest",
     "@mohak34/opencode-notifier@latest"
   ],
+
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
-  // Default models
-  "model": "github-copilot/claude-sonnet-4.5",
+  "model": "google/gemini-3.1-pro-preview",
   "small_model": "google/gemini-3-flash-preview",
 
   "provider": {
@@ -22,13 +24,11 @@
       }
     }
   },
-
   "agent": {
-    // Built-in Primary Agents
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "github-copilot/claude-sonnet-4.5",
+      "model": "github-copilot/claude-sonnet-4.6",
       "temperature": 0.25,
       "tools": {
         "write": false,
@@ -40,23 +40,16 @@
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
       "model": "google/gemini-3-flash-preview"
-      // "temperature": 0.25
     },
-
-    // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
       "model": "google/gemini-3.1-pro-preview"
-      // "temperature": 0.0
     },
     "implementer": {
       "model": "google/gemini-3-flash-preview"
     },
     "spec-reviewer": {
       "model": "google/gemini-3.1-pro-preview"
-      // "temperature": 0.0
     },
-
-    // Built-in Subagents
     "general": {
       "model": "google/gemini-3-flash-preview"
     },
@@ -73,12 +66,20 @@
       "model": "google/gemini-2.5-flash"
     }
   },
-  // Requires godoc-mcp to be installed and available on PATH
   "mcp": {
     "godoc": {
       "type": "local",
       "command": ["godoc-mcp"],
       "enabled": true
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true,
+      "headers": {
+        // run for set up --> npx ctx7 setup --opencode
+        "CONTEXT7_API_KEY": "your-context7-api-key"
+      }
     }
   }
 }
