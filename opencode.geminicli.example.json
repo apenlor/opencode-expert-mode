@@ -3,6 +3,7 @@
 
   "autoupdate": true,
   "snapshot": false,
+  "compaction": { "auto": true, "prune": true },
 
   "instructions": ["~/.config/opencode/rules/*.md"],
 
@@ -13,7 +14,7 @@
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
   // Default models
-  "model": "google/gemini-3.1-pro-preview",
+  "model": "google/gemini-3.1-pro-preview-customtools",
   "small_model": "google/gemini-3-flash-preview",
 
   "provider": {
@@ -30,32 +31,26 @@
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "google/gemini-3.1-pro-preview",
-      "temperature": 0.1,
-      "tools": {
-        "write": false,
-        "edit": false,
-        "execute-plan": false
+      "model": "google/gemini-3.1-pro-preview-customtools",
+      "permission": {
+        "edit": "deny"
       }
     },
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "google/gemini-3-flash-preview",
-      "temperature": 0.3
+      "model": "google/gemini-3-flash-preview"
     },
 
     // Custom Subagents (defined in agent/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3.1-pro-preview",
-      "temperature": 0.0
+      "model": "google/gemini-3.1-pro-preview-customtools"
     },
     "implementer": {
       "model": "google/gemini-3-flash-preview"
     },
     "spec-reviewer": {
-      "model": "google/gemini-3-flash-preview",
-      "temperature": 0.0
+      "model": "google/gemini-3.1-pro-preview-customtools"
     },
 
     // Built-in Subagents
@@ -66,13 +61,13 @@
       "model": "google/gemini-3-flash-preview"
     },
     "title": {
-      "model": "google/gemini-2.5-flash"
+      "model": "google/gemini-3-flash-preview"
     },
     "summary": {
-      "model": "google/gemini-2.5-flash"
+      "model": "google/gemini-3-flash-preview"
     },
     "compaction": {
-      "model": "google/gemini-2.5-flash"
+      "model": "google/gemini-3-flash-preview"
     }
   },
   // Requires godoc-mcp to be installed and available on PATH

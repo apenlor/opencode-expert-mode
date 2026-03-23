@@ -3,6 +3,7 @@
 
   "autoupdate": true,
   "snapshot": false,
+  "compaction": { "auto": true, "prune": true },
 
   "instructions": ["~/.config/opencode/rules/*.md"],
 
@@ -13,7 +14,7 @@
 
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
-  "model": "google/gemini-3.1-pro-preview",
+  "model": "google/gemini-3.1-pro-preview-customtools",
   "small_model": "google/gemini-3-flash-preview",
 
   "provider": {
@@ -30,10 +31,8 @@
       "description": "System architect and planner",
       "model": "github-copilot/claude-sonnet-4.6",
       "temperature": 0.25,
-      "tools": {
-        "write": false,
-        "edit": false,
-        "execute-plan": false
+      "permission": {
+        "edit": "deny"
       }
     },
     "build": {
@@ -42,13 +41,13 @@
       "model": "google/gemini-3-flash-preview"
     },
     "code-reviewer": {
-      "model": "google/gemini-3.1-pro-preview"
+      "model": "google/gemini-3.1-pro-preview-customtools"
     },
     "implementer": {
       "model": "google/gemini-3-flash-preview"
     },
     "spec-reviewer": {
-      "model": "google/gemini-3.1-pro-preview"
+      "model": "google/gemini-3.1-pro-preview-customtools"
     },
     "general": {
       "model": "google/gemini-3-flash-preview"

@@ -45,7 +45,6 @@ cd ~/.config/opencode
 # Choose one of the following:
 cp opencode.geminicli.example.json opencode.json   # For Google Gemini (Recommended)
 # cp opencode.github.example.json opencode.json    # For GitHub Models
-# cp opencode.antigravity.example.json opencode.json # For Antigravity
 # cp opencode.custom.example.json opencode.json    # For custom provider setups
 
 # Also copy the agents configuration template
