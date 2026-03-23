@@ -63,7 +63,7 @@
       "model": "github-copilot/gpt-5-mini"
     },
     "compaction": {
-      "model": "google/gemini-2.5-flash"
+      "model": "github-copilot/gpt-5-mini"
     }
   },
   "mcp": {

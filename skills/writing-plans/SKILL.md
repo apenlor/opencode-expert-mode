@@ -8,12 +8,10 @@ license: MIT
 # Writing Plans
 
 ## Overview
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Suggest frequent commits.
+Write comprehensive implementation plans that give a skilled developer everything they need: which files to touch, what code to write, how to verify each step. Bite-sized tasks. DRY. YAGNI. Suggest frequent commits.
 
 ## When to Use
-Use this skill when you have a specification or requirements for a multi-step task, before you start writing any implementation code. It is essential for ensuring a structured and verifiable development process.
-
-Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
+Use before starting any multi-step implementation. Essential for ensuring a structured and verifiable development process.
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
@@ -21,16 +19,18 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 ## Bite-Sized Task Granularity
 
-**Each step is one action (2-5 minutes):**
-- "Write the failing test" - step
-- "Run it to make sure it fails" - step
-- "Implement the minimal code to make the test pass" - step
-- "Run the tests and make sure they pass" - step
-- "Suggest Commit" - step
+Each step is one action (2–5 minutes):
+- "Write the failing test" — step
+- "Run it to confirm it fails" — step
+- "Implement the minimal code to pass" — step
+- "Run tests to confirm they pass" — step
+- "Suggest commit" — step
+
+Include test steps when the project has a test suite.
 
 ## Plan Document Header
 
-**Every plan MUST start with this header:**
+Every plan MUST start with this header:
 
 ```markdown
 # [Feature Name] Implementation Plan
@@ -39,7 +39,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Goal:** [One sentence describing what this builds]
 
-**Architecture:** [2-3 sentences about approach]
+**Architecture:** [2–3 sentences about approach]
 
 **Tech Stack:** [Key technologies/libraries]
 
@@ -52,46 +52,29 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ### Task N: [Component Name]
 
 **Files:**
-- Create: `exact/path/to/file.py`
-- Modify: `exact/path/to/existing.py:123-145`
-- Test: `tests/exact/path/to/test.py`
+- Create: `exact/path/to/file.ts`
+- Modify: `exact/path/to/existing.ts:123-145`
+- Test: `tests/exact/path/to/test.ts`
 
-**Step 1: Write the failing test**
+**Step 1: [Action]**
 
-```python
-def test_specific_behavior():
-    result = function(input)
-    assert result == expected
-```
+[Code or command if needed]
 
-**Step 2: Run test to verify it fails**
+**Step 2: Verify**
 
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: FAIL with "function not defined"
+Run: `<test command>`
+Expected: [what success looks like]
 
-**Step 3: Write minimal implementation**
+**Step 3: Suggest Commit**
 
-```python
-def function(input):
-    return expected
-```
-
-**Step 4: Run test to verify it passes**
-
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: PASS
-
-**Step 5: Suggest Commit**
-
-Suggest: `git add tests/path/test.py src/path/file.py && git commit -m "feat: add specific feature"`
+Suggest: `git add <files> && git commit -m "feat: <description>"`
 ```
 
 ## Remember
 - Exact file paths always
-- Complete code in plan (not "add validation")
+- Complete code in the plan (not "add validation")
 - Exact commands with expected output
-- Reference relevant skills with @ syntax
-- DRY, YAGNI, TDD, suggest frequent commits
+- DRY, YAGNI, suggest frequent commits
 
 ## Execution Handoff
 

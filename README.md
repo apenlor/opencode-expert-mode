@@ -115,11 +115,12 @@ This configuration is composed of several key components that work together.
 A collection of expert workflows in the `skills/` directory:
 - **`brainstorming`**: A structured process for exploring ideas and refining them into concrete designs (presented in-chat).
 - **`completing-work`**: Verifies work is done and proposes a commit message before marking tasks complete.
+- **`context7-mcp`**: Fetches up-to-date library and framework documentation via the Context7 MCP tool.
 - **`executing-plans`**: A systematic way to execute implementation plans.
 - **`systematic-debugging`**: A disciplined process for identifying and resolving bugs root-cause-first.
 - **`test-driven-development`**: A guide for writing tests before implementation code.
 - **`using-expert-mode`**: Establishes how to find and use skills (this is the core skill loaded on session start).
-- **`writing-plans`**: A TDD-centric approach to creating detailed, bite-sized implementation plans (presented in-chat).
+- **`writing-plans`**: Creates detailed, bite-sized implementation plans (presented in-chat).
 
 ### Commands
 User-facing shortcuts in the `commands/` directory that invoke skills.
@@ -143,5 +144,6 @@ This repository's root is designed to be your OpenCode configuration directory.
 ├── commands/           # User-facing slash commands that invoke skills.
 ├── opencode.example.json # An example configuration for user-specific settings (e.g., models).
 ├── plugins/             # OpenCode plugins that extend core behavior (e.g., session hooks).
+├── rules/               # Always-active instruction files (e.g., Context7 nudge).
 └── skills/              # The core skills that define expert workflows.
 ```

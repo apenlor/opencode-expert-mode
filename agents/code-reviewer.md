@@ -24,7 +24,7 @@ When reviewing, cover these areas:
 
 3. **Architecture**: Verify SOLID and LEAN principles, separation of concerns, and clean integration with existing systems.
 
-4. **Test Coverage**: Assess whether tests exist, whether they were written first (TDD), and whether they actually test behavior rather than implementation.
+4. **Test Coverage**: Assess whether tests exist and whether they actually test behavior rather than implementation.
 
 **Output format:**
 - Categorize issues as: **Critical** (must fix), **Important** (should fix), **Suggestion** (nice to have)
