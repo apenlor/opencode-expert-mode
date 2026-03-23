@@ -9,7 +9,6 @@ This repository provides an advanced agent configuration for OpenCode, designed 
 ## Table of Contents
 - [Global Installation](#global-installation)
 - [Verify Installation](#verify-installation)
-- [Development](#development)
 - [Basic Workflow](#basic-workflow)
 - [Core Philosophy](#core-philosophy)
 - [Components](#components)
@@ -65,27 +64,13 @@ To ensure the configuration is correctly loaded:
 2.  **Ask the agent about its mode:**
     > What mode are you in?
 
-    It should confirm that it is in "Expert Mode." This verifies the plugin is loading the core skill.
+    It should confirm that it is in "Expert Mode." This verifies the plugin is loading correctly.
 
 3.  **Test a Command:** Ask the agent to plan a simple task using a command.
     ```
     /write-plan "create a hello world script in python"
     ```
 4.  **Confirm Behavior:** The agent should respond by confirming it is using the `writing-plans` skill to create the plan. This verifies that the commands and skills are working together correctly.
-
-## Development
-
-### Debugging the Plugin
-The core plugin (`plugins/expert-mode-plugin.ts`) includes a detailed logging mechanism for development. By default, these logs are sent to the main OpenCode log files.
-
-To get a dedicated, clean log file in the project root, you can enable a special debug mode by setting an environment variable before launching OpenCode:
-
-```bash
-export EXPERT_MODE_DEBUG=1
-opencode
-```
-
-When enabled, a `plugin-debug.log` file will be created in the root folder where you're executing opencode. This file contains detailed logs from the Expert Mode plugin only, making it much easier to trace its behavior during development.
 
 ## Basic Workflow
 
@@ -123,26 +108,18 @@ The central idea of Expert Mode is a **"Skill-as-Core"** architecture.
 This configuration is composed of several key components that work together.
 
 ### Agents
-- **`code-reviewer`**: A subagent designed for in-depth code reviews. Invoke with `@code-reviewer`.
-- **`spec-reviewer`**: Reviews an implementation against a specification.
+- **`code-reviewer`**: A subagent for in-depth code and spec-compliance reviews. Invoke with `@code-reviewer`.
 - **`implementer`**: Implements a single, well-defined task from a plan.
 
 ### Skills
-A collection of expert workflows in the `skills/` directory. Key skills include:
+A collection of expert workflows in the `skills/` directory:
 - **`brainstorming`**: A structured process for exploring ideas and refining them into concrete designs (presented in-chat).
-- **`dispatching-parallel-agents`**: For tackling multiple independent tasks at once.
-- **`executing-plans`**: A systematic way to execute implementation plans with review checkpoints.
-- **`finishing-a-development-branch`**: For guiding the completion and integration of development work.
-- **`receiving-code-review`**: For processing and implementing feedback from a code review.
-- **`requesting-code-review`**: For verifying work meets requirements before merging.
-- **`subagent-driven-development`**: For executing implementation plans with independent tasks.
-- **`systematic-debugging`**: A disciplined process for identifying and resolving bugs.
+- **`completing-work`**: Verifies work is done and proposes a commit message before marking tasks complete.
+- **`executing-plans`**: A systematic way to execute implementation plans.
+- **`systematic-debugging`**: A disciplined process for identifying and resolving bugs root-cause-first.
 - **`test-driven-development`**: A guide for writing tests before implementation code.
-- **`using-git-worktrees`**: For creating isolated git worktrees for feature work.
 - **`using-expert-mode`**: Establishes how to find and use skills (this is the core skill loaded on session start).
-- **`verification-before-completion`**: For running verification checks before claiming work is complete.
 - **`writing-plans`**: A TDD-centric approach to creating detailed, bite-sized implementation plans (presented in-chat).
-- **`writing-skills`**: For creating, editing, and verifying new skills.
 
 ### Commands
 User-facing shortcuts in the `commands/` directory that invoke skills.
@@ -151,10 +128,10 @@ User-facing shortcuts in the `commands/` directory that invoke skills.
 - **`/execute-plan`**: Begins the `executing-plans` skill.
 
 ### Plugins
-The plugin in `plugins/expert-mode-plugin.ts` is the entry point that bootstraps the agent into Expert Mode. It uses modern OpenCode hooks to ensure the agent's core identity is always present.
+The plugin in `plugins/expert-mode-plugin.ts` bootstraps the agent into Expert Mode on every turn.
 
-- **`experimental.chat.system.transform`**: On every chat turn, this hook injects the `using-expert-mode` skill directly into the system prompt. This makes the agent's expert identity impossible to forget.
-- **`experimental.session.compacting`**: When a long conversation is summarized, this hook adds a flag to the summary, ensuring the "Expert Mode" state persists across context compactions.
+- **`experimental.chat.system.transform`**: Injects the Expert Mode identity into the system prompt on every chat turn, making it impossible for the agent to forget its operating mode.
+- **`experimental.session.compacting`**: When a long conversation is summarized, this hook ensures the "Expert Mode" state persists across context compactions.
 
 ## Directory Structure
 

@@ -38,9 +38,8 @@ You MUST use this skill before starting any creative or significant work, such a
 - Present the final validated design in the chat.
 
 **Implementation (if continuing):**
-- I will ask: "Ready to set up for implementation?"
-- If you agree, I will use the `using-git-worktrees` skill to create an isolated workspace.
-- Then, I will use the `writing-plans` skill to create a detailed implementation plan.
+- I will ask: "Ready to create an implementation plan?"
+- If you agree, I will use the `writing-plans` skill to create a detailed implementation plan.
 
 ## Key Principles
 - **One question at a time**: To avoid overwhelming you.

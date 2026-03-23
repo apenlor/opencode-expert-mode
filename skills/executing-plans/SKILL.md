@@ -1,82 +1,71 @@
 ---
 name: executing-plans
-description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
+description: Use when you have a written implementation plan to execute - direct execution by default, subagents for complex tasks
 license: MIT
 compatibility: opencode
-metadata:
-  workflow: implementation
 ---
 
 # Executing Plans
 
 ## Overview
-Load plan, review critically, execute tasks in batches, report for review between batches. This ensures that complex plans are implemented systematically with regular checkpoints.
+Read the plan. Execute tasks one by one. Verify after each. Report progress.
 
-**Core principle:** Batch execution with checkpoints for architect review.
-
-**Announce at start:** "I'm using the executing-plans skill to implement this plan."
+**Core principle:** Direct execution by default. Use subagents only when task complexity warrants isolation.
 
 ## When to Use
-Use this skill when you have a written implementation plan and want to execute it in a separate session or with human-in-the-loop checkpoints between batches.
+Use when you have a written implementation plan (from `writing-plans` or provided by the user) and are ready to implement it.
 
 ## The Process
 
-### Step 1: Load and Review Plan
-1. Read plan from chat context (or ask user to provide it)
-2. Review critically - identify any questions or concerns about the plan
-3. If concerns: Raise them with your human partner before starting
-4. If no concerns: Create a todo list with the todowrite tool and proceed
+### 1. Load Plan
+- Read the plan from chat context or ask the user to provide it
+- Review critically - raise concerns before starting
+- Create a todowrite list from the plan's tasks
 
-### Step 2: Execute Batch
-**Default: First 3 tasks**
-
+### 2. Execute Tasks
 For each task:
-1. Mark as in_progress
-2. Follow each step exactly (plan has bite-sized steps)
-3. Run verifications as specified
-4. Mark as completed
+1. Mark as `in_progress`
+2. Follow the plan's steps exactly
+3. Run verifications as specified in the plan
+4. Use `completing-work` skill before marking done
+5. Mark as `completed`
 
-### Step 3: Report
-When batch complete:
-- Show what was implemented
-- Show verification output
-- Say: "Ready for feedback."
+### 3. When to Use Subagents
+Use `@implementer` only when a task is:
+- Complex enough to benefit from fresh context
+- Independent (won't need information from your current session)
+- Risky enough to warrant isolated execution with self-review
 
-### Step 4: Continue
-Based on feedback:
-- Apply changes if needed
-- Execute next batch
-- Repeat until complete
+For simple or sequential tasks, execute directly. Most tasks should be direct.
 
-### Step 5: Complete Development
+### 4. Review Gates
+After significant milestones (every 3-5 tasks, or after a major component), optionally invoke `@code-reviewer` with the git diff range to catch issues before they compound.
 
-After all tasks complete and verified:
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
+### 5. Completion
+After all tasks are done:
+- Run the full test suite
+- Use `completing-work` to verify and propose a final commit (or squash)
+- Report: "Plan complete. All tasks implemented and verified."
 
-## When to Stop and Ask for Help
+## When to Stop
 
 **STOP executing immediately when:**
-- Hit a blocker mid-batch (missing dependency, test fails, instruction unclear)
-- Plan has critical gaps preventing starting
-- You don't understand an instruction
+- A blocker prevents progress (missing dependency, unclear instruction)
 - Verification fails repeatedly
+- You don't understand a task
 
-**Ask for clarification rather than guessing.**
+Ask for clarification rather than guessing.
 
-## When to Revisit Earlier Steps
+## Red Flags
 
-**Return to Review (Step 1) when:**
-- Partner updates the plan based on your feedback
-- Fundamental approach needs rethinking
+**Never:**
+- Skip the plan's verification steps
+- Guess when a task is unclear
+- Use subagents for every task (overkill for most work)
+- Proceed past a failing verification
 
-**Don't force through blockers** - stop and ask.
-
-## Remember
-- Review plan critically first
+**Always:**
 - Follow plan steps exactly
-- Don't skip verifications
-- Reference skills when plan says to
-- Between batches: just report and wait
-- Stop when blocked, don't guess
+- Verify after each task
+- Track progress with todowrite
+- Stop and ask when blocked

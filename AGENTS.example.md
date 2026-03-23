@@ -22,6 +22,7 @@ This file defines the baseline behavior for all OpenCode sessions.
 
 Apply these principles unless the project context dictates otherwise:
 
+- **LEAN SOFTWARE (MOST IMPORTANT):** Write only what is necessary. Avoid over-engineering.
 - **KISS (Keep It Simple, Stupid):** Prefer the simplest solution that solves the problem.
 - **YAGNI (You Ain't Gonna Need It):** Do not implement features "just in case".
 - **SOLID:** Adhere to standard object-oriented design principles where applicable.

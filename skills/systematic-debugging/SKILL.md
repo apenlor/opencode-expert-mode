@@ -149,7 +149,7 @@ npm test 2>&1 | grep 'DEBUG git init'
 - Identify the pattern (same test? same parameter?)
 
 **Finding Which Test Causes Pollution:**
-If something appears during tests but you don't know which test is responsible, use the bisection script: `skills/systematic-debugging/find-polluter.sh`. It runs tests one-by-one until it finds the first one that creates the unwanted file or state.
+If something appears during tests but you don't know which test is responsible, bisect by running tests one-by-one until you find the first one that creates the unwanted file or state.
 ```
 
 ### Defense in Depth
@@ -277,13 +277,13 @@ async function waitFor<T>(
 }
 
 **Complete Implementation:**
-For a production-ready implementation of `waitForEvent`, `waitForEventCount`, and `waitForEventMatch` (useful for complex async systems), see: `skills/systematic-debugging/condition-based-waiting-example.ts`.
+For a production-ready implementation, implement `waitForEvent`, `waitForEventCount`, and `waitForEventMatch` using the generic polling pattern above.
 ```
 ```
 
 **Related skills:**
 - **test-driven-development** - For creating failing test case (Phase 4, Step 1)
-- **verification-before-completion** - Verify fix worked before claiming success
+- **completing-work** - Verify fix worked before claiming success
 
 ## Real-World Impact
 

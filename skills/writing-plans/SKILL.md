@@ -17,8 +17,6 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** This should be run in a dedicated worktree (created by brainstorming skill).
-
 **Output:** Present the full plan in the chat using a Markdown code block.
 
 ## Bite-Sized Task Granularity
@@ -97,28 +95,6 @@ Suggest: `git add tests/path/test.py src/path/file.py && git commit -m "feat: ad
 
 ## Execution Handoff
 
-After presenting the plan, offer execution choice:
+After presenting the plan:
 
-**"Plan complete. Three execution options:**
-
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration. (Recommended for complex, multi-step plans)
-
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints (you will need to provide the plan to the new session)
-
-**3. Direct Execution (this session)** - I implement the plan directly in this session. (Recommended for simple, linear, or low-risk plans)
-
-**Which approach?"**
-
-**If Subagent-Driven chosen:**
-- Use the `subagent-driven-development` skill.
-- Stay in this session
-- Fresh subagent per task + code review
-
-**If Parallel Session chosen:**
-- Guide them to open new session in worktree
-- The new session should use the `executing-plans` skill.
-
-**If Direct Execution chosen:**
-- Implement the tasks directly.
-- Use `todowrite` to track progress.
-- Request review only if needed or at the end.
+**"Plan complete. You can execute it with `/execute-plan`, or ask me to implement it directly."**
