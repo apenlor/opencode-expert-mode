@@ -15,7 +15,7 @@ This repository provides an advanced agent configuration for OpenCode, designed 
   - [Agents](#agents)
   - [Skills](#skills)
   - [Commands](#commands)
-  - [Plugins](#plugins)
+  - [Rules](#rules)
 - [Directory Structure](#directory-structure)
 
 ## Global Installation
@@ -63,7 +63,7 @@ To ensure the configuration is correctly loaded:
 2.  **Ask the agent about its mode:**
     > What mode are you in?
 
-    It should confirm that it is in "Expert Mode." This verifies the plugin is loading correctly.
+    It should confirm that it is in "Expert Mode." This verifies the rules are loading correctly.
 
 3.  **Test a Command:** Ask the agent to plan a simple task using a command.
     ```
@@ -127,11 +127,11 @@ User-facing shortcuts in the `commands/` directory that invoke skills.
 - **`/write-plan`**: Starts the `writing-plans` skill.
 - **`/execute-plan`**: Begins the `executing-plans` skill.
 
-### Plugins
-The plugin in `plugins/expert-mode-plugin.ts` bootstraps the agent into Expert Mode on every turn.
+### Rules
+Always-active instruction files in the `rules/` directory provide constant guidance to the agent.
 
-- **`experimental.chat.system.transform`**: Injects the Expert Mode identity into the system prompt on every chat turn, making it impossible for the agent to forget its operating mode.
-- **`experimental.session.compacting`**: When a long conversation is summarized, this hook ensures the "Expert Mode" state persists across context compactions.
+- **`expert-mode.md`**: Establishes the Expert Mode identity, ensuring the agent always prioritizes skill invocation.
+- **`context7.md`**: Nudges the agent to use Context7 for up-to-date library and framework documentation.
 
 ## Directory Structure
 
@@ -142,7 +142,6 @@ This repository's root is designed to be your OpenCode configuration directory.
 ├── agents/             # Definitions for specialized subagents (e.g., code-reviewer).
 ├── commands/           # User-facing slash commands that invoke skills.
 ├── opencode.example.json # An example configuration for user-specific settings (e.g., models).
-├── plugins/             # OpenCode plugins that extend core behavior (e.g., session hooks).
-├── rules/               # Always-active instruction files (e.g., Context7 nudge).
+├── rules/               # Always-active instruction files (e.g., Expert Mode, Context7).
 └── skills/              # The core skills that define expert workflows.
 ```
