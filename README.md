@@ -9,14 +9,13 @@ This repository provides an advanced agent configuration for OpenCode, designed 
 ## Table of Contents
 - [Global Installation](#global-installation)
 - [Verify Installation](#verify-installation)
-- [Development](#development)
 - [Basic Workflow](#basic-workflow)
 - [Core Philosophy](#core-philosophy)
 - [Components](#components)
   - [Agents](#agents)
   - [Skills](#skills)
   - [Commands](#commands)
-  - [Plugins](#plugins)
+  - [Rules](#rules)
 - [Directory Structure](#directory-structure)
 
 ## Global Installation
@@ -46,8 +45,7 @@ cd ~/.config/opencode
 # Choose one of the following:
 cp opencode.geminicli.example.json opencode.json   # For Google Gemini (Recommended)
 # cp opencode.github.example.json opencode.json    # For GitHub Models
-# cp opencode.antigravity.example.json opencode.json # For Antigravity
-# cp opencode.custom.example.json opencode.json    # For custom provider setups
+# cp opencode.hybrid.example.json opencode.json    # For mixed provider setups (e.g., Gemini + GitHub Copilot)
 
 # Also copy the agents configuration template
 cp AGENTS.example.md AGENTS.md
@@ -65,27 +63,13 @@ To ensure the configuration is correctly loaded:
 2.  **Ask the agent about its mode:**
     > What mode are you in?
 
-    It should confirm that it is in "Expert Mode." This verifies the plugin is loading the core skill.
+    It should confirm that it is in "Expert Mode." This verifies the rules are loading correctly.
 
 3.  **Test a Command:** Ask the agent to plan a simple task using a command.
     ```
     /write-plan "create a hello world script in python"
     ```
 4.  **Confirm Behavior:** The agent should respond by confirming it is using the `writing-plans` skill to create the plan. This verifies that the commands and skills are working together correctly.
-
-## Development
-
-### Debugging the Plugin
-The core plugin (`plugins/expert-mode-plugin.ts`) includes a detailed logging mechanism for development. By default, these logs are sent to the main OpenCode log files.
-
-To get a dedicated, clean log file in the project root, you can enable a special debug mode by setting an environment variable before launching OpenCode:
-
-```bash
-export EXPERT_MODE_DEBUG=1
-opencode
-```
-
-When enabled, a `plugin-debug.log` file will be created in the root folder where you're executing opencode. This file contains detailed logs from the Expert Mode plugin only, making it much easier to trace its behavior during development.
 
 ## Basic Workflow
 
@@ -123,26 +107,19 @@ The central idea of Expert Mode is a **"Skill-as-Core"** architecture.
 This configuration is composed of several key components that work together.
 
 ### Agents
-- **`code-reviewer`**: A subagent designed for in-depth code reviews. Invoke with `@code-reviewer`.
-- **`spec-reviewer`**: Reviews an implementation against a specification.
+- **`code-reviewer`**: A subagent for in-depth code and spec-compliance reviews. Invoke with `@code-reviewer`.
 - **`implementer`**: Implements a single, well-defined task from a plan.
 
 ### Skills
-A collection of expert workflows in the `skills/` directory. Key skills include:
+A collection of expert workflows in the `skills/` directory:
 - **`brainstorming`**: A structured process for exploring ideas and refining them into concrete designs (presented in-chat).
-- **`dispatching-parallel-agents`**: For tackling multiple independent tasks at once.
-- **`executing-plans`**: A systematic way to execute implementation plans with review checkpoints.
-- **`finishing-a-development-branch`**: For guiding the completion and integration of development work.
-- **`receiving-code-review`**: For processing and implementing feedback from a code review.
-- **`requesting-code-review`**: For verifying work meets requirements before merging.
-- **`subagent-driven-development`**: For executing implementation plans with independent tasks.
-- **`systematic-debugging`**: A disciplined process for identifying and resolving bugs.
+- **`completing-work`**: Verifies work is done and proposes a commit message before marking tasks complete.
+- **`context7-mcp`**: Fetches up-to-date library and framework documentation via the Context7 MCP tool.
+- **`executing-plans`**: A systematic way to execute implementation plans.
+- **`systematic-debugging`**: A disciplined process for identifying and resolving bugs root-cause-first.
 - **`test-driven-development`**: A guide for writing tests before implementation code.
-- **`using-git-worktrees`**: For creating isolated git worktrees for feature work.
 - **`using-expert-mode`**: Establishes how to find and use skills (this is the core skill loaded on session start).
-- **`verification-before-completion`**: For running verification checks before claiming work is complete.
-- **`writing-plans`**: A TDD-centric approach to creating detailed, bite-sized implementation plans (presented in-chat).
-- **`writing-skills`**: For creating, editing, and verifying new skills.
+- **`writing-plans`**: Creates detailed, bite-sized implementation plans (presented in-chat).
 
 ### Commands
 User-facing shortcuts in the `commands/` directory that invoke skills.
@@ -150,21 +127,24 @@ User-facing shortcuts in the `commands/` directory that invoke skills.
 - **`/write-plan`**: Starts the `writing-plans` skill.
 - **`/execute-plan`**: Begins the `executing-plans` skill.
 
-### Plugins
-The plugin in `plugins/expert-mode-plugin.ts` is the entry point that bootstraps the agent into Expert Mode. It uses modern OpenCode hooks to ensure the agent's core identity is always present.
+### Rules
+Always-active instruction files in the `rules/` directory provide constant guidance to the agent.
 
-- **`experimental.chat.system.transform`**: On every chat turn, this hook injects the `using-expert-mode` skill directly into the system prompt. This makes the agent's expert identity impossible to forget.
-- **`experimental.session.compacting`**: When a long conversation is summarized, this hook adds a flag to the summary, ensuring the "Expert Mode" state persists across context compactions.
+- **`expert-mode.md`**: Establishes the Expert Mode identity, ensuring the agent always prioritizes skill invocation.
+- **`context7.md`**: Nudges the agent to use Context7 for up-to-date library and framework documentation.
 
 ## Directory Structure
 
 This repository's root is designed to be your OpenCode configuration directory.
 ```
 .
-├── AGENTS.example.md   # A template for your local agent rules.
-├── agents/             # Definitions for specialized subagents (e.g., code-reviewer).
-├── commands/           # User-facing slash commands that invoke skills.
-├── opencode.example.json # An example configuration for user-specific settings (e.g., models).
-├── plugins/             # OpenCode plugins that extend core behavior (e.g., session hooks).
-└── skills/              # The core skills that define expert workflows.
+├── AGENTS.example.md                  # A template for your local agent rules.
+├── agents/                            # Definitions for specialized subagents (e.g., code-reviewer).
+├── commands/                          # User-facing slash commands that invoke skills.
+├── opencode.geminicli.example.json    # Gemini-only provider config example.
+├── opencode.github.example.json       # GitHub Copilot provider config example.
+├── opencode.hybrid.example.json       # Mixed provider config example (e.g., Gemini + GitHub Copilot).
+├── rules/                             # Always-active instruction files (e.g., Expert Mode, Context7).
+├── skills/                            # The core skills that define expert workflows.
+└── tui.json                           # TUI-specific settings.
 ```

@@ -4,6 +4,7 @@
   // Optimized for GitHub Copilot Subscription
   "autoupdate": true,
   "snapshot": false,
+  "compaction": { "auto": true, "prune": true },
 
   "instructions": ["~/.config/opencode/rules/*.md"],
 
@@ -18,49 +19,58 @@
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "github-copilot/claude-sonnet-4.6",
-      "temperature": 0.1,
-      "tools": {
-        "write": false,
-        "edit": false,
-        "execute-plan": false
+      "model": "github-copilot/claude-opus-4.6",
+      "thinking": { "type": "adaptive" },
+      "effort": "high",
+      "permission": {
+        "edit": "deny"
       }
     },
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
       "model": "github-copilot/claude-haiku-4.5",
-      "temperature": 0.3
+      "thinking": { "type": "adaptive" },
+      "effort": "medium"
     },
 
-    // Custom Subagents
+    // Custom Subagents (defined in agents/*.md)
     "code-reviewer": {
-      "model": "github-copilot/claude-haiku-4.5",
-      "temperature": 0.0
+      "model": "github-copilot/claude-sonnet-4.6",
+      "thinking": { "type": "adaptive" },
+      "effort": "high"
     },
     "implementer": {
-      "model": "github-copilot/claude-haiku-4.5"
-    },
-    "spec-reviewer": {
       "model": "github-copilot/claude-haiku-4.5",
-      "temperature": 0.0
+      "thinking": { "type": "adaptive" },
+      "effort": "medium"
     },
 
     // Built-in Subagents
     "general": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/claude-haiku-4.5",
+      "thinking": { "type": "adaptive" },
+      "effort": "medium"
     },
     "explore": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/claude-haiku-4.5",
+      "thinking": { "type": "adaptive" },
+      "effort": "medium"
     },
+
+    // Utility agents — GPT-5-mini does NOT support temperature.
+    // Use reasoningEffort instead.
     "title": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "github-copilot/gpt-5-mini",
+      "reasoningEffort": "minimal"
     },
     "summary": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "github-copilot/gpt-5-mini",
+      "reasoningEffort": "minimal"
     },
     "compaction": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "github-copilot/gpt-5-mini",
+      "reasoningEffort": "minimal"
     }
   },
   // Requires godoc-mcp to be installed and available on PATH
