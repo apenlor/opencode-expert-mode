@@ -29,8 +29,9 @@
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "github-copilot/claude-sonnet-4.6",
-      "temperature": 0.25,
+      "model": "github-copilot/claude-opus-4.6",
+      "thinking": { "type": "adaptive" },
+      "effort": "high",
       "permission": {
         "edit": "deny"
       }
@@ -38,31 +39,43 @@
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "medium"
     },
+
+    // Custom Subagents (defined in agents/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3.1-pro-preview"
+      "model": "google/gemini-3.1-pro-preview",
+      "thinking_level": "high"
     },
     "implementer": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "medium"
     },
-    "spec-reviewer": {
-      "model": "google/gemini-3.1-pro-preview"
-    },
+
+    // Built-in Subagents
     "general": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "medium"
     },
     "explore": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "medium"
     },
+
+    // Utility agents — GPT-5-mini does NOT support temperature.
+    // Use reasoningEffort instead.
     "title": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "github-copilot/gpt-5-mini",
+      "reasoningEffort": "minimal"
     },
     "summary": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "github-copilot/gpt-5-mini",
+      "reasoningEffort": "minimal"
     },
     "compaction": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "github-copilot/gpt-5-mini",
+      "reasoningEffort": "minimal"
     }
   },
   "mcp": {

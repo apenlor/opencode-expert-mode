@@ -45,7 +45,7 @@ cd ~/.config/opencode
 # Choose one of the following:
 cp opencode.geminicli.example.json opencode.json   # For Google Gemini (Recommended)
 # cp opencode.github.example.json opencode.json    # For GitHub Models
-# cp opencode.custom.example.json opencode.json    # For custom provider setups
+# cp opencode.hybrid.example.json opencode.json    # For mixed provider setups (e.g., Gemini + GitHub Copilot)
 
 # Also copy the agents configuration template
 cp AGENTS.example.md AGENTS.md
@@ -138,10 +138,13 @@ Always-active instruction files in the `rules/` directory provide constant guida
 This repository's root is designed to be your OpenCode configuration directory.
 ```
 .
-├── AGENTS.example.md   # A template for your local agent rules.
-├── agents/             # Definitions for specialized subagents (e.g., code-reviewer).
-├── commands/           # User-facing slash commands that invoke skills.
-├── opencode.example.json # An example configuration for user-specific settings (e.g., models).
-├── rules/               # Always-active instruction files (e.g., Expert Mode, Context7).
-└── skills/              # The core skills that define expert workflows.
+├── AGENTS.example.md                  # A template for your local agent rules.
+├── agents/                            # Definitions for specialized subagents (e.g., code-reviewer).
+├── commands/                          # User-facing slash commands that invoke skills.
+├── opencode.geminicli.example.json    # Gemini-only provider config example.
+├── opencode.github.example.json       # GitHub Copilot provider config example.
+├── opencode.hybrid.example.json       # Mixed provider config example (e.g., Gemini + GitHub Copilot).
+├── rules/                             # Always-active instruction files (e.g., Expert Mode, Context7).
+├── skills/                            # The core skills that define expert workflows.
+└── tui.json                           # TUI-specific settings.
 ```

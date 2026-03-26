@@ -32,6 +32,7 @@
       "mode": "primary",
       "description": "System architect and planner",
       "model": "google/gemini-3.1-pro-preview",
+      "thinking_level": "high",
       "permission": {
         "edit": "deny"
       }
@@ -39,35 +40,40 @@
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "medium"
     },
 
-    // Custom Subagents (defined in agent/*.md)
+    // Custom Subagents (defined in agents/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3.1-pro-preview"
+      "model": "google/gemini-3.1-pro-preview",
+      "thinking_level": "high"
     },
     "implementer": {
-      "model": "google/gemini-3-flash-preview"
-    },
-    "spec-reviewer": {
-      "model": "google/gemini-3.1-pro-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "medium"
     },
 
     // Built-in Subagents
     "general": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "medium"
     },
     "explore": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "medium"
     },
     "title": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "low"
     },
     "summary": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "low"
     },
     "compaction": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "low"
     }
   },
   // Requires godoc-mcp to be installed and available on PATH
