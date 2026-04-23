@@ -8,7 +8,7 @@ license: MIT
 # Writing Plans
 
 ## Overview
-Write comprehensive implementation plans that give a skilled developer everything they need: which files to touch, what code to write, how to verify each step. Bite-sized tasks. DRY. YAGNI. Suggest frequent commits.
+Write comprehensive implementation plans that give a skilled developer everything they need: which files to touch, what code to write, and how to verify each step. Keep tasks bite-sized, concrete, and easy to execute.
 
 ## When to Use
 Use before starting any multi-step implementation. Essential for ensuring a structured and verifiable development process.
@@ -19,12 +19,7 @@ Use before starting any multi-step implementation. Essential for ensuring a stru
 
 ## Bite-Sized Task Granularity
 
-Each step is one action (2–5 minutes):
-- "Write the failing test" — step
-- "Run it to confirm it fails" — step
-- "Implement the minimal code to pass" — step
-- "Run tests to confirm they pass" — step
-- "Suggest commit" — step
+Each step should be small enough to execute and verify cleanly.
 
 Include test steps when the project has a test suite.
 
@@ -65,16 +60,29 @@ Every plan MUST start with this header:
 Run: `<test command>`
 Expected: [what success looks like]
 
-**Step 3: Suggest Commit**
+**Step 3: Checkpoint**
 
-Suggest: `git add <files> && git commit -m "feat: <description>"`
+Summarize what should now be true before moving to the next task.
 ```
 
 ## Remember
 - Exact file paths always
 - Complete code in the plan (not "add validation")
 - Exact commands with expected output
-- DRY, YAGNI, suggest frequent commits
+- DRY and YAGNI
+
+## Commit Policy
+- Do not include executable `git commit` steps by default
+- If the user explicitly wants commit guidance, provide a suggested commit message as an optional checkpoint note
+
+## Stop Conditions
+- If requirements are ambiguous, ask questions before writing the plan
+- If a task depends on unknown files or architecture, say what must be inspected first
+- If the work is small enough to implement directly, say so instead of inflating the plan
+
+## Fallbacks
+- If only partial requirements are known, produce a phased plan with assumptions called out explicitly
+- If there is no test suite, replace test commands with the strongest available verification steps
 
 ## Execution Handoff
 

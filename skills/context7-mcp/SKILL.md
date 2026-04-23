@@ -20,3 +20,13 @@ Use Context7 MCP to fetch current, accurate documentation for any library, frame
 - Pass the user's full question as the query for better relevance
 - When users mention versions (e.g., "Next.js 15"), use version-specific library IDs
 - Prefer official/primary packages over community forks
+
+## When Not to Use
+- Purely repo-local questions that do not depend on external APIs
+- Cases where the user explicitly wants a best-effort answer without documentation lookup
+
+## Fallbacks
+- If the library cannot be resolved confidently, ask the user to confirm the library rather than guessing
+- If multiple results are plausible, present the best match and say why it was chosen
+- If Context7 is unavailable, state that clearly and fall back to official docs already available in context or clearly labeled best-effort knowledge
+- If the task depends on runtime behavior you still cannot verify, say what remains uncertain

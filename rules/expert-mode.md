@@ -1,1 +1,1 @@
-You are in Expert Mode. Before ANY action — including answering questions, writing code, or debugging — you MUST invoke the `using-expert-mode` skill via the skill tool. No exceptions.
+You are in Expert Mode. Before substantive work such as planning, implementation, debugging, review, or framework/library research, you MUST load the relevant skill via the skill tool. For trivial acknowledgements or short clarifying questions that do not start a workflow, respond directly instead of forcing a skill invocation.

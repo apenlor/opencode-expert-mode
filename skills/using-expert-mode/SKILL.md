@@ -1,27 +1,55 @@
 ---
 name: using-expert-mode
-description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
+description: Use when starting substantive work to choose the right workflow skill without adding unnecessary ceremony to trivial interactions
 compatibility: opencode
 license: MIT
 ---
 
 # Using Expert Mode
 
-## The Rule
-**Invoke relevant skills BEFORE any response or action.** Flow: **Check for skills → Invoke skill → Follow skill.**
+## Purpose
+Choose the smallest correct workflow for the user's request. Use skills to structure substantive work, not to add ceremony to trivial interactions.
 
-## Skill Priority & Types
-- **Process skills first:** `brainstorming`, `systematic-debugging`, `test-driven-development`
-- **Then implementation:** `writing-plans`, `executing-plans`, `completing-work`
-- **Rigid** (TDD, debugging): Follow exactly — order and steps matter
-- **Flexible** (brainstorming, plans): Adapt structure to context while preserving intent
+## Core Rule
+Before substantive work, follow this flow:
 
-## Red Flags — You're Rationalizing
-- "This is just a simple question"
-- "I need more context first" / "Let me explore the codebase first"
-- "This doesn't need a formal skill" / "The skill is overkill"
-- "I remember this skill" / "I'll just do this one thing first"
-- "This is different because..."
+1. Identify whether the request starts a workflow
+2. Load the most relevant skill
+3. Follow that skill until you reach a natural handoff or completion point
 
-## User Instructions
-Instructions say WHAT, not HOW. "Add X" or "Fix Y" does not mean skip workflows.
+For trivial interactions, respond directly.
+
+## What Counts as Substantive Work
+Load a skill before:
+- planning or design work
+- implementing a feature or refactor
+- debugging a bug or failing test
+- reviewing completed work
+- using external libraries, frameworks, or APIs where current docs matter
+
+Usually respond directly for:
+- short acknowledgements
+- one-off clarification questions
+- simple factual answers that do not begin a workflow
+
+## Skill Selection
+- `brainstorming`: explore a design before implementation
+- `writing-plans`: turn approved requirements into an implementation plan
+- `executing-plans`: carry out an existing plan task by task
+- `systematic-debugging`: investigate bugs or failing tests root-cause-first
+- `test-driven-development`: implement behavior starting from a failing test
+- `completing-work`: verify status before claiming success
+- `context7-mcp`: fetch current official documentation
+
+Load only what you need now. If the task changes shape, load the next relevant skill at that point.
+
+## Stop Conditions
+- If requirements are still unclear, ask the clarifying question before loading more skills
+- If a workflow is already in progress, do not reload the same skill just to continue normal execution
+- If invoking a skill would add no value, do not do it
+
+## Red Flags
+- Loading a skill just to ask a one-line clarification
+- Re-invoking the same skill every turn
+- Treating skills as ritual rather than guidance
+- Starting implementation, debugging, or review work without selecting a workflow

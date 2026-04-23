@@ -1,6 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
+  // Hybrid profile.
+  // Use GitHub Copilot's strongest OpenAI models for planning and implementation,
+  // and Gemini for lighter auxiliary agents where latency/cost matters more.
   "autoupdate": true,
   "snapshot": false,
   "compaction": { "auto": true, "prune": true },
@@ -14,7 +17,7 @@
 
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
-  "model": "google/gemini-3.1-pro-preview",
+  "model": "github-copilot/gpt-5.4",
   "small_model": "google/gemini-3-flash-preview",
 
   "provider": {
@@ -29,9 +32,9 @@
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "github-copilot/claude-opus-4.6",
-      "thinking": { "type": "adaptive" },
-      "effort": "high",
+      "model": "github-copilot/gpt-5.4",
+      "reasoningEffort": "high",
+      "textVerbosity": "low",
       "permission": {
         "edit": "deny"
       }
@@ -39,23 +42,26 @@
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "google/gemini-3-flash-preview",
-      "thinking_level": "medium"
+      "model": "github-copilot/gpt-5.3-codex",
+      "reasoningEffort": "medium",
+      "textVerbosity": "low"
     },
 
     // Custom Subagents (defined in agents/*.md)
     "code-reviewer": {
-      "model": "google/gemini-3.1-pro-preview",
-      "thinking_level": "high"
+      "model": "github-copilot/gpt-5.4",
+      "reasoningEffort": "high",
+      "textVerbosity": "low"
     },
     "implementer": {
-      "model": "google/gemini-3-flash-preview",
-      "thinking_level": "medium"
+      "model": "github-copilot/gpt-5.3-codex",
+      "reasoningEffort": "medium",
+      "textVerbosity": "low"
     },
 
     // Built-in Subagents
     "general": {
-      "model": "google/gemini-3-flash-preview",
+      "model": "google/gemini-3.1-pro-preview",
       "thinking_level": "medium"
     },
     "explore": {
@@ -63,19 +69,18 @@
       "thinking_level": "medium"
     },
 
-    // Utility agents — GPT-5-mini does NOT support temperature.
-    // Use reasoningEffort instead.
+    // Utility agents stay on Gemini Flash to keep background work fast.
     "title": {
-      "model": "github-copilot/gpt-5-mini",
-      "reasoningEffort": "minimal"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "low"
     },
     "summary": {
-      "model": "github-copilot/gpt-5-mini",
-      "reasoningEffort": "minimal"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "low"
     },
     "compaction": {
-      "model": "github-copilot/gpt-5-mini",
-      "reasoningEffort": "minimal"
+      "model": "google/gemini-3-flash-preview",
+      "thinking_level": "low"
     }
   },
   "mcp": {

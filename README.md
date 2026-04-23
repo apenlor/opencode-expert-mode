@@ -4,7 +4,7 @@
 
 # OpenCode Expert Mode
 
-This repository provides an advanced agent configuration for OpenCode, designed to create a powerful and reliable software engineering assistant. It is a native OpenCode adaptation of the original [Superpowers for Claude](https://github.com/obra/superpowers) project by @obra.
+This repository provides an advanced agent configuration for OpenCode, designed to create a powerful and reliable software engineering assistant.
 
 ## Table of Contents
 - [Global Installation](#global-installation)
@@ -38,14 +38,14 @@ git clone git@github.com:apenlor/opencode-expert-mode.git ~/.config/opencode
 ```
 
 ### 3. Set Up Your Local Configuration
-This repository provides different example configuration files for various providers and setups. Choose the one that best fits your needs and copy it to `opencode.json`.
+This repository provides different example configuration files. Choose the one that best fits your environment and copy it to `opencode.json`.
 
 ```bash
 cd ~/.config/opencode
 # Choose one of the following:
-cp opencode.geminicli.example.json opencode.json   # For Google Gemini (Recommended)
-# cp opencode.github.example.json opencode.json    # For GitHub Models
-# cp opencode.hybrid.example.json opencode.json    # For mixed provider setups (e.g., Gemini + GitHub Copilot)
+# cp opencode.geminicli.example.json opencode.json   # For Google Gemini
+# cp opencode.github.example.json opencode.json    # For GitHub Copilot
+cp opencode.hybrid.example.json opencode.json     # For mixed-provider setups
 
 # Also copy the agents configuration template
 cp AGENTS.example.md AGENTS.md
@@ -69,11 +69,13 @@ To ensure the configuration is correctly loaded:
     ```
     /write-plan "create a hello world script in python"
     ```
-4.  **Confirm Behavior:** The agent should respond by confirming it is using the `writing-plans` skill to create the plan. This verifies that the commands and skills are working together correctly.
+4.  **Confirm Behavior:** The agent should respond with a structured implementation plan. This verifies that the commands and skills are working together correctly.
 
 ## Basic Workflow
 
 This configuration enables a structured, expert-guided development lifecycle using the provided commands.
+
+**Note:** While these commands are convenient shortcuts, the skills are the true core of this configuration. They are designed to be used by *any* agent, enhancing its ability to reason and execute tasks effectively, regardless of how it's invoked.
 
 1.  **Design (`/brainstorm`):** Start by exploring an idea to solidify requirements.
     ```
@@ -87,12 +89,18 @@ This configuration enables a structured, expert-guided development lifecycle usi
     ```
     /execute-plan
     ```
-4.  **Review (`@code-reviewer`):** After work is complete, call the specialized code reviewer for feedback.
+4.  **Debug (`/debug`):** Instruct the agent to begin debugging some feature or change.
+    ```
+    /debug "failing login test after auth refactor"
+    ```
+5.  **Review (`/review`):** Instruct the agent to review the code for a specific feature or change by using the `code-reviewer` subagent.
+    ```
+    /review "flask server implementation"
+    ```
+6.  **Review (`@code-reviewer`):** After work is complete, call the specialized code reviewer for feedback.
     ```
     @code-reviewer Please review the flask server implementation.
     ```
-
-**Note:** While these commands are convenient shortcuts, the skills are the true core of this configuration. They are designed to be used by *any* agent, enhancing its ability to reason and execute tasks effectively, regardless of how it's invoked.
 
 ## Core Philosophy
 
@@ -100,7 +108,7 @@ The central idea of Expert Mode is a **"Skill-as-Core"** architecture.
 
 -   **Skills (`skills/`)**: The heart of the project. They contain expert workflows that enhance any agent's ability to perform complex tasks.
 -   **Commands (`commands/`)**: A user-facing "control panel" that provides convenient shortcuts to directly invoke specific skills.
--   **The Agent**: The agent is empowered by this ecosystem. Whether responding to a general prompt or a specific command, it can use its `skill` tool to access these expert workflows at any time.
+-   **The Agent**: The agent is empowered by this ecosystem. Whether responding to a general prompt or a specific command, it can use its available skills and subagents to access these expert workflows when needed.
 
 ## Components
 
@@ -126,12 +134,14 @@ User-facing shortcuts in the `commands/` directory that invoke skills.
 - **`/brainstorm`**: Kicks off the `brainstorming` skill.
 - **`/write-plan`**: Starts the `writing-plans` skill.
 - **`/execute-plan`**: Begins the `executing-plans` skill.
+- **`/debug`**: Starts the `systematic-debugging` skill.
+- **`/review`**: Runs an isolated review using the `code-reviewer` agent.
 
 ### Rules
 Always-active instruction files in the `rules/` directory provide constant guidance to the agent.
 
-- **`expert-mode.md`**: Establishes the Expert Mode identity, ensuring the agent always prioritizes skill invocation.
-- **`context7.md`**: Nudges the agent to use Context7 for up-to-date library and framework documentation.
+- **`expert-mode.md`**: Establishes the Expert Mode identity, requiring explicit workflow guidance for substantive work.
+- **`context7.md`**: Nudges the agent to use Context7 for up-to-date library and framework documentation when external APIs or frameworks matter.
 
 ## Directory Structure
 

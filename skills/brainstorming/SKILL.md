@@ -39,6 +39,15 @@ Use before starting any creative or significant work: new features, building com
 - Ask: "Ready to create an implementation plan?"
 - If yes, use the `writing-plans` skill
 
+## Stop Conditions
+- If the user already wants implementation instead of design exploration, switch to `writing-plans` or direct execution as appropriate
+- If key requirements are unknown, ask the minimum clarifying question before proposing approaches
+- If the codebase or context is missing, state what is missing and ask for it instead of inventing details
+
+## Fallbacks
+- If there is not enough context for a full design, produce only the assumptions, options, and questions that can be justified
+- If the user wants a quick recommendation rather than a full design session, provide a concise recommended approach with trade-offs
+
 ## Key Principles
 - **One question at a time** — avoid overwhelming
 - **Multiple choice preferred** — make answering easier
