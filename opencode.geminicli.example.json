@@ -1,6 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
+  // Gemini-first profile.
+  // Use 3.1 Pro for planning, review, and harder orchestration.
+  // Use Flash for implementation-heavy and utility agents to keep latency down.
   "autoupdate": true,
   "snapshot": false,
   "compaction": { "auto": true, "prune": true },
@@ -56,7 +59,7 @@
 
     // Built-in Subagents
     "general": {
-      "model": "google/gemini-3-flash-preview",
+      "model": "google/gemini-3.1-pro-preview",
       "thinking_level": "medium"
     },
     "explore": {

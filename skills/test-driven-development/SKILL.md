@@ -26,88 +26,32 @@ Write code before the test? Delete it. Start over. Do not keep it as "reference"
 
 ## Red-Green-Refactor
 
-### 1. RED — Write a Failing Test
+### 1. RED
+- Write one minimal test for one behavior
+- Prefer real behavior over mock choreography
+- Name the test after the behavior, not the implementation
 
-Write one minimal test for the specific behavior you're implementing.
+### 2. Verify RED
+- Run the test and watch it fail for the expected reason
+- If it passes immediately, the test is not proving the new behavior
 
-- One behavior per test
-- Name describes the behavior
-- Use real code, not mocks (unless unavoidable)
+### 3. GREEN
+- Write the smallest production change that makes the test pass
+- Do not add adjacent behavior while the test is still red
 
-### 2. Verify RED — Watch It Fail
+### 4. Verify GREEN
+- Re-run the focused test
+- Re-run the relevant surrounding suite
+- Confirm no new warnings or errors were introduced
 
-**MANDATORY. Never skip.**
+### 5. REFACTOR
+- Clean up only after green
+- Improve names, remove duplication, and keep behavior unchanged
 
-Run the test and confirm:
-- It fails (not errors out)
-- The failure message is expected
-- It fails because the feature is missing, not due to a typo
-
-Test passes immediately? You're testing existing behavior. Fix the test.
-
-### 3. GREEN — Write Minimal Code
-
-Write the simplest code that makes the test pass. No extra features. No "nice-to-haves." Don't refactor other code.
-
-### 4. Verify GREEN — Watch It Pass
-
-**MANDATORY. Never skip.**
-
-Run the test and confirm:
-- Your test passes
-- All other tests still pass
-- No new errors or warnings
-
-Test still fails? Fix the code, not the test.
-
-### 5. REFACTOR — Clean Up
-
-After green only: remove duplication, improve names, extract helpers. Keep tests green. Do not add behavior.
-
-### 6. Repeat
-
-Move to the next failing test.
-
-## Good Tests
-
-| Quality | Good | Bad |
-|---------|------|-----|
-| **Minimal** | One thing. "and" in name? Split it. | `test('validates email and domain and whitespace')` |
-| **Clear** | Name describes behavior | `test('test1')` |
-| **Real** | Tests actual behavior | Tests mock interactions |
-
-## Bug Fix Example
-
-**Bug:** Empty email accepted
-
-```typescript
-// RED
-test('rejects empty email', async () => {
-  const result = await submitForm({ email: '' });
-  expect(result.error).toBe('Email required');
-});
-
-// Verify RED: FAIL — expected 'Email required', got undefined
-
-// GREEN
-function submitForm(data: FormData) {
-  if (!data.email?.trim()) return { error: 'Email required' };
-  // ...
-}
-
-// Verify GREEN: PASS
-```
-
-## Verification Checklist
-
-Before marking work complete:
-
-- [ ] Every new function/method has a test written before the implementation
-- [ ] Watched each test fail before implementing
-- [ ] Each test failed for the expected reason (feature missing, not typo)
-- [ ] Wrote minimal code to pass each test
-- [ ] All tests pass with clean output
-- [ ] Edge cases covered
+## Stop Conditions
+- If you cannot write a focused failing test, the design is probably still unclear
+- If the test setup is huge, simplify the interface before implementing more code
+- If you are tempted to keep pre-written implementation code as a reference, delete it and restart from the test
 
 ## Red Flags — Stop and Start Over
 
@@ -122,11 +66,7 @@ Before marking work complete:
 
 Any of these? Delete code. Start over with TDD.
 
-## When Stuck
-
-| Problem | Solution |
-|---------|----------|
-| Don't know how to test | Write the wished-for API. Write the assertion first. |
-| Test too complicated | Design too complicated. Simplify the interface. |
-| Must mock everything | Code too coupled. Use dependency injection. |
-| Test setup huge | Extract helpers. Still complex? Simplify the design. |
+## Fallbacks
+- If the codebase has no meaningful automated tests, say so and explain the nearest viable safety net
+- If the task is documentation-only or configuration-only and TDD does not fit, say why and do not force fake tests
+- For extended examples and troubleshooting patterns, read `skills/test-driven-development/examples.md` only when needed

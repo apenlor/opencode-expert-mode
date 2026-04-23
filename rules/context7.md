@@ -1,1 +1,1 @@
-When working with libraries, frameworks, or APIs — use the `context7-mcp` skill to fetch current documentation from Context7 instead of relying on training data.
+When a task depends on current library, framework, or API behavior, load the `context7-mcp` skill and prefer official up-to-date documentation over training data. If Context7 is unavailable, say so explicitly and proceed only with clearly labeled best-effort guidance.

@@ -1,5 +1,6 @@
 ---
 description: Explore requirements and design before implementation
+agent: plan
 subtask: true
 ---
 Use the brainstorming skill.

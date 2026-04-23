@@ -20,7 +20,7 @@ Use when you have a written implementation plan (from `writing-plans` or provide
 ### 1. Load Plan
 - Read the plan from chat context or ask the user to provide it
 - Review critically — raise concerns before starting
-- Create a todowrite list from the plan's tasks
+- Create a todowrite list from the plan's tasks when todo support is available; otherwise track progress explicitly in chat
 
 ### 2. Execute Tasks
 For each task:
@@ -39,12 +39,18 @@ Use `@implementer` only when a task is:
 For simple or sequential tasks, execute directly. Most tasks should be direct.
 
 ### 4. Review Gates
-After every 3–5 tasks or after a major component is complete, invoke `@code-reviewer` with the git diff range to catch issues before they compound.
+Invoke `@code-reviewer` when the diff becomes risky enough to benefit from a fresh review, especially after:
+- a risky refactor
+- a security-sensitive change
+- a public API or interface change
+- a large cross-file diff
+- completion of a coherent subsystem
+- before a commit or PR workflow
 
 ### 5. Completion
 After all tasks are done:
 - Run the full test suite
-- Use `completing-work` to verify and propose a final commit (or squash)
+- Use `completing-work` to verify status and optionally suggest commit messaging if the user asked for it
 - Report: "Plan complete. All tasks implemented and verified."
 
 ## When to Stop
@@ -55,6 +61,11 @@ After all tasks are done:
 - You don't understand a task
 
 Ask for clarification rather than guessing.
+
+## Fallbacks
+- If the plan is incomplete, stop and ask for clarification before improvising major missing sections
+- If a task can be completed safely without a subagent, do it directly to preserve momentum
+- If verification repeatedly fails, stop the plan flow and switch to `systematic-debugging`
 
 ## Red Flags
 

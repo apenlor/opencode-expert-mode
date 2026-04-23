@@ -23,9 +23,11 @@ Before making ANY claim of success, completion, or readiness — including finis
 4. **If PASS:** propose a commit with message and changed files
 5. **If FAIL:** state the actual status with evidence, fix first
 
+If the project has no automated checks, say that explicitly and report the manual validation you performed instead of pretending a test gate exists.
+
 ## Propose, Don't Execute
 
-After verification passes, propose the commit in your response:
+After verification passes, propose the commit in your response only if the user has asked for commit guidance:
 
 ```
 Verification passed (42 tests, 0 failures).
@@ -36,6 +38,10 @@ Suggested commit:
 ```
 
 Let the user decide whether to commit. Do not run `git commit` automatically.
+
+## Fallbacks
+- If the validation command is unknown, identify the most credible available verification step and say what it does not prove
+- If verification cannot run in the environment, report that limitation explicitly and avoid completion claims that depend on it
 
 ## Red Flags
 

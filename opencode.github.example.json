@@ -1,7 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Optimized for GitHub Copilot Subscription
+  // GitHub Copilot profile.
+  // Uses GPT-5.4 for planning/review and GPT-5.3-Codex for implementation.
+  // GPT-5.3-Codex is the stable LTS/base choice in Copilot as of 2026.
   "autoupdate": true,
   "snapshot": false,
   "compaction": { "auto": true, "prune": true },
@@ -11,17 +13,17 @@
   "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
 
   // Default models (GitHub Copilot Provider)
-  "model": "github-copilot/claude-sonnet-4.6",
-  "small_model": "github-copilot/claude-haiku-4.5",
+  "model": "github-copilot/gpt-5.3-codex",
+  "small_model": "github-copilot/gpt-5.4-mini",
 
   "agent": {
     // Built-in Primary Agents
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "github-copilot/claude-opus-4.6",
-      "thinking": { "type": "adaptive" },
-      "effort": "high",
+      "model": "github-copilot/gpt-5.4",
+      "reasoningEffort": "high",
+      "textVerbosity": "low",
       "permission": {
         "edit": "deny"
       }
@@ -29,47 +31,45 @@
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "github-copilot/claude-haiku-4.5",
-      "thinking": { "type": "adaptive" },
-      "effort": "medium"
+      "model": "github-copilot/gpt-5.3-codex",
+      "reasoningEffort": "medium",
+      "textVerbosity": "low"
     },
 
     // Custom Subagents (defined in agents/*.md)
     "code-reviewer": {
-      "model": "github-copilot/claude-sonnet-4.6",
-      "thinking": { "type": "adaptive" },
-      "effort": "high"
+      "model": "github-copilot/gpt-5.4",
+      "reasoningEffort": "high",
+      "textVerbosity": "low"
     },
     "implementer": {
-      "model": "github-copilot/claude-haiku-4.5",
-      "thinking": { "type": "adaptive" },
-      "effort": "medium"
+      "model": "github-copilot/gpt-5.3-codex",
+      "reasoningEffort": "medium",
+      "textVerbosity": "low"
     },
 
     // Built-in Subagents
     "general": {
-      "model": "github-copilot/claude-haiku-4.5",
-      "thinking": { "type": "adaptive" },
-      "effort": "medium"
+      "model": "github-copilot/gpt-5.4",
+      "reasoningEffort": "medium",
+      "textVerbosity": "low"
     },
     "explore": {
-      "model": "github-copilot/claude-haiku-4.5",
-      "thinking": { "type": "adaptive" },
-      "effort": "medium"
+      "model": "github-copilot/gpt-5.4-mini",
+      "reasoningEffort": "minimal"
     },
 
-    // Utility agents — GPT-5-mini does NOT support temperature.
-    // Use reasoningEffort instead.
+    // Utility agents should stay cheap and fast.
     "title": {
-      "model": "github-copilot/gpt-5-mini",
+      "model": "github-copilot/gpt-5.4-mini",
       "reasoningEffort": "minimal"
     },
     "summary": {
-      "model": "github-copilot/gpt-5-mini",
+      "model": "github-copilot/gpt-5.4-mini",
       "reasoningEffort": "minimal"
     },
     "compaction": {
-      "model": "github-copilot/gpt-5-mini",
+      "model": "github-copilot/gpt-5.4-mini",
       "reasoningEffort": "minimal"
     }
   },
