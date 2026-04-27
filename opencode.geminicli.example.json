@@ -40,6 +40,10 @@
         "edit": "deny"
       }
     },
+    "plan-reviewer": {
+      "mode": "primary",
+      "disable": true
+    },
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",

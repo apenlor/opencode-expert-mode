@@ -45,6 +45,7 @@ cd ~/.config/opencode
 # Choose one of the following:
 # cp opencode.geminicli.example.json opencode.json   # For Google Gemini
 # cp opencode.github.example.json opencode.json    # For GitHub Copilot
+# cp opencode.local.example.json opencode.json     # For local llama-swap models
 cp opencode.hybrid.example.json opencode.json     # For mixed-provider setups
 
 # Also copy the agents configuration template
@@ -117,6 +118,13 @@ This configuration is composed of several key components that work together.
 ### Agents
 - **`code-reviewer`**: A subagent for in-depth code and spec-compliance reviews. Invoke with `@code-reviewer`.
 - **`implementer`**: Implements a single, well-defined task from a plan.
+- **`plan-reviewer`**: Enforces standards and distills architectural plans into strict specs. Designed specifically for the `local` configuration where reasoning is decoupled from building.
+
+#### 🧠 Local-Only Feature: The Triple-Agent Pipeline
+When using the local configuration (`opencode.local.example.json`), OpenCode utilizes a decoupled pipeline to maximize hardware efficiency across three specialized local models. This setup is specifically optimized to work out-of-the-box with the [llm-local-setup](https://github.com/apenlor/llm-local-setup) repository:
+- **The Architect (DeepSeek R1):** Runs as the `plan` agent. It focuses 100% of compute on deep reasoning, exploring edge cases without being constrained by syntax.
+- **The Refiner (Gemma 4):** Runs as the `plan-reviewer` primary agent. It acts as a Logical Circuit Breaker, distilling the Architect's messy thoughts into strict, executable technical specifications.
+- **The Builder (Qwen 3.6):** Runs as the `build` and `implementer` agents. Because logic is locked in, it dedicates its context window to syntactical perfection and repository-level integration.
 
 ### Skills
 A collection of expert workflows in the `skills/` directory:
