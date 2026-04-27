@@ -1,32 +1,20 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Hybrid profile.
-  // Use GitHub Copilot's strongest OpenAI models for planning and implementation,
-  // and Gemini for lighter auxiliary agents where latency/cost matters more.
+  // Local-only profile.
+  // Uses local models via llama-swap (DeepSeek R1 for planning, Qwen for building).
   "autoupdate": true,
   "snapshot": false,
   "compaction": { "auto": true, "prune": true },
 
   "instructions": ["~/.config/opencode/rules/*.md"],
 
-  "plugin": [
-    "opencode-gemini-auth@latest",
-    "@mohak34/opencode-notifier@latest"
-  ],
+  "plugin": ["@mohak34/opencode-notifier@latest"],
 
-  "disabled_providers": ["google-vertex-anthropic", "google-vertex"],
-
-  "model": "github-copilot/gpt-5.4",
-  "small_model": "google/gemini-3-flash-preview",
+  "model": "llama.cpp/unsloth/Qwen3.6-27B",
+  "small_model": "llama.cpp/unsloth/Qwen3.6-27B",
 
   "provider": {
-    "google": {
-      "options": {
-        // Replace with your Google Cloud Project ID
-        "projectId": "your-google-cloud-project-id"
-      }
-    },
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama-swap (local)",
@@ -47,11 +35,12 @@
       }
     }
   },
+
   "agent": {
     "plan": {
       "mode": "primary",
       "description": "System architect and planner",
-      "model": "github-copilot/gpt-5.4",
+      "model": "llama.cpp/unsloth/DeepSeek-R1-32B",
       "reasoningEffort": "high",
       "textVerbosity": "low",
       "permission": {
@@ -60,52 +49,55 @@
     },
     "plan-reviewer": {
       "mode": "primary",
-      "disable": true
+      "model": "llama.cpp/unsloth/Gemma-4-31B",
+      "reasoningEffort": "high",
+      "textVerbosity": "low"
     },
     "build": {
       "mode": "primary",
       "description": "Senior engineer implementing the plan",
-      "model": "github-copilot/gpt-5.3-codex",
+      "model": "llama.cpp/unsloth/Qwen3.6-27B",
       "reasoningEffort": "medium",
       "textVerbosity": "low"
     },
 
     // Custom Subagents (defined in agents/*.md)
     "code-reviewer": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "llama.cpp/unsloth/Gemma-4-31B",
       "reasoningEffort": "high",
       "textVerbosity": "low"
     },
     "implementer": {
-      "model": "github-copilot/gpt-5.3-codex",
+      "model": "llama.cpp/unsloth/Qwen3.6-27B",
       "reasoningEffort": "medium",
       "textVerbosity": "low"
     },
 
     // Built-in Subagents
     "general": {
-      "model": "google/gemini-3.1-pro-preview",
+      "model": "llama.cpp/unsloth/Qwen3.6-27B",
       "thinking_level": "medium"
     },
     "explore": {
-      "model": "google/gemini-3-flash-preview",
+      "model": "llama.cpp/unsloth/Qwen3.6-27B",
       "thinking_level": "medium"
     },
 
-    // Utility agents stay on Gemini Flash to keep background work fast.
+    // Utility agents stay on Qwen to keep background work fast.
     "title": {
-      "model": "google/gemini-3-flash-preview",
+      "model": "llama.cpp/unsloth/Qwen3.6-27B",
       "thinking_level": "low"
     },
     "summary": {
-      "model": "google/gemini-3-flash-preview",
+      "model": "llama.cpp/unsloth/Qwen3.6-27B",
       "thinking_level": "low"
     },
     "compaction": {
-      "model": "google/gemini-3-flash-preview",
+      "model": "llama.cpp/unsloth/Qwen3.6-27B",
       "thinking_level": "low"
     }
   },
+
   "mcp": {
     "godoc": {
       "type": "local",
